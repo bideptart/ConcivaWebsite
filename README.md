@@ -1,18 +1,26 @@
 # Conciva Website
 
-A Vite + React frontend and Express backend monorepo.
+A modern Vite + React frontend and Express backend web application for Conciva AI.
 
-## Structure
+## Project Structure
 
-- `client/` — React frontend
-- `server/` — Express backend
-- `shared/` — shared utilities/constants
+- `client/` — React + Vite frontend
+- `server/` — Express backend API
+- `shared/` — Shared utilities and constants
 
 ## Getting Started
 
-1. Install dependencies from the root:
+1. Install dependencies:
+   ```bash
    npm install
-2. Start the frontend:
+   ```
+
+2. Start the frontend client:
+   ```bash
    npm --prefix client run dev
-3. Start the backend:
+   ```
+
+3. Start the backend server:
+   ```bash
    npm --prefix server run dev
+   ```
