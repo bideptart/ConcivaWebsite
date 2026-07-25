@@ -1571,3 +1571,422 @@
   .pf-links-mobile { display: flex; padding-bottom: 0.75rem; }
   .pf-bottom { flex-direction: column; align-items: flex-start; }
 }
+
+/* ════════════════════════════════════════════════════════════
+   SCROLL-REVEAL ANIMATIONS
+   ════════════════════════════════════════════════════════════ */
+
+@keyframes priceRevealUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes priceRevealLeft {
+  from { opacity: 0; transform: translateX(-28px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes priceRevealRight {
+  from { opacity: 0; transform: translateX(28px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes priceFadeScale {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.reveal-up {
+  opacity: 0;
+  animation: priceRevealUp 0.62s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.reveal-left {
+  opacity: 0;
+  animation: priceRevealLeft 0.62s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.reveal-right {
+  opacity: 0;
+  animation: priceRevealRight 0.62s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.reveal-scale {
+  opacity: 0;
+  animation: priceFadeScale 0.62s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Stagger delays */
+.delay-1 { animation-delay: 0.08s; }
+.delay-2 { animation-delay: 0.16s; }
+.delay-3 { animation-delay: 0.24s; }
+.delay-4 { animation-delay: 0.32s; }
+.delay-5 { animation-delay: 0.40s; }
+.delay-6 { animation-delay: 0.48s; }
+
+/* ════════════════════════════════════════════════════════════
+   TRUST / LOGO STRIP
+   ════════════════════════════════════════════════════════════ */
+
+.trust-strip {
+  padding: 2.25rem 0 2.75rem;
+  text-align: center;
+  border-top: 1px solid var(--border-subtle, #F1F5F9);
+  border-bottom: 1px solid var(--border-subtle, #F1F5F9);
+  margin-bottom: 4rem;
+}
+
+.trust-strip-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted, #94A3B8);
+  margin-bottom: 1.5rem;
+}
+
+.trust-strip-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.trust-logo-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-light, #E2E8F0);
+  border-radius: 9999px;
+  padding: 0.5rem 1.1rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-main, #0F172A);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.trust-logo-pill:hover {
+  border-color: var(--primary-border, #FED7AA);
+  box-shadow: 0 4px 14px rgba(249, 115, 22, 0.12);
+}
+
+.trust-logo-icon {
+  font-size: 1rem;
+}
+
+/* ════════════════════════════════════════════════════════════
+   ENTERPRISE CONTACT ROW (below pricing cards)
+   ════════════════════════════════════════════════════════════ */
+
+.enterprise-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  padding: 2rem 1.5rem;
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-light, #E2E8F0);
+  border-radius: 20px;
+  margin-bottom: 4rem;
+  flex-wrap: wrap;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+}
+
+.enterprise-row-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.enterprise-row-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-main, #0F172A);
+  letter-spacing: -0.02em;
+}
+
+.enterprise-row-sub {
+  font-size: 0.875rem;
+  color: var(--text-muted, #64748B);
+}
+
+.enterprise-row-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.enterprise-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+  color: #FFFFFF;
+  border: none;
+  padding: 0.7rem 1.6rem;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(249, 115, 22, 0.32);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+}
+
+.enterprise-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(249, 115, 22, 0.45);
+}
+
+.enterprise-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  color: var(--text-main, #0F172A);
+  border: 1.5px solid var(--border-light, #E2E8F0);
+  padding: 0.7rem 1.4rem;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+  text-decoration: none;
+}
+
+.enterprise-btn-outline:hover {
+  border-color: var(--primary, #F97316);
+  color: var(--primary, #F97316);
+}
+
+/* ════════════════════════════════════════════════════════════
+   STAT COUNTER STRIP (social proof row)
+   ════════════════════════════════════════════════════════════ */
+
+.stat-counter-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border-light, #E2E8F0);
+  border: 1.5px solid var(--border-light, #E2E8F0);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 4.5rem;
+}
+
+.stat-counter-cell {
+  background: #FFFFFF;
+  padding: 1.75rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.stat-counter-val {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--primary, #F97316);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.stat-counter-lbl {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted, #64748B);
+  line-height: 1.3;
+}
+
+@media (max-width: 640px) {
+  .stat-counter-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .enterprise-row {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.25rem;
+  }
+}
+
+/* ======================================================================
+   MORE LINKS — 9278.ai flip cards · letsdial orange palette
+   ====================================================================== */
+
+/* Section */
+.ml-section {
+  padding: 48px 0 64px;
+  border-top: 1px solid #f1f5f9;
+}
+
+/* Header — left-aligned like 9278.ai */
+.ml-header {
+  margin-bottom: 28px;
+}
+
+.ml-heading {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #0f172a;
+  margin: 0 0 6px;
+  line-height: 1.2;
+}
+
+.ml-subheading {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* 3-column equal grid */
+.ml-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+/* ── Flip outer: perspective container ── */
+.ml-flip-outer {
+  perspective: 800px;
+  height: 200px;
+  cursor: pointer;
+}
+
+/* ── Flip inner: rotates ── */
+.ml-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+
+/* ── Both faces share base ── */
+.ml-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 14px;
+  padding: 22px 22px 20px;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  transition: box-shadow 0.25s ease;
+}
+
+/* ── FRONT face ── */
+.ml-front {
+  background: #fff5f2;          /* soft warm orange tint — matches 9278.ai */
+  border: 1px solid rgba(249, 115, 22, 0.12);
+}
+
+.ml-front:hover {
+  box-shadow: 0 8px 28px rgba(249, 115, 22, 0.14);
+}
+
+/* Arrow icon top-right */
+.ml-arrow-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(249, 115, 22, 0.15);
+  color: #ea580c;
+  align-self: flex-end;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.ml-front:hover .ml-arrow-wrap {
+  background: rgba(249, 115, 22, 0.25);
+  transform: translate(2px, -2px);
+}
+
+.ml-title {
+  font-size: 0.9375rem;         /* 15px */
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+  margin: 0 0 8px;
+  flex-grow: 1;
+}
+
+.ml-desc {
+  font-size: 0.8125rem;         /* 13px */
+  color: #64748b;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ── BACK face — rotated 180, revealed on hover ── */
+.ml-back {
+  background: linear-gradient(145deg, #f97316, #ea580c);
+  border: none;
+  transform: rotateY(180deg);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.ml-back-icon {
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 4px;
+}
+
+.ml-back-title {
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  margin: 0 0 8px;
+}
+
+.ml-back-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.18);
+  padding: 5px 14px;
+  border-radius: 9999px;
+  transition: background 0.2s ease;
+}
+
+.ml-back:hover .ml-back-cta {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .ml-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .ml-flip-outer {
+    height: 180px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 960px) {
+  .ml-grid { gap: 12px; }
+  .ml-flip-outer { height: 185px; }
+  .ml-face { padding: 18px 18px 16px; }
+}
