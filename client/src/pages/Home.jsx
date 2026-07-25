@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Play } from 'lucide-react';
 import '../styles/home.css';
@@ -78,6 +79,37 @@ const STATS = [
   { val: '14,000+',label: 'Enterprise Customers',       suffix: '' },
 ];
 
+const CAPABILITIES = [
+  {
+    stack: '01',
+    icon: '📅',
+    title: 'Books and routes',
+    desc: 'Schedules appointments on your calendar, qualifies leads, takes messages, and warm-transfers to a human when it matters.',
+    check: true,
+  },
+  {
+    stack: '02',
+    icon: '📞',
+    title: 'Bring your own numbers',
+    desc: 'Keep your existing phone numbers and carrier. Point your line and go live — no migrations, no new hardware.',
+    check: true,
+  },
+  {
+    stack: '03',
+    icon: '🔌',
+    title: 'Native integrations',
+    desc: 'Connect with 200+ apps including Salesforce, HubSpot, Zapier, and more without complex setup.',
+    check: true,
+  },
+  {
+    stack: '04',
+    icon: '📊',
+    title: 'Real-time analytics',
+    desc: 'Track call volume, sentiment, resolution rates, and ROI with live dashboards and detailed reports.',
+    check: true,
+  },
+];
+
 const TESTIMONIALS = [
   {
     text: 'Conciva AI reduced our customer wait times by 73% in the first month. The AI voice bot handles tier-1 queries flawlessly — our agents now focus only on complex cases.',
@@ -101,6 +133,136 @@ const TESTIMONIALS = [
     gradient: 'linear-gradient(135deg, #10B981, #059669)',
   },
 ];
+
+/* ─── Feature Carousel ──────────────────────────────────── */
+
+function FeatureCarousel() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [animating, setAnimating] = useState(false);
+  const intervalRef = useRef(null);
+
+  const goTo = (idx) => {
+    if (animating || idx === activeIndex) return;
+    setAnimating(true);
+    setTimeout(() => {
+      setActiveIndex(idx);
+      setAnimating(false);
+    }, 320);
+  };
+
+  const next = () => goTo((activeIndex + 1) % FEATURES.length);
+
+  useEffect(() => {
+    intervalRef.current = setInterval(next, 3500);
+    return () => clearInterval(intervalRef.current);
+  }, [activeIndex, animating]);
+
+  const stackedIndices = [...Array(FEATURES.length).keys()].filter(
+    (i) => i !== activeIndex
+  );
+
+  return (
+    <section className="features-section home-section">
+      <div className="home-container">
+        <div className="feat-carousel-layout">
+          {/* Left — heading + dot nav */}
+          <div className="feat-carousel-left">
+            <span className="section-eyebrow">⚡ Platform Features</span>
+            <h2 className="section-title">
+              Everything your team needs<br />to communicate at scale
+            </h2>
+            <p className="section-sub">
+              From AI-powered voice bots to enterprise SIP trunking, Conciva AI
+              gives you the complete telephony stack without the complexity.
+            </p>
+
+            {/* Dot indicators */}
+            <div className="feat-dots" role="tablist" aria-label="Feature navigation">
+              {FEATURES.map((f, i) => (
+                <button
+                  key={f.title}
+                  role="tab"
+                  aria-selected={i === activeIndex}
+                  aria-label={`Feature: ${f.title}`}
+                  className={`feat-dot${i === activeIndex ? ' feat-dot--active' : ''}`}
+                  onClick={() => {
+                    clearInterval(intervalRef.current);
+                    goTo(i);
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Progress bar */}
+            <div className="feat-progress-bar" aria-hidden="true">
+              <div
+                key={activeIndex}
+                className="feat-progress-fill"
+                style={{ animationDuration: '3.5s' }}
+              />
+            </div>
+          </div>
+
+          {/* Right — stacked cards */}
+          <div className="feat-carousel-right" aria-live="polite">
+            <div className="feat-stack">
+              {/* Background ghost cards (depth effect) */}
+              {[2, 1].map((depth) => {
+                const ghostIdx = stackedIndices[stackedIndices.length - depth];
+                if (ghostIdx === undefined) return null;
+                const ghost = FEATURES[ghostIdx];
+                return (
+                  <div
+                    key={`ghost-${depth}`}
+                    className={`feat-card feat-card--ghost feat-card--depth-${depth}`}
+                    aria-hidden="true"
+                  >
+                    <div className={`feature-icon-wrap ${ghost.bg}`}>
+                      <span role="img" aria-label="">{ghost.icon}</span>
+                    </div>
+                    <h3 className="feature-card-title">{ghost.title}</h3>
+                  </div>
+                );
+              })}
+
+              {/* Active foreground card */}
+              <div
+                className={`feat-card feat-card--active${animating ? ' feat-card--exit' : ''}`}
+              >
+                <div className="feat-card-stack-label">
+                  STACK · {String(activeIndex + 1).padStart(2, '0')}
+                </div>
+
+                <div className="feat-card-top-row">
+                  <div className={`feature-icon-wrap ${FEATURES[activeIndex].bg} feat-icon-lg`}>
+                    <span role="img" aria-label={FEATURES[activeIndex].title}>
+                      {FEATURES[activeIndex].icon}
+                    </span>
+                  </div>
+                </div>
+
+                <h3 className="feature-card-title feat-card--active-title">
+                  {FEATURES[activeIndex].title}
+                </h3>
+                <p className="feature-card-desc">
+                  {FEATURES[activeIndex].desc}
+                </p>
+
+                {/* Bullet check */}
+                <div className="feat-card-check">
+                  <span className="check-icon">✓</span>
+                  <span className="feature-card-tag" style={{ background: 'none', padding: 0, margin: 0 }}>
+                    ✦ {FEATURES[activeIndex].tag}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 /* ─── Component ─────────────────────────────────────────── */
 
@@ -220,36 +382,7 @@ export default function Home() {
       </section>
 
       {/* ── 2. FEATURES ── */}
-      <section className="features-section home-section">
-        <div className="home-container">
-          <div className="section-header">
-            <span className="section-eyebrow">⚡ Platform Features</span>
-            <h2 className="section-title">
-              Everything your team needs<br />to communicate at scale
-            </h2>
-            <p className="section-sub">
-              From AI-powered voice bots to enterprise SIP trunking, Conciva AI
-              gives you the complete telephony stack without the complexity.
-            </p>
-          </div>
-
-          <div className="features-grid">
-            {FEATURES.map((f, i) => (
-              <div
-                key={f.title}
-                className={`feature-card anim-fade-up delay-${(i % 3) + 1}`}
-              >
-                <div className={`feature-icon-wrap ${f.bg}`}>
-                  <span role="img" aria-label={f.title}>{f.icon}</span>
-                </div>
-                <h3 className="feature-card-title">{f.title}</h3>
-                <p className="feature-card-desc">{f.desc}</p>
-                <span className="feature-card-tag">✦ {f.tag}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FeatureCarousel />
 
       {/* ── 3. HOW IT WORKS ── */}
       <section className="how-section home-section">
