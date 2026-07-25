@@ -5,12 +5,14 @@ import Footer from '../components/layout/Footer';
 
 /* Pages that should NOT render the shared Navbar / Footer */
 const FULL_BLEED_ROUTES = ['/login'];
+
+/* Pages that use their own footer (e.g. Pricing has an inline footer) */
 const NO_GLOBAL_FOOTER_ROUTES = ['/pricing'];
 
 export default function MainLayout({ children }) {
   const location = useLocation();
-  const isFullBleed = FULL_BLEED_ROUTES.includes(location.pathname);
-  const hideGlobalFooter = NO_GLOBAL_FOOTER_ROUTES.includes(location.pathname);
+  const isFullBleed       = FULL_BLEED_ROUTES.includes(location.pathname);
+  const hideGlobalFooter  = NO_GLOBAL_FOOTER_ROUTES.includes(location.pathname);
 
   if (isFullBleed) {
     return <>{children}</>;
