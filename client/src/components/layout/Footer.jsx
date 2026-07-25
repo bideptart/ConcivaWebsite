@@ -1,214 +1,120 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
 import '../../styles/footer.css';
 
-/* ── Data ──────────────────────────────────────────────── */
-
-const COLS = [
+const NAV_COLS = [
   {
-    title: 'Product',
+    title: 'Platform',
     links: [
-      { label: 'Features',      to: '/features' },
-      { label: 'Pricing',       to: '/pricing' },
-      { label: 'AI Voice Bot',  to: '/features', badge: 'New' },
-      { label: 'SIP Trunking',  to: '/features' },
-      { label: 'Analytics',     to: '/features' },
-      { label: 'Integrations',  to: '/features' },
+      { label: 'Features',  to: '/features' },
+      { label: 'Pricing',   to: '/pricing' },
+      { label: 'FAQ',       to: '/faq' },
+    ],
+  },
+  {
+    title: 'Industries',
+    links: [
+      { label: 'Real Estate',   to: '/industries' },
+      { label: 'Healthcare',    to: '/industries' },
+      { label: 'E-Commerce',    to: '/industries' },
+      { label: 'Finance',       to: '/industries' },
+      { label: 'Education',     to: '/industries' },
+      { label: 'Logistics',     to: '/industries' },
     ],
   },
   {
     title: 'Company',
     links: [
-      { label: 'About Us',      to: '/about' },
-      { label: 'Blog',          to: '/blog' },
-      { label: 'Industries',    to: '/industries' },
-      { label: 'Careers',       to: '/about', badge: "We're hiring" },
-      { label: 'Contact',       to: '/contact' },
-      { label: 'Press Kit',     to: '/about' },
+      { label: 'About',   to: '/about' },
+      { label: 'Blog',    to: '/blog' },
+      { label: 'Contact', to: '/contact' },
     ],
   },
   {
-    title: 'Support',
+    title: 'Legal',
     links: [
-      { label: 'FAQ',           to: '/faq' },
-      { label: 'Documentation', href: '#' },
-      { label: 'API Reference', href: '#' },
-      { label: 'System Status', href: '#' },
-      { label: 'Community',     href: '#' },
-      { label: 'Changelog',     href: '#' },
+      { label: 'Privacy Policy',   to: '/' },
+      { label: 'Terms of Service', to: '/' },
+      { label: 'Acceptable Use',   to: '/' },
+      { label: 'Cookie Policy',    to: '/' },
+      { label: 'DPA',              to: '/' },
+      { label: 'All policies',     to: '/' },
     ],
   },
 ];
-
-const SOCIALS = [
-  {
-    label: 'X (Twitter)',
-    href: 'https://x.com',
-    icon: (
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-      </svg>
-    ),
-  },
-  {
-    label: 'LinkedIn',
-    href: 'https://linkedin.com',
-    icon: (
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-      </svg>
-    ),
-  },
-  {
-    label: 'YouTube',
-    href: 'https://youtube.com',
-    icon: (
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-      </svg>
-    ),
-  },
-  {
-    label: 'GitHub',
-    href: 'https://github.com',
-    icon: (
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-      </svg>
-    ),
-  },
-];
-
-const BADGES = ['SOC 2 Type II', 'HIPAA Ready', 'GDPR Compliant', 'ISO 27001'];
-
-/* ── Component ─────────────────────────────────────────── */
 
 export default function Footer() {
   return (
-    <footer className="cai-footer" aria-label="Site footer">
-      {/* Blobs */}
-      <div className="cai-footer-blob cai-footer-blob-1" aria-hidden="true" />
-      <div className="cai-footer-blob cai-footer-blob-2" aria-hidden="true" />
+    <footer className="sf-footer" aria-label="Site footer">
+      <div className="sf-inner">
 
-      {/* Top orange accent line */}
-      <div className="cai-footer-accent" aria-hidden="true" />
-
-      {/* ── CTA Banner (Let's Dial-style inside footer) ── */}
-      <div className="cai-footer-inner">
-        <div className="cai-footer-cta">
-          <span className="cai-footer-cta-eyebrow">
-            <span className="cai-footer-cta-dot" aria-hidden="true" />
-            Ready to get started?
-          </span>
-
-          <h2 className="cai-footer-cta-title">
-            Your AI voice team,<br />
-            <span>live in minutes.</span>
-          </h2>
-
-          <p className="cai-footer-cta-sub">
-            Join 14,000+ businesses using Conciva AI to handle millions of calls
-            with intelligence. No migration committee. No per-minute AI fees.
-          </p>
-
-          <div className="cai-footer-cta-btns">
-            <Link to="/pricing" className="cai-btn-cta-primary">
-              Start Free Trial <ArrowRight size={16} strokeWidth={2.5} />
-            </Link>
-            <Link to="/contact" className="cai-btn-cta-secondary">
-              Book a Demo
-            </Link>
-          </div>
-        </div>
-
-        {/* ── 4-column grid ── */}
-        <div className="cai-footer-grid">
+        {/* ── Top: brand left · nav columns right ── */}
+        <div className="sf-top">
 
           {/* Brand */}
-          <div className="cai-footer-brand">
-            <Link to="/" className="cai-footer-logo-link" aria-label="Conciva AI — Home">
-              <span className="cai-footer-logo-box">
-                <svg width="19" height="19" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <div className="sf-brand">
+            <Link to="/" className="sf-logo" aria-label="Conciva AI home">
+              <span className="sf-logo-box">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                   <path
                     d="M10 2C10 2 10.6 6.2 12.5 8.1C14.4 10 18 10 18 10C18 10 14.4 10 12.5 11.9C10.6 13.8 10 18 10 18C10 18 9.4 13.8 7.5 11.9C5.6 10 2 10 2 10C2 10 5.6 10 7.5 8.1C9.4 6.2 10 2 10 2Z"
                     fill="white"
                   />
                 </svg>
               </span>
-              <span className="cai-footer-logo-name">
-                Conciva<span>AI</span>
+              <span className="sf-logo-name">
+                Conciva<span className="sf-logo-accent">AI</span>
               </span>
             </Link>
 
-            <p className="cai-footer-desc">
-              Enterprise AI telephony for teams that need speed, reliability,
-              and intelligence in every customer conversation.
+            <p className="sf-tagline">
+              AI voice agents that actually sound human. Native audio,
+              sub-second latency, and a self-hosted control panel that
+              connects to your existing carrier.
             </p>
 
-            <div className="cai-footer-socials" aria-label="Social links">
-              {SOCIALS.map(s => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  className="cai-social-btn"
-                  aria-label={s.label}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {s.icon}
-                </a>
-              ))}
-            </div>
+            <Link to="/contact" className="sf-dashboard-btn">
+              Customer dashboard &nbsp;↗
+            </Link>
           </div>
 
-          {/* Link columns */}
-          {COLS.map(col => (
-            <nav key={col.title} aria-label={`${col.title} links`}>
-              <h3 className="cai-footer-col-title">{col.title}</h3>
-              <ul className="cai-footer-links">
-                {col.links.map(link => (
-                  <li key={link.label}>
-                    {link.to ? (
-                      <Link to={link.to}>
-                        {link.label}
-                        {link.badge && (
-                          <span className="cai-link-badge">{link.badge}</span>
-                        )}
-                      </Link>
-                    ) : (
-                      <a href={link.href} target="_blank" rel="noopener noreferrer">
-                        {link.label}
-                      </a>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          ))}
-        </div>
-
-        {/* ── Bottom bar ── */}
-        <div className="cai-footer-bottom">
-          <p className="cai-footer-copy">
-            © {new Date().getFullYear()} <strong>Conciva AI, Inc.</strong> All rights reserved.
-          </p>
-
-          <div className="cai-footer-compliance" aria-label="Certifications">
-            {BADGES.map(b => (
-              <span key={b} className="cai-compliance-badge">
-                <span className="cai-compliance-dot" aria-hidden="true" />
-                {b}
-              </span>
+          {/* Navigation columns */}
+          <nav className="sf-nav-grid" aria-label="Footer navigation">
+            {NAV_COLS.map((col) => (
+              <div key={col.title} className="sf-col">
+                <h3 className="sf-col-title">{col.title}</h3>
+                <ul className="sf-col-links">
+                  {col.links.map((lnk) => (
+                    <li key={lnk.label}>
+                      <Link to={lnk.to}>{lnk.label}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </div>
-
-          <nav className="cai-footer-legal" aria-label="Legal">
-            <a href="/privacy">Privacy</a>
-            <a href="/terms">Terms</a>
-            <a href="/cookies">Cookies</a>
           </nav>
         </div>
+
+        {/* ── Status indicator ── */}
+        <div className="sf-status-row">
+          <span className="sf-status-dot" aria-hidden="true" />
+          <span className="sf-status-text">All systems operational</span>
+        </div>
+
+        {/* ── Divider ── */}
+        <div className="sf-divider" aria-hidden="true" />
+
+        {/* ── Bottom bar ── */}
+        <div className="sf-bottom">
+          <p className="sf-copy">
+            © {new Date().getFullYear()} Conciva AI. All rights reserved.
+          </p>
+          <p className="sf-made-for">
+            <span className="sf-made-dot" aria-hidden="true">•</span>
+            Made for human conversations.
+          </p>
+        </div>
+
       </div>
     </footer>
   );

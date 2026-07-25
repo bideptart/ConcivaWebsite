@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../styles/pricing.css';
 
 import PricingHero from '../components/pricing/PricingHero';
@@ -10,38 +10,169 @@ import TestimonialCarousel from '../components/pricing/TestimonialCarousel';
 import PricingFAQ from '../components/pricing/PricingFAQ';
 import PricingCTA from '../components/pricing/PricingCTA';
 
+/* ─── Intersection-observer based reveal hook ─── */
+function useReveal() {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold: 0.12 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return [ref, visible];
+}
+
+/* ─── Trust / integrations logo strip ─── */
+const TRUST_LOGOS = [
+  { icon: '🔗', label: 'Salesforce' },
+  { icon: '🟠', label: 'HubSpot' },
+  { icon: '🟦', label: 'Zoho CRM' },
+  { icon: '⚡', label: 'Zapier' },
+  { icon: '🛍️', label: 'Shopify' },
+  { icon: '📊', label: 'LeadSquared' },
+  { icon: '💬', label: 'WhatsApp' },
+  { icon: '📅', label: 'Google Calendar' },
+];
+
+function TrustStrip() {
+  const [ref, visible] = useReveal();
+  return (
+    <div ref={ref} className={`trust-strip ${visible ? 'reveal-up' : ''}`}>
+      <p className="trust-strip-label">Integrates with tools your team already uses</p>
+      <div className="trust-strip-logos">
+        {TRUST_LOGOS.map((t, i) => (
+          <span
+            key={t.label}
+            className={`trust-logo-pill ${visible ? `reveal-up delay-${Math.min(i + 1, 6)}` : ''}`}
+          >
+            <span className="trust-logo-icon">{t.icon}</span>
+            {t.label}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Social proof stat counter strip ─── */
+const STATS = [
+  { val: '14,000+', lbl: 'Businesses using Conciva AI' },
+  { val: '99.99%',  lbl: 'Uptime SLA guarantee' },
+  { val: '10+',     lbl: 'Indian languages supported' },
+  { val: '<300ms',  lbl: 'Average AI response latency' },
+];
+
+function StatCounterStrip() {
+  const [ref, visible] = useReveal();
+  return (
+    <div ref={ref} className={`stat-counter-strip ${visible ? 'reveal-scale' : ''}`}>
+      {STATS.map((s, i) => (
+        <div key={i} className="stat-counter-cell">
+          <span className="stat-counter-val">{s.val}</span>
+          <span className="stat-counter-lbl">{s.lbl}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ─── Enterprise contact row ─── */
+function EnterpriseRow() {
+  const [ref, visible] = useReveal();
+  return (
+    <div ref={ref} className={`enterprise-row ${visible ? 'reveal-up' : ''}`}>
+      <div className="enterprise-row-text">
+        <span className="enterprise-row-title">Need a custom enterprise or carrier plan?</span>
+        <span className="enterprise-row-sub">
+          Dedicated SIP trunks, 99.999% SLA, HIPAA BAA, and white-glove onboarding.
+        </span>
+      </div>
+      <div className="enterprise-row-actions">
+        <a href="/contact" className="enterprise-btn-primary">
+          Talk to Enterprise Sales →
+        </a>
+        <a href="/contact" className="enterprise-btn-outline">
+          Schedule a Demo
+        </a>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Reveal wrapper for each section ─── */
+function RevealSection({ children, className = '' }) {
+  const [ref, visible] = useReveal();
+  return (
+    <div ref={ref} className={`${visible ? 'reveal-up' : ''} ${className}`}>
+      {children}
+    </div>
+  );
+}
+
+/* ─── Page ─── */
 export default function Pricing() {
-  const [billingCycle, setBillingCycle] = useState('annual'); // 'monthly' | 'annual'
+  const [billingCycle, setBillingCycle] = useState('annual');
 
   return (
     <div className="pricing-page">
       <div className="pricing-container">
-        {/* 1. Hero & Billing Switch */}
-        <PricingHero
-          billingCycle={billingCycle}
-          setBillingCycle={setBillingCycle}
-        />
 
-        {/* 2. 3D Pricing Cards */}
-        <PricingCards billingCycle={billingCycle} />
+        {/* 1. Hero & billing toggle */}
+        <PricingHero billingCycle={billingCycle} setBillingCycle={setBillingCycle} />
 
-        {/* 3. Interactive Plan Finder Recommendation Wizard */}
-        <PlanFinderWizard />
+        {/* 2. Social proof stats */}
+        <StatCounterStrip />
 
-        {/* 4. 21.dev Style Usage & ROI Calculator */}
-        <UsageCalculator />
+        {/* 3. Trust / integrations logo strip */}
+        <TrustStrip />
 
-        {/* 5. Feature Comparison Matrix (9278.io Structure) */}
-        <FeatureComparisonMatrix />
+        {/* 4. Pricing cards */}
+        <RevealSection>
+          <PricingCards billingCycle={billingCycle} />
+        </RevealSection>
 
-        {/* 6. 21.dev Style Testimonial Carousel */}
-        <TestimonialCarousel />
+        {/* 5. Enterprise contact row */}
+        <EnterpriseRow />
 
-        {/* 7. Frequently Asked Questions */}
-        <PricingFAQ />
+        {/* 6. Plan finder wizard */}
+        <RevealSection>
+          <PlanFinderWizard
+            onSelectRecommended={(plan) => {
+              document.getElementById('pricing-cards-anchor')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          />
+        </RevealSection>
 
-        {/* 8. Call To Action Banner */}
-        <PricingCTA />
+        {/* 7. Usage & ROI calculator */}
+        <RevealSection>
+          <UsageCalculator />
+        </RevealSection>
+
+        {/* 8. Feature comparison matrix */}
+        <RevealSection>
+          <FeatureComparisonMatrix />
+        </RevealSection>
+
+        {/* 9. Testimonial carousel */}
+        <RevealSection>
+          <TestimonialCarousel />
+        </RevealSection>
+
+        {/* 10. FAQ */}
+        <RevealSection>
+          <PricingFAQ />
+        </RevealSection>
+
+        {/* 11. CTA banner */}
+        <RevealSection>
+          <PricingCTA />
+        </RevealSection>
+
       </div>
     </div>
   );
