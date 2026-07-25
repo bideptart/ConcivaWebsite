@@ -8,45 +8,45 @@ import '../styles/home.css';
 
 const FEATURES = [
   {
-    icon: '🛡️ ', 
+    icon: '🤖',
     bg: 'fi-orange',
-    title: 'Self-hosted control panel',
-    desc: 'Your data, your stack, your firewall — total ownership without compromise.',
+    title: 'AI Voice Bot 2.0',
+    desc: 'Conversational AI that handles inbound and outbound calls with human-like precision and real-time sentiment analysis.',
     tag: 'Powered by GPT-4o',
   },
   {
     icon: '📞',
     bg: 'fi-violet',
-    title: 'Bring-your-own-carrier',
-    desc: 'Connect your existing carrier account in two clicks with zero porting downtime',
+    title: 'Virtual Phone Numbers',
+    desc: 'Instant local and toll-free numbers across 190+ countries. Port your existing numbers in minutes.',
     tag: '190+ Countries',
   },
   {
-    icon: '✍️',
+    icon: '🌐',
     bg: 'fi-sky',
-    title: 'Plain-English agent design ',
-    desc: 'describe your agent in natural language and ship it without code.',
+    title: 'Elastic SIP Trunking',
+    desc: 'Carrier-grade SIP trunking with dynamic capacity scaling, 99.999% uptime SLA, and global PoPs.',
     tag: '99.999% SLA',
   },
   {
     icon: '📊',
     bg: 'fi-emerald',
-    title: 'RAG-powered knowledge sync',
-    desc: 'answers exclusively from your source of truth with live document sync and citations.',
+    title: 'Live Call Analytics',
+    desc: 'Real-time transcripts, keyword alerts, CSAT scoring, and agent performance dashboards in one place.',
     tag: 'Real-time insights',
   },
   {
-    icon: '🔄',
+    icon: '🔒',
     bg: 'fi-amber',
-    title: 'Inbound and outbound from one dashboard',
-    desc: 'route incoming calls and trigger outbound campaigns from the same interface.',
+    title: 'Enterprise Security',
+    desc: 'SOC 2 Type II certified, end-to-end encryption, HIPAA & GDPR compliant infrastructure out of the box.',
     tag: 'SOC 2 Certified',
   },
   {
-    icon: '⏱️',
+    icon: '⚡',
     bg: 'fi-rose',
-    title: 'Per-second billing with no contracts ',
-    desc: 'pay only for the seconds you talk, scale from $0.13/min to $0.11/min.',
+    title: 'WebRTC Softphone',
+    desc: 'Crystal-clear HD audio calling directly from your browser or our mobile app. No hardware needed.',
     tag: 'Zero Hardware',
   },
 ];
@@ -134,6 +134,7 @@ const TESTIMONIALS = [
   },
 ];
 
+<<<<<<< HEAD
 /* ─── Feature Carousel ──────────────────────────────────── */
 
 function FeatureCarousel() {
@@ -263,6 +264,18 @@ function FeatureCarousel() {
     </section>
   );
 }
+=======
+const TRUSTED_LOGOS = [
+  { name: 'TechServe',   icon: '⚙️', bg: '#FFF7ED' },
+  { name: 'NovaPay',     icon: '💳', bg: '#F5F3FF' },
+  { name: 'RetailFirst', icon: '🛍️', bg: '#ECFDF5' },
+  { name: 'MediCore',    icon: '🏥', bg: '#F0F9FF' },
+  { name: 'SkyLogix',    icon: '✈️', bg: '#FFFBEB' },
+  { name: 'DataForge',   icon: '🔮', bg: '#FFF1F2' },
+  { name: 'CloudNest',   icon: '☁️', bg: '#F8FAFC' },
+  { name: 'UrbanGrid',   icon: '🏙️', bg: '#FFF7ED' },
+];
+>>>>>>> 84fc6b96c115d77520cf75d8c80c6d870f3fe37f
 
 /* ─── Component ─────────────────────────────────────────── */
 
@@ -381,10 +394,65 @@ export default function Home() {
         </div>
       </section>
 
+<<<<<<< HEAD
       {/* ── 2. FEATURES ── */}
       <FeatureCarousel />
+=======
+      {/* ── 2. TRUSTED BY ── */}
+      <section className="trusted-section home-section">
+        <div className="trusted-label">Trusted by industry leaders worldwide</div>
+        <div className="marquee-track" aria-hidden="true">
+          <div className="marquee-inner">
+            {/* Duplicate for seamless loop */}
+            {[...TRUSTED_LOGOS, ...TRUSTED_LOGOS].map((logo, i) => (
+              <div key={i} className="marquee-logo">
+                <span
+                  className="marquee-logo-icon"
+                  style={{ background: logo.bg }}
+                >
+                  {logo.icon}
+                </span>
+                {logo.name}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      {/* ── 3. HOW IT WORKS ── */}
+      {/* ── 3. FEATURES ── */}
+      <section className="features-section home-section">
+        <div className="home-container">
+          <div className="section-header">
+            <span className="section-eyebrow">⚡ Platform Features</span>
+            <h2 className="section-title">
+              Everything your team needs<br />to communicate at scale
+            </h2>
+            <p className="section-sub">
+              From AI-powered voice bots to enterprise SIP trunking, Conciva AI
+              gives you the complete telephony stack without the complexity.
+            </p>
+          </div>
+
+          <div className="features-grid">
+            {FEATURES.map((f, i) => (
+              <div
+                key={f.title}
+                className={`feature-card anim-fade-up delay-${(i % 3) + 1}`}
+              >
+                <div className={`feature-icon-wrap ${f.bg}`}>
+                  <span role="img" aria-label={f.title}>{f.icon}</span>
+                </div>
+                <h3 className="feature-card-title">{f.title}</h3>
+                <p className="feature-card-desc">{f.desc}</p>
+                <span className="feature-card-tag">✦ {f.tag}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+>>>>>>> 84fc6b96c115d77520cf75d8c80c6d870f3fe37f
+
+      {/* ── 4. HOW IT WORKS ── */}
       <section className="how-section home-section">
         <div className="home-container">
           <div className="section-header centered">
@@ -409,7 +477,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 4. STATS ── */}
+      {/* ── 5. STATS ── */}
       <section className="stats-section home-section">
         <div className="stats-bg-glow" aria-hidden="true" />
         <div className="home-container">
@@ -426,7 +494,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 5. TESTIMONIALS ── */}
+      {/* ── 6. TESTIMONIALS ── */}
       <section className="testimonials-section home-section">
         <div className="home-container">
           <div className="section-header centered">
@@ -467,7 +535,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 6. CTA BANNER ── */}
+      {/* ── 7. CTA BANNER ── */}
       <section className="cta-section home-section">
         <div className="home-container">
           <div className="cta-inner">
