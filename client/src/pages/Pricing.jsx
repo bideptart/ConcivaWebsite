@@ -1,15 +1,28 @@
+<<<<<<< HEAD
+import React, { useState, useEffect } from 'react';
+import '../styles/pricing-tokens.css';
+=======
 import React, { useState, useEffect, useRef } from 'react';
+>>>>>>> cb3d329137fa99f892382b0ac37d06b9367626b3
 import '../styles/pricing.css';
 
-import PricingHero from '../components/pricing/PricingHero';
-import PricingCards from '../components/pricing/PricingCards';
-import PlanFinderWizard from '../components/pricing/PlanFinderWizard';
-import UsageCalculator from '../components/pricing/UsageCalculator';
-import FeatureComparisonMatrix from '../components/pricing/FeatureComparisonMatrix';
-import TestimonialCarousel from '../components/pricing/TestimonialCarousel';
-import PricingFAQ from '../components/pricing/PricingFAQ';
-import PricingCTA from '../components/pricing/PricingCTA';
+import PricingHero          from '../components/pricing/PricingHero';
+import PricingCards         from '../components/pricing/PricingCards';
+import PricingComparison    from '../components/pricing/PricingComparison';
+import PricingTestimonials  from '../components/pricing/PricingTestimonials';
+import PricingFAQ           from '../components/pricing/PricingFAQ';
+import PricingCTA           from '../components/pricing/PricingCTA';
+import PricingMoreLinks     from '../components/pricing/PricingMoreLinks';
+import PricingFooter        from '../components/pricing/PricingFooter';
 
+<<<<<<< HEAD
+export default function Pricing() {
+  const [billingCycle, setBillingCycle] = useState('annual');
+
+  useEffect(() => {
+    document.title = 'Pricing — Conciva AI Cloud Contact Center';
+  }, []);
+=======
 /* ─── Intersection-observer based reveal hook ─── */
 function useReveal() {
   const ref = useRef(null);
@@ -26,6 +39,7 @@ function useReveal() {
   }, []);
   return [ref, visible];
 }
+>>>>>>> cb3d329137fa99f892382b0ac37d06b9367626b3
 
 /* ─── Trust / integrations logo strip ─── */
 const TRUST_LOGOS = [
@@ -120,7 +134,31 @@ export default function Pricing() {
 
   return (
     <div className="pricing-page">
+      <PricingHero />
+
       <div className="pricing-container">
+<<<<<<< HEAD
+        <PricingCards
+          billingCycle={billingCycle}
+          setBillingCycle={setBillingCycle}
+        />
+      </div>
+
+      <div className="pricing-container">
+        <PricingComparison />
+      </div>
+
+      <div className="pricing-container">
+        <PricingTestimonials />
+      </div>
+
+      <div className="pricing-container">
+        <PricingFAQ />
+      </div>
+
+      <div className="pricing-container">
+        <PricingCTA />
+=======
 
         {/* 1. Hero & billing toggle */}
         <PricingHero billingCycle={billingCycle} setBillingCycle={setBillingCycle} />
@@ -173,7 +211,14 @@ export default function Pricing() {
           <PricingCTA />
         </RevealSection>
 
+>>>>>>> cb3d329137fa99f892382b0ac37d06b9367626b3
       </div>
+
+      <div className="pricing-container">
+        <PricingMoreLinks />
+      </div>
+
+      <PricingFooter />
     </div>
   );
 }

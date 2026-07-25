@@ -1,29 +1,29 @@
 :root {
-  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  /* Letsdial Color Palette */
+  /* LetsDial Color Palette */
   --primary: #F97316;
   --primary-hover: #EA580C;
   --primary-dark: #C2410C;
   --primary-light: #FFF7ED;
   --primary-border: #FED7AA;
-  --primary-glow: rgba(249, 115, 22, 0.25);
-  
+  --primary-glow: rgba(249,115,22,0.2);
+
   --dark: #0F172A;
   --dark-accent: #1E293B;
-  --text-main: #0F172A;
-  --text-muted: #64748B;
-  --text-light: #94A3B8;
+  --text-main: #000000;
+  --text-muted: rgba(0,0,0,0.5);
+  --text-light: rgba(0,0,0,0.35);
 
   --bg-page: #FAF8F5;
   --bg-card: #FFFFFF;
-  --bg-subtle: #F8FAFC;
-  --border-light: #E2E8F0;
-  --border-subtle: #F1F5F9;
+  --bg-subtle: #F1ECE8;
+  --border-light: #E8EDF5;
+  --border-subtle: #E8EDF5;
 
-  --emerald: #10B981;
-  --emerald-bg: #ECFDF5;
+  --emerald: #3A6B52;
+  --emerald-bg: #E8F2EC;
   --violet: #8B5CF6;
   --amber: #F59E0B;
   --amber-bg: #FFFBEB;
@@ -70,6 +70,11 @@ button, input, select, textarea {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* Light-page override — pricing page sets its own bg */
+.pricing-page {
+  background: #FAFAFA !important;
 }
 
 /* Animations & Keyframes */
