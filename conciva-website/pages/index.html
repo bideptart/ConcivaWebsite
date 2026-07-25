@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conciva Website</title>
+    <style id="theme-vars">
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap');
+
+:root {
+  color-scheme: dark;
+
+  --conciva-background: 222 32% 7%;
+  --conciva-foreground: 24 28% 96%;
+  --conciva-card: 221 27% 10%;
+  --conciva-card-foreground: 24 24% 95%;
+  --conciva-popover: 221 27% 11%;
+  --conciva-popover-foreground: 24 24% 95%;
+  --conciva-primary: 13 93% 66%;
+  --conciva-primary-foreground: 222 35% 8%;
+  --conciva-muted: 220 16% 18%;
+  --conciva-muted-foreground: 217 18% 72%;
+  --conciva-border: 221 16% 22%;
+  --conciva-input: 221 16% 22%;
+  --conciva-ring: 13 93% 66%;
+
+  --conciva-radius-sm: 8px;
+  --conciva-radius-md: 12px;
+  --conciva-radius-lg: 16px;
+
+  --state-success: 151 58% 52%;
+  --state-warning: 39 96% 63%;
+  --state-error: 0 82% 64%;
+  --state-info: 202 92% 63%;
+
+  --conciva-font-display: 'Sora', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --conciva-font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  --grid-max-width: 1220px;
+  --hero-glow: radial-gradient(circle at 50% 0%, rgba(255, 122, 89, 0.22), transparent 42%);
+  --panel-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0));
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--conciva-font-sans);
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--conciva-background);
+    --color-foreground: var(--conciva-foreground);
+    --color-card: var(--conciva-card);
+    --color-card-foreground: var(--conciva-card-foreground);
+    --color-popover: var(--conciva-popover);
+    --color-popover-foreground: var(--conciva-popover-foreground);
+    --color-primary: var(--conciva-primary);
+    --color-primary-foreground: var(--conciva-primary-foreground);
+    --color-muted: var(--conciva-muted);
+    --color-muted-foreground: var(--conciva-muted-foreground);
+    --color-border: var(--conciva-border);
+    --color-input: var(--conciva-input);
+    --color-ring: var(--conciva-ring);
+    --radius-sm: var(--conciva-radius-sm);
+    --radius-md: var(--conciva-radius-md);
+    --radius-lg: var(--conciva-radius-lg);
+  }
+  @layer base {
+    body { background: var(--conciva-background); color: var(--conciva-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--conciva-background); }
+      .text-background { color: var(--conciva-background); }
+      .border-background { border-color: var(--conciva-background); }
+      .ring-background { --tw-ring-color: var(--conciva-background); }
+      .bg-foreground { background-color: var(--conciva-foreground); }
+      .text-foreground { color: var(--conciva-foreground); }
+      .border-foreground { border-color: var(--conciva-foreground); }
+      .ring-foreground { --tw-ring-color: var(--conciva-foreground); }
+      .bg-card { background-color: var(--conciva-card); }
+      .text-card { color: var(--conciva-card); }
+      .border-card { border-color: var(--conciva-card); }
+      .ring-card { --tw-ring-color: var(--conciva-card); }
+      .bg-card-foreground { background-color: var(--conciva-card-foreground); }
+      .text-card-foreground { color: var(--conciva-card-foreground); }
+      .border-card-foreground { border-color: var(--conciva-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--conciva-card-foreground); }
+      .bg-popover { background-color: var(--conciva-popover); }
+      .text-popover { color: var(--conciva-popover); }
+      .border-popover { border-color: var(--conciva-popover); }
+      .ring-popover { --tw-ring-color: var(--conciva-popover); }
+      .bg-popover-foreground { background-color: var(--conciva-popover-foreground); }
+      .text-popover-foreground { color: var(--conciva-popover-foreground); }
+      .border-popover-foreground { border-color: var(--conciva-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--conciva-popover-foreground); }
+      .bg-primary { background-color: var(--conciva-primary); }
+      .text-primary { color: var(--conciva-primary); }
+      .border-primary { border-color: var(--conciva-primary); }
+      .ring-primary { --tw-ring-color: var(--conciva-primary); }
+      .bg-primary-foreground { background-color: var(--conciva-primary-foreground); }
+      .text-primary-foreground { color: var(--conciva-primary-foreground); }
+      .border-primary-foreground { border-color: var(--conciva-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--conciva-primary-foreground); }
+      .bg-muted { background-color: var(--conciva-muted); }
+      .text-muted { color: var(--conciva-muted); }
+      .border-muted { border-color: var(--conciva-muted); }
+      .ring-muted { --tw-ring-color: var(--conciva-muted); }
+      .bg-muted-foreground { background-color: var(--conciva-muted-foreground); }
+      .text-muted-foreground { color: var(--conciva-muted-foreground); }
+      .border-muted-foreground { border-color: var(--conciva-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--conciva-muted-foreground); }
+      .bg-border { background-color: var(--conciva-border); }
+      .text-border { color: var(--conciva-border); }
+      .border-border { border-color: var(--conciva-border); }
+      .ring-border { --tw-ring-color: var(--conciva-border); }
+      .bg-input { background-color: var(--conciva-input); }
+      .text-input { color: var(--conciva-input); }
+      .border-input { border-color: var(--conciva-input); }
+      .ring-input { --tw-ring-color: var(--conciva-input); }
+      .bg-ring { background-color: var(--conciva-ring); }
+      .text-ring { color: var(--conciva-ring); }
+      .border-ring { border-color: var(--conciva-ring); }
+      .ring-ring { --tw-ring-color: var(--conciva-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <main data-viewport-mode="app-shell" class="relative h-screen overflow-hidden min-h-0 bg-background text-foreground">
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute inset-x-0 top-0 h-72" style="background: var(--hero-glow);"></div>
+            <div class="absolute left-1/2 top-24 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full blur-3xl opacity-40" style="background: radial-gradient(circle, rgba(255, 122, 89, 0.14) 0%, rgba(255, 122, 89, 0) 68%);"></div>
+            <div class="absolute inset-0 opacity-40" style="background-image: linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px); background-size: 96px 96px;"></div>
+        </div>
+
+        <div data-scroll-region="primary" class="relative min-h-0 h-full overflow-y-auto no-scrollbar">
+            <header class="sticky top-0 z-40 border-b border-border" style="background: linear-gradient(180deg, rgba(16,18,23,0.96), rgba(16,18,23,0.82)); backdrop-filter: blur(18px);">
+                <div class="mx-auto flex w-full max-w-[1220px] items-center justify-between gap-6 px-6 py-4 lg:px-8">
+                    <a href="#hero" class="flex items-center gap-3 text-sm font-semibold tracking-[0.24em] text-foreground uppercase">
+                        <span class="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card text-primary">C</span>
+                        <span>Conciva</span>
+                    </a>
+                    <nav class="hidden items-center gap-7 text-sm text-muted-foreground lg:flex">
+                        <a href="#platform" class="transition-colors duration-200 hover:text-foreground">Platform</a>
+                        <a href="#workflow" class="transition-colors duration-200 hover:text-foreground">Workflow</a>
+                        <a href="#capabilities" class="transition-colors duration-200 hover:text-foreground">Capabilities</a>
+                        <a href="#proof" class="transition-colors duration-200 hover:text-foreground">Proof</a>
+                        <a href="#security" class="transition-colors duration-200 hover:text-foreground">Security</a>
+                        <a href="#faq" class="transition-colors duration-200 hover:text-foreground">FAQ</a>
+                    </nav>
+                    <div class="flex items-center gap-3">
+                        <a href="#platform" class="hidden rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-transform duration-200 hover:-translate-y-0.5 sm:inline-flex">See platform</a>
+                        <a href="#cta" class="inline-flex rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-transform duration-200 hover:-translate-y-0.5">Book demo</a>
+                    </div>
+                </div>
+            </header>
+
+            <section id="hero" class="relative border-b border-border">
+                <div class="mx-auto grid w-full max-w-[1220px] gap-14 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-20 xl:py-24">
+                    <div class="flex flex-col justify-center">
+                        <div class="mb-6 flex flex-wrap items-center gap-3">
+                            <span class="inline-flex items-center rounded-full border border-border bg-card px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-primary">AI customer operations platform</span>
+                            <span class="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground">
+                                <i data-lucide="sparkles" class="h-3.5 w-3.5 text-primary"></i>
+                                One operating layer for support, sales, and retention
+                            </span>
+                        </div>
+                        <p class="mb-5 text-sm font-medium uppercase tracking-[0.28em] text-muted-foreground">Every customer conversation, finally working together.</p>
+                        <h1 class="max-w-2xl text-5xl font-semibold leading-[0.92] tracking-[-0.05em] text-foreground sm:text-6xl xl:text-7xl" style="font-family: var(--conciva-font-display);">
+                            Move every inbox, call, playbook, and signal into one decisive layer.
+                        </h1>
+                        <p class="mt-6 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg">
+                            Conciva brings AI copilots, shared inboxes, live call context, automations, and team visibility into one operating system so support leaders and revenue teams can respond faster, route smarter, and grow without adding tool sprawl.
+                        </p>
+
+                        <div class="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+                            <a href="#cta" class="inline-flex min-h-14 items-center justify-center rounded-full bg-primary px-7 text-sm font-semibold text-primary-foreground transition-transform duration-200 hover:-translate-y-0.5">Book demo</a>
+                            <a href="#platform" class="inline-flex min-h-14 items-center justify-center rounded-full border border-border bg-card px-7 text-sm font-semibold text-foreground transition-transform duration-200 hover:-translate-y-0.5">See platform</a>
+                        </div>
+
+                        <div class="mt-10 grid gap-4 sm:grid-cols-3">
+                            <div class="rounded-3xl border border-border bg-card p-5 transition-transform duration-200 hover:-translate-y-1">
+                                <div class="text-3xl font-semibold tracking-[-0.04em] text-foreground" style="font-family: var(--conciva-font-display);">42%</div>
+                                <p class="mt-2 text-sm text-muted-foreground">Faster first-response coordination across support and revenue queues.</p>
+                            </div>
+                            <div class="rounded-3xl border border-border bg-card p-5 transition-transform duration-200 hover:-translate-y-1">
+                                <div class="text-3xl font-semibold tracking-[-0.04em] text-foreground" style="font-family: var(--conciva-font-display);">3.1x</div>
+                                <p class="mt-2 text-sm text-muted-foreground">More workflow visibility than disconnected inbox, dialer, and knowledge stacks.</p>
+                            </div>
+                            <div class="rounded-3xl border border-border bg-card p-5 transition-transform duration-200 hover:-translate-y-1">
+                                <div class="text-3xl font-semibold tracking-[-0.04em] text-foreground" style="font-family: var(--conciva-font-display);">98%</div>
+                                <p class="mt-2 text-sm text-muted-foreground">Team adoption when call prep, notes, and next actions live in one place.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative flex items-center justify-center">
+                        <div class="relative w-full max-w-[620px] rounded-[34px] border border-border p-4 sm:p-5" style="background: linear-gradient(180deg, rgba(26, 29, 36, 0.98), rgba(18, 20, 26, 0.96)); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.05);">
+                            <div class="absolute inset-x-8 top-0 h-px bg-border"></div>
+                            <div class="absolute left-8 right-8 top-8 h-28 rounded-full blur-3xl" style="background: radial-gradient(circle, rgba(255, 122, 89, 0.18) 0%, rgba(255, 122, 89, 0) 70%);"></div>
+                            <div class="relative rounded-[28px] border border-border p-4 sm:p-5" style="background: linear-gradient(180deg, rgba(34, 38, 46, 0.92), rgba(18, 20, 26, 0.98));">
+                                <div class="flex items-center justify-between gap-3 border-b border-border pb-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
+                                            <i data-lucide="message-square-heart" class="h-5 w-5"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-semibold text-foreground">Conciva Command</p>
+                                            <p class="text-xs text-muted-foreground">One queue for support, pipeline, and retention.</p>
+                                        </div>
+                                    </div>
+                                    <div class="rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-primary">Live AI assist</div>
+                                </div>
+
+                                <div class="mt-5 grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+                                    <div class="space-y-4">
+                                        <div class="rounded-[26px] border border-border bg-card p-4">
+                                            <div class="flex items-center justify-between gap-3">
+                                                <div>
+                                                    <p class="text-xs uppercase tracking-[0.22em] text-muted-foreground">Conversation stream</p>
+                                                    <p class="mt-1 text-lg font-semibold text-foreground">Renewal risk detected</p>
+                                                </div>
+                                                <span class="rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-foreground">Priority</span>
+                                            </div>
+                                            <div class="mt-4 space-y-3">
+                                                <div class="rounded-2xl border border-border bg-background p-3">
+                                                    <div class="flex items-start justify-between gap-3">
+                                                        <div class="flex items-start gap-3">
+                                                            <div class="mt-0.5 flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-card text-primary">
+                                                                <i data-lucide="headphones" class="h-4 w-4"></i>
+                                                            </div>
+                                                            <div>
+                                                                <p class="text-sm font-medium text-foreground">Support inbox</p>
+                                                                <p class="mt-1 text-xs leading-5 text-muted-foreground">Customer asks why onboarding stalled after the billing plan changed yesterday.</p>
+                                                            </div>
+                                                        </div>
+                                                        <span class="rounded-full border border-border bg-card px-2.5 py-1 text-[11px] text-muted-foreground">12:14</span>
+                                                    </div>
+                                                </div>
+                                                <div class="rounded-2xl border border-border bg-background p-3">
+                                                    <div class="flex items-start gap-3">
+                                                        <div class="mt-0.5 flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-card text-primary">
+                                                            <i data-lucide="phone-call" class="h-4 w-4"></i>
+                                                        </div>
+                                                        <div>
+                                                            <p class="text-sm font-medium text-foreground">Call context</p>
+                                                            <p class="mt-1 text-xs leading-5 text-muted-foreground">“We love the product, but nobody owns the rollout. Can your team guide the next phase?”</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="rounded-2xl border border-border p-3" style="background: linear-gradient(180deg, rgba(255, 122, 89, 0.12), rgba(255, 122, 89, 0.04)); border-color: var(--conciva-border);">
+                                                    <div class="flex items-start gap-3">
+                                                        <div class="mt-0.5 flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+                                                            <i data-lucide="bot" class="h-4 w-4"></i>
+                                                        </div>
+                                                        <div>
+                                                            <p class="text-sm font-medium text-foreground">AI recommendation</p>
+                                                            <p class="mt-1 text-xs leading-5 text-muted-foreground">Route to retention pod, surface rollout notes, and trigger a recovery sequence before the next renewal checkpoint.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="grid gap-4 sm:grid-cols-2">
+                                            <div class="rounded-[24px] border border-border bg-card p-4">
+                                                <p class="text-xs uppercase tracking-[0.22em] text-muted-foreground">Assist coverage</p>
+                                                <div class="mt-4 flex items-end justify-between gap-4">
+                                                    <div>
+                                                        <div class="text-3xl font-semibold tracking-[-0.04em] text-foreground" style="font-family: var(--conciva-font-display);">87%</div>
+                                                        <p class="mt-2 text-xs text-muted-foreground">Replies, call summaries, and next-step drafts generated inside policy guardrails.</p>
+                                                    </div>
+                                                    <div class="h-16 w-16 rounded-full border border-border p-2">
+                                                        <div class="flex h-full w-full items-center justify-center rounded-full border border-border text-sm font-semibold text-primary">AI</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="rounded-[24px] border border-border bg-card p-4">
+                                                <p class="text-xs uppercase tracking-[0.22em] text-muted-foreground">Workflow pulse</p>
+                                                <div class="mt-4 space-y-2.5">
+                                                    <div class="flex items-center justify-between gap-3 rounded-2xl border border-border bg-background px-3 py-2">
+                                                        <span class="text-xs text-muted-foreground">At-risk accounts</span>
+                                                        <span class="text-sm font-semibold text-foreground">14</span>
+                                                    </div>
+                                                    <div class="flex items-center justify-between gap-3 rounded-2xl border border-border bg-background px-3 py-2">
+                                                        <span class="text-xs text-muted-foreground">Open escalations</span>
+                                                        <span class="text-sm font-semibold text-foreground">5</span>
+                                                    </div>
+                                                    <div class="flex items-center justify-between gap-3 rounded-2xl border border-border bg-background px-3 py-2">
+                                                        <span class="text-xs text-muted-foreground">Recovered revenue</span>
+                                                        <span class="text-sm font-semibold text-primary">$182k</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-4">
+                                        <div class="rounded-[26px] border border-border bg-card p-4">
+                                            <div class="flex items-center justify-between gap-3">
+                                                <div>
+                                                    <p class="text-xs uppercase tracking-[0.22em] text-muted-foreground">Team visibility</p>
+                                                    <p class="mt-1 text-sm font-semibold text-foreground">Pods aligned in real time</p>
+                                                </div>
+                                                <i data-lucide="orbit" class="h-4 w-4 text-primary"></i>
+                                            </div>
+                                            <div class="mt-4 space-y-3">
+                                                <div class="flex items-center justify-between gap-3 rounded-2xl border border-border bg-background px-3 py-3">
+                                                    <div class="flex items-center gap-3">
+                                                        <span class="h-2.5 w-2.5 rounded-full bg-primary"></span>
+                                                        <span class="text-sm text-foreground">Support</span>
+                                                    </div>
+                                                    <span class="text-xs text-muted-foreground">Context synced</span>
+                                                </div>
+                                                <div class="flex items-center justify-between gap-3 rounded-2xl border border-border bg-background px-3 py-3">
+                                                    <div class="flex items-center gap-3">
+                                                        <span class="h-2.5 w-2.5 rounded-full bg-primary"></span>
+                                                        <span class="text-sm text-foreground">Revenue ops</span>
+                                                    </div>
+                                                    <span class="text-xs text-muted-foreground">Plays active</span>
+                                                </div>
+                                                <div class="flex items-center justify-between gap-3 rounded-2xl border border-border bg-background px-3 py-3">
+                                                    <div class="flex items-center gap-3">
+                                                        <span class="h-2.5 w-2.5 rounded-full bg-primary"></span>
+                                                        <span class="text-sm text-foreground">Customer success</span>
+                                                    </div>
+                                                    <span class="text-xs text-muted-foreground">Risks monitored</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="rounded-[26px] border border-border p-4" style="background: linear-gradient(180deg, rgba(255, 122, 89, 0.13), rgba(31, 36, 44, 0.92));">
+                                            <div class="flex items-center gap-3">
+                                                <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-border bg-background text-primary">
+                                                    <i data-lucide="scan-search" class="h-5 w-5"></i>
+                                                </div>
+                                                <div>
+                                                    <p class="text-sm font-semibold text-foreground">Next best action</p>
+                                                    <p class="text-xs text-muted-foreground">Recommendations grounded in inbox, CRM, and call history.</p>
+                                                </div>
+                                            </div>
+                                            <div class="mt-4 rounded-2xl border border-border bg-background p-3">
+                                                <p class="text-xs uppercase tracking-[0.2em] text-muted-foreground">Suggested sequence</p>
+                                                <ul class="mt-3 space-y-2 text-sm text-foreground">
+                                                    <li class="flex items-start gap-2"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-primary"></span><span>Send AI-drafted recap with rollout owner suggestion.</span></li>
+                                                    <li class="flex items-start gap-2"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-primary"></span><span>Alert account team if no response within 4 hours.</span></li>
+                                                    <li class="flex items-start gap-2"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-primary"></span><span>Open retention workflow if sentiment drops again.</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-border">
+                    <div class="mx-auto flex w-full max-w-[1220px] flex-col gap-6 px-6 py-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+                        <div class="max-w-lg">
+                            <p class="text-xs uppercase tracking-[0.26em] text-muted-foreground">Trusted in modern customer stacks</p>
+                            <p class="mt-2 text-sm text-muted-foreground">Teams connect Conciva with the systems they already depend on to keep every conversation grounded in live context.</p>
+                        </div>
+                        <div class="grid flex-1 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+                            <div class="rounded-2xl border border-border bg-card px-4 py-3 text-center text-sm font-medium text-foreground">Salesforce</div>
+                            <div class="rounded-2xl border border-border bg-card px-4 py-3 text-center text-sm font-medium text-foreground">HubSpot</div>
+                            <div class="rounded-2xl border border-border bg-card px-4 py-3 text-center text-sm font-medium text-foreground">Slack</div>
+                            <div class="rounded-2xl border border-border bg-card px-4 py-3 text-center text-sm font-medium text-foreground">Zendesk</div>
+                            <div class="rounded-2xl border border-border bg-card px-4 py-3 text-center text-sm font-medium text-foreground">Segment</div>
+                            <div class="rounded-2xl border border-border bg-card px-4 py-3 text-center text-sm font-medium text-foreground">Stripe</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="platform" class="border-b border-border">
+                <div class="mx-auto grid w-full max-w-[1220px] gap-10 px-6 py-18 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
+                    <div class="flex flex-col justify-between gap-8">
+                        <div>
+                            <p class="text-xs uppercase tracking-[0.26em] text-primary">One operating layer</p>
+                            <h2 class="mt-4 text-4xl font-semibold leading-tight tracking-[-0.04em] text-foreground sm:text-5xl" style="font-family: var(--conciva-font-display);">
+                                Stop stitching point tools together.
+                            </h2>
+                            <p class="mt-5 max-w-md text-base leading-7 text-muted-foreground">
+                                Conciva replaces the daily handoff between inboxes, dialers, notes, bots, and dashboards with one shared command surface. AI guides each conversation while your teams keep control of the final move.
+                            </p>
+                        </div>
+                        <div class="rounded-[30px] border border-border bg-card p-6">
+                            <p class="text-xs uppercase tracking-[0.22em] text-muted-foreground">What changes</p>
+                            <div class="mt-5 space-y-4">
+                                <div class="flex items-start gap-4">
+                                    <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
+                                        <i data-lucide="workflow" class="h-4 w-4"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-semibold text-foreground">Shared context by default</p>
+                                        <p class="mt-1 text-sm text-muted-foreground">Every thread, call, ticket, and play references the same account memory and operating rules.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <div class="flex h-10 w-10 items-center justify-center rounded-2xl border border-border bg-background text-primary">
+                                        <i data-lucide="brain-circuit" class="h-4 w-4"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-semibold text-foreground">AI that acts with guardrails</p>
+                                        <p class="mt-1 text-sm text-muted-foreground">Copilots draft, classify, summarize, and trigger workflows based on your knowledge and routing logic.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <div class="flex h-10 w-10 items-center justify-center rounded-2xl border border-border bg-background text-primary">
+                                        <i data-lucide="panel-top-open" class="h-4 w-4"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-semibold text-foreground">Leadership visibility without lag</p>
+                                        <p class="mt-1 text-sm text-muted-foreground">Queue health, escalation load, retention risk, and revenue moments appear live in the same operating view.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid gap-4 md:grid-cols-2">
+                        <div class="rounded-[30px] border border-border bg-card p-6 md:col-span-2">
+                            <div class="grid gap-8 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
+                                <div>
+                                    <p class="text-xs uppercase tracking-[0.22em] text-muted-foreground">Disconnected stack</p>
+                                    <div class="mt-4 space-y-3">
+                                        <div class="rounded-2xl border border-border bg-background px-4 py-3 text-sm text-muted-foreground">Inbox holds only tickets.</div>
+                                        <div class="rounded-2xl border border-border bg-background px-4 py-3 text-sm text-muted-foreground">Dialer misses product history.</div>
+                                        <div class="rounded-2xl border border-border bg-background px-4 py-3 text-sm text-muted-foreground">Playbooks run without current signals.</div>
+                                    </div>
+                                </div>
+                                <div class="mx-auto flex h-20 w-20 items-center justify-center rounded-full border border-border bg-background text-primary">
+                                    <i data-lucide="arrow-right-left" class="h-6 w-6"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs uppercase tracking-[0.22em] text-primary">Conciva layer</p>
+                                    <div class="mt-4 space-y-3">
+                                        <div class="rounded-2xl border border-border px-4 py-3 text-sm text-foreground" style="background: linear-gradient(180deg, rgba(255, 122, 89, 0.12), rgba(29, 33, 40, 0.88));">One account memory powers every reply, call, and automation.</div>
+                                        <div class="rounded-2xl border border-border bg-background px-4 py-3 text-sm text-foreground">Copilots guide execution while humans approve critical moves.</div>
+                                        <div class="rounded-2xl border border-border bg-background px-4 py-3 text-sm text-foreground">Leaders see service and revenue outcomes in one operating timeline.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rounded-[28px] border border-border bg-card p-6">
+                            <p class="text-xs uppercase tracking-[0.22em] text-muted-foreground">Channels unified</p>
+                            <div class="mt-4 grid gap-3">
+                                <div class="flex items-center justify-between rounded-2xl border border-border bg-background px-4 py-3">
+                                    <span class="text-sm text-foreground">Email + chat</span>
+                                    <span class="text-xs text-muted-foreground">Synced</span>
+                                </div>
+                                <div class="flex items-center justify-between rounded-2xl border border-border bg-background px-4 py-3">
+                                    <span class="text-sm text-foreground">Voice + transcripts</span>
+                                    <span class="text-xs text-muted-foreground">Live notes</span>
+                                </div>
+                                <div class="flex items-center justify-between rounded-2xl border border-border bg-background px-4 py-3">
+                                    <span class="text-sm text-foreground">CRM + billing</span>
+                                    <span class="text-xs text-muted-foreground">Context ready</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rounded-[28px] border border-border bg-card p-6">
+                            <p class="text-xs uppercase tracking-[0.22em] text-muted-foreground">Operating outcomes</p>
+                            <div class="mt-4 space-y-3">
+                                <div class="flex items-center justify-between rounded-2xl border border-border bg-background px-4 py-3">
+                                    <span class="text-sm text-muted-foreground">Escalation containment</span>
+                                    <span class="text-sm font-semibold text-foreground">+29%</span>
+                                </div>
+                                <div class="flex items-center justify-between rounded-2xl border border-border bg-background px-4 py-3">
+                                    <span class="text-sm text-muted-foreground">Qualified pipeline touchpoints</span>
+                                    <span class="text-sm font-semibold text-foreground">+24%</span>
+                                </div>
+                                <div class="flex items-center justify-between rounded-2xl border border-border bg-background px-4 py-3">
+                                    <span class="text-sm text-muted-foreground">Manual note chasing</span>
+                                    <span class="text-sm font-semibold text-foreground">-63%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="workflow" class="border-b border-border">
+                <div class="mx-auto w-full max-w-[1220px] px-6 py-18 lg:px-8">
+                    <div class="max-w-2xl">
+                        <p class="text-xs uppercase tracking-[0.26em] text-primary">Workflow engine</p>
+                        <h2 class="mt-4 text-4xl font-semibold leading-tight tracking-[-0.04em] text-foreground sm:text-5xl" style="font-family: var(--conciva-font-display);">
+                            Capture, route, assist, automate, optimize.
+                        </h2>
+                        <p class="mt-5 text-base leading-7 text-muted-foreground">
+                            Conciva follows the full lifecycle of a customer conversation. Every step shares the same data, rules, and team ownership instead of bouncing between apps.
+                        </p>
+                    </div>
+
+                    <div class="mt-10 grid gap-4 lg:grid-cols-5">
+                        <div class="rounded-[28px] border border-border bg-card p-6 transition-transform duration-200 hover:-translate-y-1">
+                            <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
+                                <i data-lucide="radio-receiver" class="h-5 w-5"></i>
+                            </div>
+                            <h3 class="mt-5 text-xl font-semibold text-foreground">Capture</h3>
+                            <p class="mt-3 text-sm leading-6 text-muted-foreground">Pull inbound tickets, outbound replies, call transcripts, CRM events, and product signals into one timeline.</p>
+                        </div>
+                        <div class="rounded-[28px] border border-border bg-card p-6 transition-transform duration-200 hover:-translate-y-1">
+                            <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-border bg-background text-primary">
+                                <i data-lucide="git-branch-plus" class="h-5 w-5"></i>
+                            </div>
+                            <h3 class="mt-5 text-xl font-semibold text-foreground">Route</h3>
+                            <p class="mt-3 text-sm leading-6 text-muted-foreground">Use AI classification, sentiment, account tier, and playbook rules to assign the right pod on first touch.</p>
+                        </div>
+                        <div class="rounded-[28px] border border-border p-6 transition-transform duration-200 hover:-translate-y-1" style="background: linear-gradient(180deg, rgba(255, 122, 89, 0.12), rgba(30, 34, 41, 0.92));">
+                            <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-background text-primary">
+                                <i data-lucide="bot-message-square" class="h-5 w-5"></i>
+                            </div>
+                            <h3 class="mt-5 text-xl font-semibold text-foreground">Assist</h3>
+                            <p class="mt-3 text-sm leading-6 text-muted-foreground">Draft responses, summarize calls, surface knowledge, and recommend next actions while the team stays in control.</p>
+                        </div>
+                        <div class="rounded-[28px] border border-border bg-card p-6 transition-transform duration-200 hover:-translate-y-1">
+                            <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-border bg-background text-primary">
+                                <i data-lucide="zap" class="h-5 w-5"></i>
+                            </div>
+                            <h3 class="mt-5 text-xl font-semibold text-foreground">Automate</h3>
+                            <p class="mt-3 text-sm leading-6 text-muted-foreground">Launch recovery sequences, notify owners, update records, and move stuck conversations without extra manual work.</p>
+                        </div>
+                        <div class="rounded-[28px] border border-border bg-card p-6 transition-transform duration-200 hover:-translate-y-1">
+                            <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-border bg-background text-primary">
+                                <i data-lucide="line-chart" class="h-5 w-5"></i>
+                            </div>
+                            <h3 class="mt-5 text-xl font-semibold text-foreground">Optimize</h3>
+                            <p class="mt-3 text-sm leading-6 text-muted-foreground">Measure deflection, resolution quality, pipeline recovery, and retention signals from the same operating record.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="capabilities" class="border-b border-border">
+                <div class="mx-auto w-full max-w-[1220px] px-6 py-18 lg:px-8">
+                    <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+                        <div class="max-w-2xl">
+                            <p class="text-xs uppercase tracking-[0.26em] text-primary">Capabilities</p>
+                            <h2 class="mt-4 text-4xl font-semibold leading-tight tracking-[-0.04em] text-foreground sm:text-5xl" style="font-family: var(--conciva-font-display);">
+                                Built for teams that run the whole conversation.
+                            </h2>
+                        </div>
+                        <p class="max-w-md text-sm leading-6 text-muted-foreground">
+                            Conciva combines AI execution, routing intelligence, and team visibility in a layout designed to keep operations leaders close to the details.
+                        </p>
+                    </div>
+
+                    <div class="mt-10 grid gap-4 xl:grid-cols-[0.9fr_1.2fr_0.9fr]">
+                        <div class="space-y-4">
+                            <article class="rounded-[30px] border border-border bg-card p-6 transition-transform duration-200 hover:-translate-y-1">
+                                <div class="flex items-center justify-between gap-3">
+                                    <h3 class="text-xl font-semibold text-foreground">Shared inboxes</h3>
+                                    <i data-lucide="inbox" class="h-5 w-5 text-primary"></i>
+                                </div>
+                                <p class="mt-4 text-sm leading-6 text-muted-foreground">Support, SDR, and success teams work from a common queue with role-aware views and escalation paths.</p>
+                            </article>
+                            <article class="rounded-[30px] border border-border bg-card p-6 transition-transform duration-200 hover:-translate-y-1">
+                                <div class="flex items-center justify-between gap-3">
+                                    <h3 class="text-xl font-semibold text-foreground">Conversation memory</h3>
+                                    <i data-lucide="database-zap" class="h-5 w-5 text-primary"></i>
+                                </div>
+                                <p class="mt-4 text-sm leading-6 text-muted-foreground">Every AI suggestion references recent tickets, meetings, product activity, and CRM state before it acts.</p>
+                            </article>
+                        </div>
+
+                        <article class="rounded-[34px] border border-border p-6 sm:p-8" style="background: linear-gradient(180deg, rgba(255, 122, 89, 0.11), rgba(22, 25, 31, 0.98));">
+                            <div class="flex flex-col gap-8">
+                                <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                                    <div>
+                                        <p class="text-xs uppercase tracking-[0.24em] text-muted-foreground">Operating core</p>
+                                        <h3 class="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground" style="font-family: var(--conciva-font-display);">The command center for customer operations.</h3>
+                                    </div>
+                                    <div class="rounded-full border border-border bg-background px-4 py-2 text-xs font-medium text-primary">Visible across teams</div>
+                                </div>
+
+                                <div class="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+                                    <div class="rounded-[28px] border border-border bg-background p-5">
+                                        <p class="text-xs uppercase tracking-[0.22em] text-muted-foreground">Live orchestration</p>
+                                        <div class="mt-4 space-y-3">
+                                            <div class="flex items-center justify-between gap-3 rounded-2xl border border-border bg-card px-4 py-3">
+                                                <div class="flex items-center gap-3">
+                                                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-primary text-primary-foreground"><i data-lucide="captions" class="h-4 w-4"></i></span>
+                                                    <span class="text-sm text-foreground">Transcript summary ready</span>
+                                                </div>
+                                                <span class="text-xs text-muted-foreground">12 sec</span>
+                                            </div>
+                                            <div class="flex items-center justify-between gap-3 rounded-2xl border border-border bg-card px-4 py-3">
+                                                <div class="flex items-center gap-3">
+                                                    <span class="flex h-8 w-8 items-center justify-center rounded-xl border border-border bg-background text-primary"><i data-lucide="split" class="h-4 w-4"></i></span>
+                                                    <span class="text-sm text-foreground">Escalation routed to owner</span>
+                                                </div>
+                                                <span class="text-xs text-muted-foreground">Auto</span>
+                                            </div>
+                                            <div class="flex items-center justify-between gap-3 rounded-2xl border border-border bg-card px-4 py-3">
+                                                <div class="flex items-center gap-3">
+                                                    <span class="flex h-8 w-8 items-center justify-center rounded-xl border border-border bg-background text-primary"><i data-lucide="book-open-check" class="h-4 w-4"></i></span>
+                                                    <span class="text-sm text-foreground">Knowledge linked to reply</span>
+                                                </div>
+                                                <span class="text-xs text-muted-foreground">Verified</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="rounded-[28px] border border-border bg-background p-5">
+                                        <p class="text-xs uppercase tracking-[0.22em] text-muted-foreground">Decision frame</p>
+                                        <div class="mt-5 flex h-[calc(100%-1.25rem)] flex-col justify-between">
+                                            <div class="rounded-2xl border border-border bg-card p-4">
+                                                <p class="text-sm font-semibold text-foreground">Best next owner</p>
+                                                <p class="mt-2 text-sm text-muted-foreground">Retention pod based on sentiment drop, plan tier, and open renewal.</p>
+                                            </div>
+                                            <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                                                <div class="rounded-2xl border border-border bg-card p-4">
+                                                    <p class="text-xs uppercase tracking-[0.2em] text-muted-foreground">Coverage</p>
+                                                    <p class="mt-2 text-2xl font-semibold text-foreground" style="font-family: var(--conciva-font-display);">24/7</p>
+                                                </div>
+                                                <div class="rounded-2xl border border-border bg-card p-4">
+                                                    <p class="text-xs uppercase tracking-[0.2em] text-muted-foreground">Audit trail</p>
+                                                    <p class="mt-2 text-2xl font-semibold text-foreground" style="font-family: var(--conciva-font-display);">100%</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <div class="space-y-4">
+                            <article class="rounded-[30px] border border-border bg-card p-6 transition-transform duration-200 hover:-translate-y-1">
+                                <div class="flex items-center justify-between gap-3">
+                                    <h3 class="text-xl font-semibold text-foreground">Playbook automation</h3>
+                                    <i data-lucide="waypoints" class="h-5 w-5 text-primary"></i>
+                                </div>
+                                <p class="mt-4 text-sm leading-6 text-muted-foreground">Launch recovery, follow-up, and handoff sequences with conditions tied to account health and conversation quality.</p>
+                            </article>
+                            <article class="rounded-[30px] border border-border bg-card p-6 transition-transform duration-200 hover:-translate-y-1">
+                                <div class="flex items-center justify-between gap-3">
+                                    <h3 class="text-xl font-semibold text-foreground">Leadership analytics</h3>
+                                    <i data-lucide="panel-left-close" class="h-5 w-5 text-primary"></i>
+                                </div>
+                                <p class="mt-4 text-sm leading-6 text-muted-foreground">Track queue health, recovery performance, response quality, and rep workload without waiting on stitched reports.</p>
+                            </article>
+                            <article class="rounded-[30px] border border-border bg-card p-6 transition-transform duration-200 hover:-translate-y-1">
+                                <div class="flex items-center justify-between gap-3">
+                                    <h3 class="text-xl font-semibold text-foreground">Policy controls</h3>
+                                    <i data-lucide="shield-check" class="h-5 w-5 text-primary"></i>
+                                </div>
+                                <p class="mt-4 text-sm leading-6 text-muted-foreground">Define approval thresholds, content rules, data access scopes, and response limits before automation goes live.</p>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="proof" class="border-b border-border">
+                <div class="mx-auto w-full max-w-[1220px] px-6 py-18 lg:px-8">
+                    <div class="grid gap-8 lg:grid-cols-[0.92fr_1.08fr]">
+                        <div class="rounded-[34px] border border-border bg-card p-8">
+                            <p class="text-xs uppercase tracking-[0.26em] text-primary">Outcomes</p>
+                            <h2 class="mt-4 text-4xl font-semibold leading-tight tracking-[-0.04em] text-foreground sm:text-5xl" style="font-family: var(--conciva-font-display);">
+                                Better service, stronger revenue signals.
+                            </h2>
+                            <p class="mt-5 text-base leading-7 text-muted-foreground">
+                                Conciva is built for leaders who want one conversation system to improve response quality and expansion opportunities at the same time.
+                            </p>
+                            <div class="mt-8 grid gap-4 sm:grid-cols-2">
+                                <div class="rounded-[26px] border border-border bg-background p-5">
+                                    <p class="text-xs uppercase tracking-[0.22em] text-muted-foreground">After launch</p>
+                                    <div class="mt-3 text-3xl font-semibold tracking-[-0.04em] text-foreground" style="font-family: var(--conciva-font-display);">-37%</div>
+                                    <p class="mt-2 text-sm text-muted-foreground">Manual follow-up work after calls and escalations.</p>
+                                </div>
+                                <div class="rounded-[26px] border border-border bg-background p-5">
+                                    <p class="text-xs uppercase tracking-[0.22em] text-muted-foreground">Expansion assist</p>
+                                    <div class="mt-3 text-3xl font-semibold tracking-[-0.04em] text-foreground" style="font-family: var(--conciva-font-display);">+21%</div>
+                                    <p class="mt-2 text-sm text-muted-foreground">More upsell and rescue opportunities surfaced inside active conversations.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="rounded-[34px] border border-border p-8" style="background: linear-gradient(180deg, rgba(255, 122, 89, 0.09), rgba(26, 29, 36, 0.96));">
+                            <div class="grid gap-6 lg:grid-cols-2">
+                                <div class="rounded-[28px] border border-border bg-background p-6">
+                                    <p class="text-xs uppercase tracking-[0.22em] text-muted-foreground">Before Conciva</p>
+                                    <ul class="mt-5 space-y-4">
+                                        <li class="flex items-start gap-3">
+                                            <i data-lucide="minus-circle" class="mt-0.5 h-4 w-4 text-muted-foreground"></i>
+                                            <span class="text-sm leading-6 text-muted-foreground">Support, sales, and success hand off context through notes and Slack threads.</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <i data-lucide="minus-circle" class="mt-0.5 h-4 w-4 text-muted-foreground"></i>
+                                            <span class="text-sm leading-6 text-muted-foreground">AI tools generate content, but nobody trusts them to drive the operating workflow.</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <i data-lucide="minus-circle" class="mt-0.5 h-4 w-4 text-muted-foreground"></i>
+                                            <span class="text-sm leading-6 text-muted-foreground">Leaders see lagging dashboards instead of live execution quality.</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="rounded-[28px] border border-border bg-card p-6">
+                                    <p class="text-xs uppercase tracking-[0.22em] text-primary">With Conciva</p>
+                                    <ul class="mt-5 space-y-4">
+                                        <li class="flex items-start gap-3">
+                                            <i data-lucide="check-circle-2" class="mt-0.5 h-4 w-4 text-primary"></i>
+                                            <span class="text-sm leading-6 text-foreground">Every team sees the same account story before replying, calling, or launching a play.</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <i data-lucide="check-circle-2" class="mt-0.5 h-4 w-4 text-primary"></i>
+                                            <span class="text-sm leading-6 text-foreground">Copilots recommend the next move with human approvals and full auditability.</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <i data-lucide="check-circle-2" class="mt-0.5 h-4 w-4 text-primary"></i>
+                                            <span class="text-sm leading-6 text-foreground">Operations leaders can tune routing, quality, and growth plays from one system.</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 grid gap-4 lg:grid-cols-3">
+                        <article class="rounded-[30px] border border-border bg-card p-6">
+                            <p class="text-xs uppercase tracking-[0.22em] text-muted-foreground">AtlasPay</p>
+                            <p class="mt-4 text-lg font-semibold text-foreground">“We went from scattered queues to one operating room for renewals and support.”</p>
+                            <p class="mt-4 text-sm leading-6 text-muted-foreground">Conciva gave AtlasPay a shared operating cadence across support and revenue teams, reducing escalations while surfacing expansion opportunities in the same thread.</p>
+                            <div class="mt-5 border-t border-border pt-4">
+                                <p class="text-sm font-medium text-foreground">Nadia Singh</p>
+                                <p class="text-xs text-muted-foreground">VP Customer Operations</p>
+                            </div>
+                        </article>
+                        <article class="rounded-[30px] border border-border bg-card p-6">
+                            <p class="text-xs uppercase tracking-[0.22em] text-muted-foreground">Northline Cloud</p>
+                            <p class="mt-4 text-lg font-semibold text-foreground">“Our reps finally trust the AI because every recommendation is grounded in live account context.”</p>
+                            <p class="mt-4 text-sm leading-6 text-muted-foreground">The team uses Conciva to prep calls, summarize outcomes, and automate recovery plays without losing control of tone or approvals.</p>
+                            <div class="mt-5 border-t border-border pt-4">
+                                <p class="text-sm font-medium text-foreground">Marcus Lee</p>
+                                <p class="text-xs text-muted-foreground">Revenue Operations Director</p>
+                            </div>
+                        </article>
+                        <article class="rounded-[30px] border border-border bg-card p-6">
+                            <p class="text-xs uppercase tracking-[0.22em] text-muted-foreground">Flowcart</p>
+                            <p class="mt-4 text-lg font-semibold text-foreground">“Leadership stopped waiting on stitched reports and started seeing execution quality as it happened.”</p>
+                            <p class="mt-4 text-sm leading-6 text-muted-foreground">Conciva connected support pressure, renewal risk, and rep activity into one dashboard the whole leadership team could act on immediately.</p>
+                            <div class="mt-5 border-t border-border pt-4">
+                                <p class="text-sm font-medium text-foreground">Elena Duarte</p>
+                                <p class="text-xs text-muted-foreground">Chief Customer Officer</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section id="security" class="border-b border-border">
+                <div class="mx-auto grid w-full max-w-[1220px] gap-8 px-6 py-18 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+                    <div>
+                        <p class="text-xs uppercase tracking-[0.26em] text-primary">Security and compliance</p>
+                        <h2 class="mt-4 text-4xl font-semibold leading-tight tracking-[-0.04em] text-foreground sm:text-5xl" style="font-family: var(--conciva-font-display);">
+                            Built for governed AI operations.
+                        </h2>
+                        <p class="mt-5 max-w-xl text-base leading-7 text-muted-foreground">
+                            Conciva is designed to help fast-moving teams deploy AI guidance with the controls enterprise buyers expect: role-based access, audit history, approval rules, and secure integrations.
+                        </p>
+                    </div>
+                    <div class="grid gap-4 md:grid-cols-2">
+                        <div class="rounded-[30px] border border-border bg-card p-6">
+                            <div class="flex items-center gap-3">
+                                <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
+                                    <i data-lucide="lock-keyhole" class="h-5 w-5"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold text-foreground">Role-based access</h3>
+                            </div>
+                            <p class="mt-4 text-sm leading-6 text-muted-foreground">Control who can view conversation context, approve AI actions, change automations, or export sensitive records.</p>
+                        </div>
+                        <div class="rounded-[30px] border border-border bg-card p-6">
+                            <div class="flex items-center gap-3">
+                                <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-border bg-background text-primary">
+                                    <i data-lucide="file-lock-2" class="h-5 w-5"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold text-foreground">Audit trails</h3>
+                            </div>
+                            <p class="mt-4 text-sm leading-6 text-muted-foreground">Track every suggestion, approval, workflow trigger, and operator action from first touch to resolution.</p>
+                        </div>
+                        <div class="rounded-[30px] border border-border bg-card p-6">
+                            <div class="flex items-center gap-3">
+                                <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-border bg-background text-primary">
+                                    <i data-lucide="shield-ellipsis" class="h-5 w-5"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold text-foreground">Policy guardrails</h3>
+                            </div>
+                            <p class="mt-4 text-sm leading-6 text-muted-foreground">Set approval thresholds, prompt rules, and channel-specific limits to keep automation inside your governance model.</p>
+                        </div>
+                        <div class="rounded-[30px] border border-border bg-card p-6">
+                            <div class="flex items-center gap-3">
+                                <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-border bg-background text-primary">
+                                    <i data-lucide="server-cog" class="h-5 w-5"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold text-foreground">Enterprise-ready integrations</h3>
+                            </div>
+                            <p class="mt-4 text-sm leading-6 text-muted-foreground">Sync with your CRM, support suite, and internal systems without creating a second copy of the truth.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="faq" class="border-b border-border">
+                <div class="mx-auto w-full max-w-[1220px] px-6 py-18 lg:px-8">
+                    <div class="max-w-2xl">
+                        <p class="text-xs uppercase tracking-[0.26em] text-primary">FAQ</p>
+                        <h2 class="mt-4 text-4xl font-semibold leading-tight tracking-[-0.04em] text-foreground sm:text-5xl" style="font-family: var(--conciva-font-display);">
+                            Questions leaders ask before rollout.
+                        </h2>
+                    </div>
+
+                    <div class="mt-10 grid gap-4 lg:grid-cols-2">
+                        <details class="group rounded-[28px] border border-border bg-card p-6">
+                            <summary class="flex cursor-pointer list-none items-start justify-between gap-4 text-left">
+                                <span class="text-lg font-semibold text-foreground">Can Conciva support both service and revenue teams?</span>
+                                <span class="rounded-full border border-border bg-background p-2 text-primary transition-transform duration-200 group-open:rotate-45">
+                                    <i data-lucide="plus" class="h-4 w-4"></i>
+                                </span>
+                            </summary>
+                            <p class="mt-4 text-sm leading-6 text-muted-foreground">Yes. Conciva is designed for shared ownership across support, SDR, account management, and customer success teams. Each team can keep tailored views while operating from the same conversation layer.</p>
+                        </details>
+                        <details class="group rounded-[28px] border border-border bg-card p-6">
+                            <summary class="flex cursor-pointer list-none items-start justify-between gap-4 text-left">
+                                <span class="text-lg font-semibold text-foreground">How much control do we keep over AI actions?</span>
+                                <span class="rounded-full border border-border bg-background p-2 text-primary transition-transform duration-200 group-open:rotate-45">
+                                    <i data-lucide="plus" class="h-4 w-4"></i>
+                                </span>
+                            </summary>
+                            <p class="mt-4 text-sm leading-6 text-muted-foreground">You define approval thresholds, automation triggers, knowledge sources, and escalation rules. Teams can start with assisted drafting and gradually unlock more automation where confidence is high.</p>
+                        </details>
+                        <details class="group rounded-[28px] border border-border bg-card p-6">
+                            <summary class="flex cursor-pointer list-none items-start justify-between gap-4 text-left">
+                                <span class="text-lg font-semibold text-foreground">Does Conciva replace our CRM and help desk?</span>
+                                <span class="rounded-full border border-border bg-background p-2 text-primary transition-transform duration-200 group-open:rotate-45">
+                                    <i data-lucide="plus" class="h-4 w-4"></i>
+                                </span>
+                            </summary>
+                            <p class="mt-4 text-sm leading-6 text-muted-foreground">No. Conciva acts as the operating layer above the systems you already use. It unifies context, coordination, and AI execution while syncing with your existing CRM and support tools.</p>
+                        </details>
+                        <details class="group rounded-[28px] border border-border bg-card p-6">
+                            <summary class="flex cursor-pointer list-none items-start justify-between gap-4 text-left">
+                                <span class="text-lg font-semibold text-foreground">What does onboarding usually look like?</span>
+                                <span class="rounded-full border border-border bg-background p-2 text-primary transition-transform duration-200 group-open:rotate-45">
+                                    <i data-lucide="plus" class="h-4 w-4"></i>
+                                </span>
+                            </summary>
+                            <p class="mt-4 text-sm leading-6 text-muted-foreground">Most teams begin with one shared queue, a small set of automations, and role-based AI copilots. From there, Conciva expands into call prep, playbooks, and leadership analytics as the operating model matures.</p>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <section id="cta">
+                <div class="mx-auto w-full max-w-[1220px] px-6 py-18 lg:px-8">
+                    <div class="rounded-[36px] border border-border p-8 sm:p-10 lg:p-12" style="background: linear-gradient(180deg, rgba(255, 122, 89, 0.14), rgba(18, 20, 26, 0.98));">
+                        <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+                            <div class="max-w-2xl">
+                                <p class="text-xs uppercase tracking-[0.26em] text-primary">Start the operating shift</p>
+                                <h2 class="mt-4 text-4xl font-semibold leading-tight tracking-[-0.04em] text-foreground sm:text-5xl" style="font-family: var(--conciva-font-display);">
+                                    Bring every customer conversation into one system your teams can actually run.
+                                </h2>
+                                <p class="mt-5 text-base leading-7 text-muted-foreground">
+                                    See how Conciva helps support leaders and revenue teams share context, trust AI recommendations, and move faster without losing governance.
+                                </p>
+                            </div>
+                            <div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
+                                <a href="mailto:hello@conciva.com" class="inline-flex min-h-14 items-center justify-center rounded-full bg-primary px-7 text-sm font-semibold text-primary-foreground transition-transform duration-200 hover:-translate-y-0.5">Book demo</a>
+                                <a href="#hero" class="inline-flex min-h-14 items-center justify-center rounded-full border border-border bg-background px-7 text-sm font-semibold text-foreground transition-transform duration-200 hover:-translate-y-0.5">Back to top</a>
+                            </div>
+                        </div>
+
+                        <div class="mt-10 grid gap-4 border-t border-border pt-6 md:grid-cols-3">
+                            <div class="rounded-[24px] border border-border bg-background p-5">
+                                <p class="text-sm font-semibold text-foreground">AI copilots</p>
+                                <p class="mt-2 text-sm text-muted-foreground">Guide replies, prep calls, summarize moments, and recommend next actions.</p>
+                            </div>
+                            <div class="rounded-[24px] border border-border bg-background p-5">
+                                <p class="text-sm font-semibold text-foreground">Shared command</p>
+                                <p class="mt-2 text-sm text-muted-foreground">Give support, success, and revenue teams one operating layer for execution.</p>
+                            </div>
+                            <div class="rounded-[24px] border border-border bg-background p-5">
+                                <p class="text-sm font-semibold text-foreground">Visible outcomes</p>
+                                <p class="mt-2 text-sm text-muted-foreground">Track queue health, recovery performance, and customer risk in real time.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script>lucide.createIcons();</script>
+</body>
+</html>
