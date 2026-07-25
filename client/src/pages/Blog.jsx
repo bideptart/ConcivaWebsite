@@ -219,7 +219,6 @@ function BlogMarquee({ posts }) {
     <div
       className="bmc-viewport"
       onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
       onMouseDown={onMouseDown}
       onMouseMove={onMouseMove}
       onMouseUp={onMouseUp}

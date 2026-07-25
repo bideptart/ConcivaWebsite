@@ -1,5 +1,4 @@
 import React, {
-import React, {
   useState,
   useMemo,
   useRef,
@@ -627,4 +626,4 @@ export default function FAQ() {
 
     </div>
   );
-}
+  }
