@@ -1,48 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import '../styles/pricing-tokens.css';
 import '../styles/pricing.css';
 
-import PricingHero from '../components/pricing/PricingHero';
-import PricingCards from '../components/pricing/PricingCards';
-import PlanFinderWizard from '../components/pricing/PlanFinderWizard';
-import UsageCalculator from '../components/pricing/UsageCalculator';
-import FeatureComparisonMatrix from '../components/pricing/FeatureComparisonMatrix';
-import TestimonialCarousel from '../components/pricing/TestimonialCarousel';
-import PricingFAQ from '../components/pricing/PricingFAQ';
-import PricingCTA from '../components/pricing/PricingCTA';
+import PricingHero          from '../components/pricing/PricingHero';
+import PricingCards         from '../components/pricing/PricingCards';
+import PricingComparison    from '../components/pricing/PricingComparison';
+import PricingTestimonials  from '../components/pricing/PricingTestimonials';
+import PricingFAQ           from '../components/pricing/PricingFAQ';
+import PricingCTA           from '../components/pricing/PricingCTA';
+import PricingMoreLinks     from '../components/pricing/PricingMoreLinks';
+import PricingFooter        from '../components/pricing/PricingFooter';
 
 export default function Pricing() {
-  const [billingCycle, setBillingCycle] = useState('annual'); // 'monthly' | 'annual'
+  const [billingCycle, setBillingCycle] = useState('annual');
+
+  useEffect(() => {
+    document.title = 'Pricing — Conciva AI Cloud Contact Center';
+  }, []);
 
   return (
     <div className="pricing-page">
+      <PricingHero />
+
       <div className="pricing-container">
-        {/* 1. Hero & Billing Switch */}
-        <PricingHero
+        <PricingCards
           billingCycle={billingCycle}
           setBillingCycle={setBillingCycle}
         />
+      </div>
 
-        {/* 2. 3D Pricing Cards */}
-        <PricingCards billingCycle={billingCycle} />
+      <div className="pricing-container">
+        <PricingComparison />
+      </div>
 
-        {/* 3. Interactive Plan Finder Recommendation Wizard */}
-        <PlanFinderWizard />
+      <div className="pricing-container">
+        <PricingTestimonials />
+      </div>
 
-        {/* 4. 21.dev Style Usage & ROI Calculator */}
-        <UsageCalculator />
-
-        {/* 5. Feature Comparison Matrix (9278.io Structure) */}
-        <FeatureComparisonMatrix />
-
-        {/* 6. 21.dev Style Testimonial Carousel */}
-        <TestimonialCarousel />
-
-        {/* 7. Frequently Asked Questions */}
+      <div className="pricing-container">
         <PricingFAQ />
+      </div>
 
-        {/* 8. Call To Action Banner */}
+      <div className="pricing-container">
         <PricingCTA />
       </div>
+
+      <div className="pricing-container">
+        <PricingMoreLinks />
+      </div>
+
+      <PricingFooter />
     </div>
   );
 }

@@ -5,10 +5,12 @@ import Footer from '../components/layout/Footer';
 
 /* Pages that should NOT render the shared Navbar / Footer */
 const FULL_BLEED_ROUTES = ['/login'];
+const NO_GLOBAL_FOOTER_ROUTES = ['/pricing'];
 
 export default function MainLayout({ children }) {
   const location = useLocation();
   const isFullBleed = FULL_BLEED_ROUTES.includes(location.pathname);
+  const hideGlobalFooter = NO_GLOBAL_FOOTER_ROUTES.includes(location.pathname);
 
   if (isFullBleed) {
     /* Login (and any future auth pages) own their entire viewport */
@@ -21,7 +23,7 @@ export default function MainLayout({ children }) {
       <main style={{ flex: 1 }}>
         {children}
       </main>
-      <Footer />
+      {!hideGlobalFooter && <Footer />}
     </div>
   );
 }

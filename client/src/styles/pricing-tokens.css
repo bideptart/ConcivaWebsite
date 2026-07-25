@@ -1,0 +1,71 @@
+/* Pricing page design tokens — derived from design.md / skill.md (light LetsDial override) */
+.pricing-page {
+  --font-family-primary: Inter, system-ui, sans-serif;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 30px;
+  --font-size-4xl: 36px;
+  --font-weight-base: 400;
+  --font-weight-bold: 700;
+  --font-weight-headline: 800;
+  --line-height-base: 24px;
+  --letter-spacing-headline: -0.04em;
+
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #64748b;
+  --color-text-tertiary: #94a3b8;
+  --color-text-inverse: #ffffff;
+  --color-surface-base: #ffffff;
+  --color-surface-muted: #f8fafc;
+  --color-surface-raised: rgba(249, 115, 22, 0.1);
+  --color-surface-strong: rgba(249, 115, 22, 0.05);
+  --color-accent: #f97316;
+  --color-accent-strong: #ea580c;
+  --color-border-default: #e2e8f0;
+  --color-border-muted: rgba(226, 232, 240, 0.65);
+  --color-accent-light: #fff7ed;
+  --color-accent-border: #fed7aa;
+  --color-accent-mid: #fb923c;
+  --color-accent-shadow: rgba(234, 88, 12, 0.35);
+  --color-accent-glow: rgba(249, 115, 22, 0.12);
+  --color-accent-border-hover: rgba(249, 115, 22, 0.35);
+  --color-comparison-highlight: rgba(249, 115, 22, 0.06);
+  --color-comparison-header: rgba(249, 115, 22, 0.1);
+  --color-success: #16a34a;
+  --color-success-bg: #f0fdf4;
+  --color-success-border: rgba(22, 163, 74, 0.22);
+  --color-text-body: #334155;
+  --color-text-muted: #475569;
+  --color-border-subtle: #f1f5f9;
+  --color-border-hover: #cbd5e1;
+  --color-status-ok: #22c55e;
+
+  --space-1: 4px;
+  --space-2: 6px;
+  --space-3: 8px;
+  --space-4: 10px;
+  --space-5: 12px;
+  --space-6: 16px;
+  --space-7: 20px;
+  --space-8: 24px;
+
+  --radius-xs: 8px;
+  --radius-sm: 14px;
+  --radius-md: 16px;
+  --radius-pill: 9999px;
+
+  --shadow-1: 0 8px 24px -12px rgba(15, 23, 42, 0.18);
+  --shadow-2: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-3: inset 0 0 0 1px rgba(255, 255, 255, 0.15), 0 8px 30px -8px rgba(249, 115, 22, 0.35);
+  --shadow-4: 0 10px 15px -3px rgba(249, 115, 22, 0.2), 0 4px 6px -4px rgba(249, 115, 22, 0.2);
+
+  --motion-instant: 150ms;
+  --motion-fast: 200ms;
+  --motion-normal: 300ms;
+  --motion-slow: 700ms;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
