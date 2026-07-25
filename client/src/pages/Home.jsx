@@ -7,45 +7,45 @@ import '../styles/home.css';
 
 const FEATURES = [
   {
-    icon: '🤖',
+    icon: '🛡️ ', 
     bg: 'fi-orange',
-    title: 'AI Voice Bot 2.0',
-    desc: 'Conversational AI that handles inbound and outbound calls with human-like precision and real-time sentiment analysis.',
+    title: 'Self-hosted control panel',
+    desc: 'Your data, your stack, your firewall — total ownership without compromise.',
     tag: 'Powered by GPT-4o',
   },
   {
     icon: '📞',
     bg: 'fi-violet',
-    title: 'Virtual Phone Numbers',
-    desc: 'Instant local and toll-free numbers across 190+ countries. Port your existing numbers in minutes.',
+    title: 'Bring-your-own-carrier',
+    desc: 'Connect your existing carrier account in two clicks with zero porting downtime',
     tag: '190+ Countries',
   },
   {
-    icon: '🌐',
+    icon: '✍️',
     bg: 'fi-sky',
-    title: 'Elastic SIP Trunking',
-    desc: 'Carrier-grade SIP trunking with dynamic capacity scaling, 99.999% uptime SLA, and global PoPs.',
+    title: 'Plain-English agent design ',
+    desc: 'describe your agent in natural language and ship it without code.',
     tag: '99.999% SLA',
   },
   {
     icon: '📊',
     bg: 'fi-emerald',
-    title: 'Live Call Analytics',
-    desc: 'Real-time transcripts, keyword alerts, CSAT scoring, and agent performance dashboards in one place.',
+    title: 'RAG-powered knowledge sync',
+    desc: 'answers exclusively from your source of truth with live document sync and citations.',
     tag: 'Real-time insights',
   },
   {
-    icon: '🔒',
+    icon: '🔄',
     bg: 'fi-amber',
-    title: 'Enterprise Security',
-    desc: 'SOC 2 Type II certified, end-to-end encryption, HIPAA & GDPR compliant infrastructure out of the box.',
+    title: 'Inbound and outbound from one dashboard',
+    desc: 'route incoming calls and trigger outbound campaigns from the same interface.',
     tag: 'SOC 2 Certified',
   },
   {
-    icon: '⚡',
+    icon: '⏱️',
     bg: 'fi-rose',
-    title: 'WebRTC Softphone',
-    desc: 'Crystal-clear HD audio calling directly from your browser or our mobile app. No hardware needed.',
+    title: 'Per-second billing with no contracts ',
+    desc: 'pay only for the seconds you talk, scale from $0.13/min to $0.11/min.',
     tag: 'Zero Hardware',
   },
 ];
@@ -100,17 +100,6 @@ const TESTIMONIALS = [
     initials: 'PN',
     gradient: 'linear-gradient(135deg, #10B981, #059669)',
   },
-];
-
-const TRUSTED_LOGOS = [
-  { name: 'TechServe',   icon: '⚙️', bg: '#FFF7ED' },
-  { name: 'NovaPay',     icon: '💳', bg: '#F5F3FF' },
-  { name: 'RetailFirst', icon: '🛍️', bg: '#ECFDF5' },
-  { name: 'MediCore',    icon: '🏥', bg: '#F0F9FF' },
-  { name: 'SkyLogix',    icon: '✈️', bg: '#FFFBEB' },
-  { name: 'DataForge',   icon: '🔮', bg: '#FFF1F2' },
-  { name: 'CloudNest',   icon: '☁️', bg: '#F8FAFC' },
-  { name: 'UrbanGrid',   icon: '🏙️', bg: '#FFF7ED' },
 ];
 
 /* ─── Component ─────────────────────────────────────────── */
@@ -230,28 +219,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 2. TRUSTED BY ── */}
-      <section className="trusted-section home-section">
-        <div className="trusted-label">Trusted by industry leaders worldwide</div>
-        <div className="marquee-track" aria-hidden="true">
-          <div className="marquee-inner">
-            {/* Duplicate for seamless loop */}
-            {[...TRUSTED_LOGOS, ...TRUSTED_LOGOS].map((logo, i) => (
-              <div key={i} className="marquee-logo">
-                <span
-                  className="marquee-logo-icon"
-                  style={{ background: logo.bg }}
-                >
-                  {logo.icon}
-                </span>
-                {logo.name}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 3. FEATURES ── */}
+      {/* ── 2. FEATURES ── */}
       <section className="features-section home-section">
         <div className="home-container">
           <div className="section-header">
@@ -283,7 +251,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 4. HOW IT WORKS ── */}
+      {/* ── 3. HOW IT WORKS ── */}
       <section className="how-section home-section">
         <div className="home-container">
           <div className="section-header centered">
@@ -308,7 +276,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 5. STATS ── */}
+      {/* ── 4. STATS ── */}
       <section className="stats-section home-section">
         <div className="stats-bg-glow" aria-hidden="true" />
         <div className="home-container">
@@ -325,7 +293,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 6. TESTIMONIALS ── */}
+      {/* ── 5. TESTIMONIALS ── */}
       <section className="testimonials-section home-section">
         <div className="home-container">
           <div className="section-header centered">
@@ -366,7 +334,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 7. CTA BANNER ── */}
+      {/* ── 6. CTA BANNER ── */}
       <section className="cta-section home-section">
         <div className="home-container">
           <div className="cta-inner">
