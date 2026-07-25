@@ -4,6 +4,7 @@ import IndustryCard from '../components/industries/IndustryCard';
 import IndustryModal from '../components/industries/IndustryModal';
 import IndustryHeroVisual from '../components/industries/IndustryHeroVisual';
 import IndustryVerticalExplorer from '../components/industries/IndustryVerticalExplorer';
+import StackedCapabilityCards from '../components/industries/StackedCapabilityCards';
 import '../styles/industries.css';
 
 function Industries() {
@@ -98,28 +99,8 @@ function Industries() {
         </div>
       </section>
 
-      {/* 4. Core Capabilities Matrix */}
-      <section className="capabilities-section">
-        <div className="container">
-          <div className="section-header">
-            <span className="section-eyebrow" style={{ color: 'var(--primary)' }}>Platform Foundation</span>
-            <h2 className="section-title">Core Modular Technology Pillars</h2>
-            <p className="section-subtitle">
-              Every industry solution is backed by Conciva AI's carrier-grade cloud network, real-time AI processing engine, and enterprise compliance layer.
-            </p>
-          </div>
-
-          <div className="cap-grid">
-            {CAPABILITIES.map((cap, idx) => (
-              <div key={idx} className="cap-card">
-                <div className="cap-icon-box">⚡</div>
-                <h3 className="cap-title">{cap.title}</h3>
-                <p className="cap-desc">{cap.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* 4. Core Capabilities — Stacked Scroll Cards */}
+      <StackedCapabilityCards capabilities={CAPABILITIES} />
 
       {/* 5. Frequently Asked Questions */}
       <section className="faq-section">
