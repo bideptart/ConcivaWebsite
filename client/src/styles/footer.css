@@ -1,0 +1,411 @@
+/* ==========================================================================
+   CONCIVA AI — FOOTER  (Let's Dial style, dark navy)
+   All selectors are prefixed .cai-footer to avoid any global override.
+   ========================================================================== */
+
+/* Force the outer footer wrapper to be dark */
+footer.cai-footer,
+footer.cai-footer * {
+  box-sizing: border-box;
+}
+
+footer.cai-footer {
+  background-color: #0F172A !important;
+  color: #94A3B8;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Top accent line ── */
+.cai-footer-accent {
+  height: 2px;
+  background: linear-gradient(90deg, transparent 5%, #F97316 35%, #FB923C 65%, transparent 95%);
+}
+
+/* ── Decorative background blobs ── */
+.cai-footer-blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cai-footer-blob-1 {
+  width: 560px;
+  height: 560px;
+  top: -220px;
+  left: -140px;
+  background: radial-gradient(circle, rgba(249,115,22,0.07) 0%, transparent 70%);
+}
+
+.cai-footer-blob-2 {
+  width: 400px;
+  height: 400px;
+  bottom: -140px;
+  right: -80px;
+  background: radial-gradient(circle, rgba(139,92,246,0.05) 0%, transparent 70%);
+}
+
+/* ── Inner wrapper ── */
+.cai-footer-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ── CTA Banner (Let's Dial style — full-width inside footer) ── */
+.cai-footer-cta {
+  padding: 3.5rem 0 3rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+.cai-footer-cta-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #F97316;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: rgba(249,115,22,0.1);
+  border: 1px solid rgba(249,115,22,0.25);
+  padding: 0.3rem 0.9rem;
+  border-radius: 9999px;
+}
+
+.cai-footer-cta-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #F97316;
+  animation: cfPulse 2s ease-in-out infinite;
+}
+
+@keyframes cfPulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%      { opacity:0.4; transform:scale(0.8); }
+}
+
+.cai-footer-cta-title {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.cai-footer-cta-title span {
+  color: #F97316;
+}
+
+.cai-footer-cta-sub {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.7;
+  max-width: 480px;
+  margin: 0;
+}
+
+.cai-footer-cta-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.cai-btn-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.82rem 2rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+  color: #FFFFFF !important;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none !important;
+  box-shadow: 0 6px 22px rgba(249,115,22,0.42);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.cai-btn-cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(249,115,22,0.55);
+}
+
+.cai-btn-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.82rem 1.75rem;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  background: transparent;
+  color: rgba(255,255,255,0.8) !important;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+
+.cai-btn-cta-secondary:hover {
+  border-color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.06);
+  color: #FFFFFF !important;
+}
+
+/* ── Main 4-column grid ── */
+.cai-footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 2.5rem 3rem;
+  padding: 3.5rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Brand column */
+.cai-footer-logo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  text-decoration: none !important;
+  margin-bottom: 1rem;
+}
+
+.cai-footer-logo-box {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #F97316, #EA580C);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 12px rgba(249,115,22,0.45);
+  flex-shrink: 0;
+}
+
+.cai-footer-logo-name {
+  font-size: 1.22rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.cai-footer-logo-name span {
+  color: #F97316;
+}
+
+.cai-footer-desc {
+  font-size: 0.855rem;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.7;
+  max-width: 270px;
+  margin-bottom: 1.5rem;
+}
+
+/* Social row */
+.cai-footer-socials {
+  display: flex;
+  gap: 0.55rem;
+}
+
+.cai-social-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  border: 1.5px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.03);
+  color: rgba(255,255,255,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none !important;
+  transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.cai-social-btn:hover {
+  border-color: #F97316;
+  background: rgba(249,115,22,0.1);
+  color: #F97316 !important;
+  transform: translateY(-2px);
+}
+
+/* Link columns */
+.cai-footer-col-title {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0 0 1.1rem 0;
+}
+
+.cai-footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.cai-footer-links li a {
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.45) !important;
+  text-decoration: none !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.2s;
+  line-height: 1.4;
+}
+
+.cai-footer-links li a:hover {
+  color: #F97316 !important;
+}
+
+.cai-link-badge {
+  font-size: 0.62rem;
+  font-weight: 700;
+  background: #F97316;
+  color: #FFFFFF;
+  padding: 0.1rem 0.5rem;
+  border-radius: 9999px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* ── Bottom bar ── */
+.cai-footer-bottom {
+  padding: 1.4rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.cai-footer-copy {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.3);
+  margin: 0;
+}
+
+.cai-footer-copy strong {
+  color: rgba(255,255,255,0.5);
+  font-weight: 600;
+}
+
+/* Compliance badges */
+.cai-footer-compliance {
+  display: flex;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.cai-compliance-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.4);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 0.22rem 0.65rem;
+  border-radius: 9999px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.cai-compliance-badge:hover {
+  border-color: rgba(249,115,22,0.4);
+  color: rgba(249,115,22,0.75);
+}
+
+.cai-compliance-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #10B981;
+  flex-shrink: 0;
+}
+
+/* Legal links */
+.cai-footer-legal {
+  display: flex;
+  gap: 1.15rem;
+  flex-wrap: wrap;
+}
+
+.cai-footer-legal a {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.28) !important;
+  text-decoration: none !important;
+  transition: color 0.2s;
+}
+
+.cai-footer-legal a:hover {
+  color: #F97316 !important;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .cai-footer-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .cai-footer-brand {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+  .cai-footer-desc {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 640px) {
+  .cai-footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .cai-footer-brand {
+    grid-column: 1 / -1;
+    flex-direction: column;
+  }
+  .cai-footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
+  }
+  .cai-footer-legal {
+    gap: 0.75rem;
+  }
+  .cai-footer-cta-btns {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .cai-btn-cta-primary,
+  .cai-btn-cta-secondary {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .cai-footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
