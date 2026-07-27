@@ -1,32 +1,118 @@
-import { cn } from "../../lib/utils";
-import { Avatar, AvatarImage } from "./avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "./avatar";
+import { TrendingUp } from "lucide-react";
 
-export function TestimonialCard({ author, text, href, className }) {
+export function TestimonialCard({ author, text, badge, href, className }) {
   const Card = href ? "a" : "div";
+
+  /* initials from name */
+  const initials = author.name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
+  /* badge colours */
+  const badgeStyle = badge
+    ? {
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "0.3rem",
+        fontSize: "0.68rem",
+        fontWeight: 800,
+        letterSpacing: "0.04em",
+        textTransform: "uppercase",
+        color: badge.color,
+        background: badge.bg,
+        border: `1.5px solid ${badge.border}`,
+        borderRadius: "9999px",
+        padding: "0.25rem 0.65rem",
+        whiteSpace: "nowrap",
+      }
+    : null;
 
   return (
     <Card
-      {...(href ? { href } : {})}
-      className={cn(
-        "flex flex-col rounded-lg border-t",
-        "bg-gradient-to-b from-muted/50 to-muted/10",
-        "p-4 text-start sm:p-6",
-        "hover:from-muted/60 hover:to-muted/20",
-        "max-w-[320px] sm:max-w-[320px]",
-        "transition-colors duration-300",
-        className
-      )}
+      {...(href ? { href, target: "_blank", rel: "noopener noreferrer" } : {})}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        width: 280,
+        minWidth: 280,
+        background: "#FFFFFF",
+        border: "1px solid #F1F5F9",
+        borderRadius: "16px",
+        padding: "1.1rem 1.25rem 1.25rem",
+        textDecoration: "none",
+        transition: "box-shadow 0.25s ease, border-color 0.25s ease",
+        cursor: href ? "pointer" : "default",
+        flexShrink: 0,
+      }}
+      className={className}
+      onMouseEnter={href ? (e) => {
+        e.currentTarget.style.boxShadow = "0 8px 24px rgba(15,23,42,0.10)";
+        e.currentTarget.style.borderColor = "#FED7AA";
+      } : undefined}
+      onMouseLeave={href ? (e) => {
+        e.currentTarget.style.boxShadow = "none";
+        e.currentTarget.style.borderColor = "#F1F5F9";
+      } : undefined}
     >
-      <div className="flex items-center gap-3">
-        <Avatar className="h-12 w-12">
-          <AvatarImage src={author.avatar} alt={author.name} />
+      {/* Top row: badge + quote icon */}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.75rem" }}>
+        {badge ? (
+          <span style={badgeStyle}>
+            <TrendingUp size={10} strokeWidth={2.5} />
+            {badge.label}
+          </span>
+        ) : <span />}
+        <span style={{ fontSize: "1.6rem", lineHeight: 1, color: "#E2E8F0", marginTop: "-4px" }}>"</span>
+      </div>
+
+      {/* Quote text — 3 line clamp */}
+      <p style={{
+        fontSize: "0.85rem",
+        color: "#475569",
+        lineHeight: 1.65,
+        margin: "0 0 1rem",
+        display: "-webkit-box",
+        WebkitLineClamp: 3,
+        WebkitBoxOrient: "vertical",
+        overflow: "hidden",
+        flex: 1,
+      }}>
+        "{text}"
+      </p>
+
+      {/* Author row */}
+      <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
+        <Avatar className="h-9 w-9" style={{ flexShrink: 0 }}>
+          <AvatarFallback style={{
+            background: "linear-gradient(135deg, #F97316, #EA580C)",
+            color: "white",
+            fontSize: "0.75rem",
+            fontWeight: 700,
+          }}>
+            {initials}
+          </AvatarFallback>
         </Avatar>
-        <div className="flex flex-col items-start">
-          <h3 className="text-md font-semibold leading-none">{author.name}</h3>
-          <p className="text-sm text-muted-foreground">{author.handle}</p>
+
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontSize: "0.82rem", fontWeight: 700, color: "#0F172A", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+            {author.name}
+          </div>
+          <div style={{ fontSize: "0.72rem", color: "#94A3B8", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+            {author.handle}
+          </div>
+        </div>
+
+        {/* Stars */}
+        <div style={{ display: "flex", gap: "1px", flexShrink: 0 }}>
+          {[1,2,3,4,5].map((s) => (
+            <span key={s} style={{ color: "#F97316", fontSize: "0.75rem" }}>★</span>
+          ))}
         </div>
       </div>
-      <p className="sm:text-md mt-4 text-sm text-muted-foreground">{text}</p>
     </Card>
   );
 }

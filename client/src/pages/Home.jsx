@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Play, Zap, Globe2, PhoneCall, ShieldCheck, Infinity as InfinityIcon } from 'lucide-react';
-import ScrollStack, { ScrollStackItem } from '../components/home/ScrollStack';
 import { TestimonialsSection } from '../components/blocks/testimonials-with-marquee';
 import '../styles/home.css';
 
@@ -83,52 +82,55 @@ const MARQUEE_TESTIMONIALS = [
   {
     author: {
       name: 'Sarah Mitchell',
-      handle: '@sarahmitchell · VP Operations · TechServe Global',
+      handle: 'VP Operations · TechServe Global',
       avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face',
     },
+    badge: { label: '73% Deflection', color: '#EA580C', bg: '#FFF7ED', border: '#FED7AA' },
     text: 'Conciva AI reduced our customer wait times by 73% in the first month. The AI voice bot handles tier-1 queries flawlessly — our agents now focus only on complex cases.',
-    href: 'https://twitter.com',
   },
   {
     author: {
       name: 'David Chen',
-      handle: '@davidchen · CTO · NovaPay Financial',
+      handle: 'CTO · NovaPay Financial',
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
     },
+    badge: { label: 'Live in 4 Days', color: '#B45309', bg: '#FFFBEB', border: '#FDE68A' },
     text: "The SIP trunking quality is exceptional. We've processed over 50 million minutes with zero unplanned downtime. Best carrier decision we've ever made.",
-    href: 'https://twitter.com',
   },
   {
     author: {
       name: 'Priya Nair',
-      handle: '@priyanair · Head of CX · RetailFirst',
+      handle: 'Head of CX · RetailFirst',
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face',
     },
+    badge: { label: '30 hrs/week saved', color: '#059669', bg: '#ECFDF5', border: '#A7F3D0' },
     text: "Integration with our Salesforce instance took under an hour. The live analytics dashboard alone saved our QA team 30 hours per week. Absolutely brilliant product.",
   },
   {
     author: {
       name: 'James Okafor',
-      handle: '@jamesokafor · COO · SwiftLogix',
+      handle: 'COO · SwiftLogix',
       avatar: 'https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=150&h=150&fit=crop&crop=face',
     },
+    badge: { label: 'Zero Downtime', color: '#7C3AED', bg: '#F5F3FF', border: '#DDD6FE' },
     text: "Switched from our legacy PBX in a weekend. The onboarding team was incredible and call quality is night-and-day better. Conciva AI just works.",
   },
   {
     author: {
       name: 'Mia Thornton',
-      handle: '@miathornton · Director of Support · CloudBase',
+      handle: 'Director of Support · CloudBase',
       avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop&crop=face',
     },
+    badge: { label: 'CSAT 94%', color: '#0369A1', bg: '#EFF6FF', border: '#BAE6FD' },
     text: "Real-time transcripts and sentiment scoring changed how we coach agents. CSAT went from 78% to 94% in two quarters. The ROI is undeniable.",
-    href: 'https://twitter.com',
   },
   {
     author: {
       name: 'Ravi Sharma',
-      handle: '@ravisharma · CX Lead · FinEdge',
+      handle: 'CX Lead · FinEdge',
       avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face',
     },
+    badge: { label: '99.999% Uptime', color: '#EA580C', bg: '#FFF7ED', border: '#FED7AA' },
     text: "We handle 40,000 inbound calls a day. Conciva AI scales without a hiccup. The 99.999% uptime SLA isn't marketing — it's reality.",
   },
 ];
@@ -304,11 +306,15 @@ export default function Home() {
       </section>
 
       {/* ── 2. FEATURES ── */}
-      <section className="features-section home-section">
+      <section className="features-section" style={{ overflow: 'visible', width: '100%' }}>
         <div className="home-container">
-          <div className="features-hero-grid">
+          <div className="features-hero-grid" style={{ alignItems: 'start' }}>
             {/* Left column */}
-            <div className="features-left anim-fade-up">
+            <div className="features-left anim-fade-up" style={{
+              position: 'sticky',
+              top: '5rem',
+              alignSelf: 'flex-start',
+            }}>
               <span className="eyebrow-pill">
                 <span className="eyebrow-dot" /> Platform Features
               </span>
@@ -342,19 +348,15 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right column — scroll stack */}
+            {/* Right column — sticky stacking cards */}
             <div className="features-right anim-fade-up delay-2">
-              <ScrollStack
-                className="feature-scroll-stack"
-                itemDistance={90}
-                itemScale={0.035}
-                itemStackDistance={26}
-                stackPosition="18%"
-                scaleEndPosition="8%"
-                baseScale={0.88}
-              >
+              <div className="feat-cards-stack">
                 {FEATURES.map((f, i) => (
-                  <ScrollStackItem key={f.title} itemClassName="feat-stack-card">
+                  <div
+                    key={f.title}
+                    className="feat-stack-card"
+                    style={{ '--card-index': i }}
+                  >
                     <div className="stack-card-top">
                       <span className="stack-card-label">STACK · 0{i + 1}</span>
                       <span className={`stack-card-icon ${f.bg}`}>{f.icon}</span>
@@ -363,9 +365,9 @@ export default function Home() {
                     <p className="stack-card-desc">{f.desc}</p>
                     <div className="stack-card-divider" />
                     <span className="stack-card-tag">✓ {f.tag}</span>
-                  </ScrollStackItem>
+                  </div>
                 ))}
-              </ScrollStack>
+              </div>
             </div>
           </div>
         </div>
@@ -463,22 +465,93 @@ export default function Home() {
       />
 
       {/* ── 6. CTA BANNER ── */}
-      <section className="cta-section home-section">
+      <section className="home-section" style={{ background: '#FAF8F5', padding: '3rem 0 4rem' }}>
         <div className="home-container">
-          <div className="cta-inner">
-            <h2 className="cta-headline">
-              Ready to transform your<br />customer communications?
+          <div style={{
+            background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 60%, #2D1810 100%)',
+            borderRadius: '24px',
+            padding: 'clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem)',
+            textAlign: 'center',
+            position: 'relative',
+            overflow: 'hidden',
+          }}>
+            {/* Glow blobs */}
+            <div style={{
+              position: 'absolute', top: '-60px', right: '-60px',
+              width: 320, height: 320, borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(249,115,22,0.18) 0%, transparent 70%)',
+              pointerEvents: 'none',
+            }} />
+            <div style={{
+              position: 'absolute', bottom: '-80px', left: '-40px',
+              width: 260, height: 260, borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(249,115,22,0.10) 0%, transparent 70%)',
+              pointerEvents: 'none',
+            }} />
+
+            <h2 style={{
+              position: 'relative', zIndex: 1,
+              fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)',
+              fontWeight: 800,
+              color: '#FFFFFF',
+              lineHeight: 1.2,
+              letterSpacing: '-0.03em',
+              marginBottom: '1rem',
+            }}>
+              Ready to transform your contact center with Voice AI?
             </h2>
-            <p className="cta-sub">
-              Join 14,000+ businesses using Conciva AI to handle millions of calls
-              with intelligence and reliability. Start your free trial today.
+
+            <p style={{
+              position: 'relative', zIndex: 1,
+              fontSize: '1rem',
+              color: 'rgba(255,255,255,0.65)',
+              lineHeight: 1.7,
+              maxWidth: 480,
+              margin: '0 auto 2.25rem',
+            }}>
+              Deploy your first Conciva voice agent in under 10 minutes.
+              Tailored for modern enterprises.
             </p>
-            <div className="cta-buttons">
-              <Link to="/pricing" className="btn-cta-white">
-                Start Free Trial <ArrowRight size={17} strokeWidth={2.5} />
+
+            <div style={{
+              position: 'relative', zIndex: 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '1rem',
+              flexWrap: 'wrap',
+            }}>
+              <Link to="/pricing" style={{
+                display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+                fontSize: '0.95rem', fontWeight: 700,
+                color: '#FFFFFF',
+                background: 'linear-gradient(135deg, #F97316 0%, #EA580C 100%)',
+                padding: '0.85rem 2rem',
+                borderRadius: '9999px',
+                textDecoration: 'none',
+                boxShadow: '0 6px 24px rgba(249,115,22,0.45)',
+                transition: 'transform 0.22s ease, box-shadow 0.22s ease',
+              }}
+                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 10px 32px rgba(249,115,22,0.55)'; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 6px 24px rgba(249,115,22,0.45)'; }}
+              >
+                Start 14-Day Free Trial <ArrowRight size={16} strokeWidth={2.5} />
               </Link>
-              <Link to="/contact" className="btn-cta-outline">
-                Book a Demo
+
+              <Link to="/contact" style={{
+                display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+                fontSize: '0.92rem', fontWeight: 600,
+                color: '#FFFFFF',
+                padding: '0.85rem 1.85rem',
+                borderRadius: '9999px',
+                border: '1.5px solid rgba(255,255,255,0.3)',
+                textDecoration: 'none',
+                transition: 'border-color 0.22s ease, background 0.22s ease',
+              }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.7)'; e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'; e.currentTarget.style.background = 'transparent'; }}
+              >
+                Request Demo Call
               </Link>
             </div>
           </div>
