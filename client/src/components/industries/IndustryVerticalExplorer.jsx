@@ -1,5 +1,56 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 
+/* ─── SVG icons per industry id (no emojis) ─── */
+const INDUSTRY_SVG = {
+  'healthcare': ({ color }) => (
+    <svg width="36" height="36" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+      <rect x="3" y="7" width="22" height="17" rx="2.5" stroke={color} strokeWidth="1.8"/>
+      <path d="M9 7V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2" stroke={color} strokeWidth="1.8"/>
+      <path d="M14 12v6M11 15h6" stroke={color} strokeWidth="1.8" strokeLinecap="round"/>
+    </svg>
+  ),
+  'real-estate': ({ color }) => (
+    <svg width="36" height="36" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+      <path d="M3 13.5L14 4l11 9.5" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M6 11v12h5v-5h6v5h5V11" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  ),
+  'finance-banking': ({ color }) => (
+    <svg width="36" height="36" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+      <rect x="3" y="8" width="22" height="14" rx="2.5" stroke={color} strokeWidth="1.8"/>
+      <path d="M3 12h22" stroke={color} strokeWidth="1.8"/>
+      <rect x="7" y="16" width="4" height="2" rx="1" fill={color}/>
+    </svg>
+  ),
+  'ecommerce-retail': ({ color }) => (
+    <svg width="36" height="36" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+      <path d="M4 4h2.5l2 10h11l2-7H8.5" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+      <circle cx="11" cy="22" r="1.5" stroke={color} strokeWidth="1.6"/>
+      <circle cx="19" cy="22" r="1.5" stroke={color} strokeWidth="1.6"/>
+    </svg>
+  ),
+  'education-edtech': ({ color }) => (
+    <svg width="36" height="36" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+      <path d="M14 5L3 11l11 6 11-6-11-6z" stroke={color} strokeWidth="1.8" strokeLinejoin="round"/>
+      <path d="M7 14v6c0 1.5 3 3 7 3s7-1.5 7-3v-6" stroke={color} strokeWidth="1.8" strokeLinecap="round"/>
+      <path d="M25 11v5" stroke={color} strokeWidth="1.8" strokeLinecap="round"/>
+    </svg>
+  ),
+  'logistics-hospitality': ({ color }) => (
+    <svg width="36" height="36" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+      <rect x="3" y="10" width="22" height="14" rx="2" stroke={color} strokeWidth="1.8"/>
+      <path d="M8 10V7a6 6 0 0 1 12 0v3" stroke={color} strokeWidth="1.8" strokeLinecap="round"/>
+      <circle cx="14" cy="17" r="2" stroke={color} strokeWidth="1.6"/>
+    </svg>
+  ),
+};
+
+function IndustryIcon({ id, color }) {
+  const Icon = INDUSTRY_SVG[id];
+  if (!Icon) return null;
+  return <Icon color={color} />;
+}
+
 /* ─── Illustration panel — geometric isometric visual per industry ─── */
 function IndustryIllustration({ industry }) {
   const palettes = {
@@ -31,7 +82,7 @@ function IndustryIllustration({ industry }) {
       {/* Central icon */}
       <div className="ive-illus-center">
         <div className="ive-illus-icon-ring" style={{ borderColor: pal.accent, boxShadow: `0 16px 40px ${pal.accent}26` }}>
-          <span className="ive-illus-icon">{industry.icon}</span>
+          <IndustryIcon id={industry.id} color={pal.accent} />
         </div>
       </div>
 

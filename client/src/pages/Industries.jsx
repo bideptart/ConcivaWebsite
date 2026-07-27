@@ -59,10 +59,22 @@ function Industries() {
 
               {/* Trust badges */}
               <div className="ind-trust-row">
-                <span className="ind-trust-pill">🏥 HIPAA</span>
-                <span className="ind-trust-pill">💳 PCI-DSS</span>
-                <span className="ind-trust-pill">🔒 ISO 27001</span>
-                <span className="ind-trust-pill">⚡ Sub-300ms</span>
+                <span className="ind-trust-pill">
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2" y="3" width="10" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.4"/><path d="M5 3V2a2 2 0 0 1 4 0v1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/><circle cx="7" cy="7.5" r="1" fill="currentColor"/></svg>
+                  HIPAA
+                </span>
+                <span className="ind-trust-pill">
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1.5" y="4" width="11" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.4"/><path d="M1.5 6h11" stroke="currentColor" strokeWidth="1.4"/><rect x="3" y="7.5" width="2.5" height="1.5" rx="0.5" fill="currentColor"/></svg>
+                  PCI-DSS
+                </span>
+                <span className="ind-trust-pill">
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 1L2 3v4c0 2.8 2.2 4.5 5 5 2.8-.5 5-2.2 5-5V3L7 1z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round"/><path d="M4.5 7l1.8 1.8L9.5 5.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  ISO 27001
+                </span>
+                <span className="ind-trust-pill">
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 1.5L2.5 7h4.5L5.5 12.5 11.5 7H7L7 1.5z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" strokeLinecap="round"/></svg>
+                  Sub-300ms
+                </span>
               </div>
 
               <div className="hero-actions">
