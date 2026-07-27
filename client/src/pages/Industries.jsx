@@ -59,10 +59,22 @@ function Industries() {
 
               {/* Trust badges */}
               <div className="ind-trust-row">
-                <span className="ind-trust-pill">🏥 HIPAA</span>
-                <span className="ind-trust-pill">💳 PCI-DSS</span>
-                <span className="ind-trust-pill">🔒 ISO 27001</span>
-                <span className="ind-trust-pill">⚡ Sub-300ms</span>
+                <span className="ind-trust-pill">
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2" y="3" width="10" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.4"/><path d="M5 3V2a2 2 0 0 1 4 0v1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/><circle cx="7" cy="7.5" r="1" fill="currentColor"/></svg>
+                  HIPAA
+                </span>
+                <span className="ind-trust-pill">
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1.5" y="4" width="11" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.4"/><path d="M1.5 6h11" stroke="currentColor" strokeWidth="1.4"/><rect x="3" y="7.5" width="2.5" height="1.5" rx="0.5" fill="currentColor"/></svg>
+                  PCI-DSS
+                </span>
+                <span className="ind-trust-pill">
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 1L2 3v4c0 2.8 2.2 4.5 5 5 2.8-.5 5-2.2 5-5V3L7 1z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round"/><path d="M4.5 7l1.8 1.8L9.5 5.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  ISO 27001
+                </span>
+                <span className="ind-trust-pill">
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 1.5L2.5 7h4.5L5.5 12.5 11.5 7H7L7 1.5z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" strokeLinecap="round"/></svg>
+                  Sub-300ms
+                </span>
               </div>
 
               <div className="hero-actions">
@@ -84,11 +96,13 @@ function Industries() {
       {/* 2. Industry Feature Showcase (Interactive Vertical Explorer Hub) */}
       <section className="industries-section" id="explore-industries">
         <div className="container">
-          <div className="section-header">
-            <span className="section-eyebrow">Industry Architectures</span>
-            <h2 className="section-title">Engineered for Industry Specific Challenges</h2>
-            <p className="section-subtitle">
-              Choose your vertical to explore custom workflows, security compliance certifications, and pre-built integrations.
+         <div className="scc-heading-block" style={{ padding: '0 0 3rem' }}>
+            <span className="scc-eyebrow">Industry Architectures</span>
+            <h2 className="scc-section-title">
+              Industry <span className="scc-title-accent">Architectures</span>
+            </h2>
+            <p className="scc-section-sub">
+              Engineered for Industry Specific Challenges — every vertical gets its own workflows, compliance certifications, and pre-built integrations.
             </p>
           </div>
 
@@ -102,13 +116,15 @@ function Industries() {
       {/* 4. Core Capabilities — Stacked Scroll Cards */}
       <StackedCapabilityCards capabilities={CAPABILITIES} />
 
-      {/* 5. Frequently Asked Questions */}
+   {/* 5. Frequently Asked Questions */}
       <section className="faq-section">
         <div className="container">
-          <div className="section-header">
-            <span className="section-eyebrow">Got Questions?</span>
-            <h2 className="section-title">Frequently Asked Questions</h2>
-            <p className="section-subtitle">
+          <div className="scc-heading-block" style={{ padding: '0 0 3rem' }}>
+            <span className="scc-eyebrow">Got Questions?</span>
+            <h2 className="scc-section-title">
+              Frequently Asked <span className="scc-title-accent">Questions</span>
+            </h2>
+            <p className="scc-section-sub">
               Learn how Conciva AI handles compliance, security, migration, and custom industry integrations.
             </p>
           </div>

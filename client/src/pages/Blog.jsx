@@ -105,7 +105,7 @@ function FeaturedPost({ post }) {
   );
 }
 
-/* ─── Single marquee card (no divider lines) ─── */
+/* ─── Single marquee card ─── */
 function MarqueeCard({ post }) {
   return (
     <article className="bmc-card">
@@ -142,46 +142,31 @@ function MarqueeCard({ post }) {
 function BlogMarquee({ posts }) {
   const trackRef = useRef(null);
   const animRef  = useRef(null);
-  const posRef   = useRef(0);           // current translateX (px, always negative)
-  const speedRef = useRef(0.55);        // px per frame
+  const posRef   = useRef(0);
+  const speedRef = useRef(0.55);
   const pausedRef = useRef(false);
-
-  /* drag state */
   const drag = useRef({ active: false, startX: 0, startPos: 0 });
 
-  /* duplicate posts for seamless loop */
   const items = [...posts, ...posts, ...posts];
 
-  /* RAF animation loop */
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
-
-    const singleWidth = () => track.scrollWidth / 3; // one copy width
-
+    const singleWidth = () => track.scrollWidth / 3;
     const tick = () => {
       if (!pausedRef.current) {
         posRef.current -= speedRef.current;
-        // reset when first copy fully scrolled past
-        if (Math.abs(posRef.current) >= singleWidth()) {
-          posRef.current += singleWidth();
-        }
+        if (Math.abs(posRef.current) >= singleWidth()) posRef.current += singleWidth();
         track.style.transform = `translateX(${posRef.current}px)`;
       }
       animRef.current = requestAnimationFrame(tick);
     };
-
     animRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(animRef.current);
   }, [posts]);
 
-  /* pause on hover */
   const handleEnter = () => { pausedRef.current = true; };
-  const handleLeave = () => {
-    if (!drag.current.active) pausedRef.current = false;
-  };
-
-  /* mouse drag */
+  const handleLeave = () => { if (!drag.current.active) pausedRef.current = false; };
   const onMouseDown = (e) => {
     drag.current = { active: true, startX: e.clientX, startPos: posRef.current };
     pausedRef.current = true;
@@ -189,8 +174,7 @@ function BlogMarquee({ posts }) {
   };
   const onMouseMove = (e) => {
     if (!drag.current.active) return;
-    const delta = e.clientX - drag.current.startX;
-    posRef.current = drag.current.startPos + delta;
+    posRef.current = drag.current.startPos + (e.clientX - drag.current.startX);
     trackRef.current.style.transform = `translateX(${posRef.current}px)`;
   };
   const onMouseUp = () => {
@@ -198,16 +182,13 @@ function BlogMarquee({ posts }) {
     pausedRef.current = false;
     if (trackRef.current) trackRef.current.style.cursor = 'grab';
   };
-
-  /* touch drag */
   const onTouchStart = (e) => {
     drag.current = { active: true, startX: e.touches[0].clientX, startPos: posRef.current };
     pausedRef.current = true;
   };
   const onTouchMove = (e) => {
     if (!drag.current.active) return;
-    const delta = e.touches[0].clientX - drag.current.startX;
-    posRef.current = drag.current.startPos + delta;
+    posRef.current = drag.current.startPos + (e.touches[0].clientX - drag.current.startX);
     trackRef.current.style.transform = `translateX(${posRef.current}px)`;
   };
   const onTouchEnd = () => {
@@ -227,10 +208,8 @@ function BlogMarquee({ posts }) {
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
     >
-      {/* Edge fade masks */}
       <div className="bmc-fade-left"  aria-hidden="true" />
       <div className="bmc-fade-right" aria-hidden="true" />
-
       <div ref={trackRef} className="bmc-track">
         {items.map((post, i) => (
           <div key={`${post.id}-${i}`} className="bmc-slide">
@@ -329,7 +308,7 @@ export default function Blog() {
   const [searchQuery, setSearchQuery] = useState('');
   const [heroRef, heroVisible] = useReveal(0.05);
 
-  const featured  = BLOG_POSTS.find(p => p.featured);
+  const featured    = BLOG_POSTS.find(p => p.featured);
   const nonFeatured = BLOG_POSTS.filter(p => !p.featured);
 
   const filtered = nonFeatured.filter(p => {
@@ -341,7 +320,6 @@ export default function Blog() {
     return matchCat && matchSearch;
   });
 
-  /* when filtering, show a grid; default 'All' view shows the marquee */
   const showMarquee = activeCategory === 'All' && !searchQuery;
 
   return (
@@ -376,7 +354,7 @@ export default function Blog() {
         </div>
       </header>
 
-      {/* ── Featured post (full-width, outside container) ── */}
+      {/* ── Featured post ── */}
       {featured && activeCategory === 'All' && !searchQuery && (
         <div className="blog-container" style={{ paddingTop: '2.5rem' }}>
           <FeaturedPost post={featured} />
@@ -393,7 +371,7 @@ export default function Blog() {
         </div>
       )}
 
-      {/* ── Marquee carousel (full-width bleed) OR filtered grid ── */}
+      {/* ── Marquee carousel OR filtered grid ── */}
       {showMarquee ? (
         <BlogMarquee posts={nonFeatured} />
       ) : (

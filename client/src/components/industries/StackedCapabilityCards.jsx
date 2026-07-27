@@ -4,14 +4,58 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+/* ─── SVG icons for capability cards (no emojis) ─── */
+const CapIcons = {
+  Performance: ({ color = '#F97316' }) => (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke={color} strokeWidth="1.7" strokeLinejoin="round"/>
+    </svg>
+  ),
+  Language: ({ color = '#A78BFA' }) => (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" stroke={color} strokeWidth="1.7"/>
+      <path d="M12 3c-2.5 3-4 5.5-4 9s1.5 6 4 9" stroke={color} strokeWidth="1.7" strokeLinecap="round"/>
+      <path d="M12 3c2.5 3 4 5.5 4 9s-1.5 6-4 9" stroke={color} strokeWidth="1.7" strokeLinecap="round"/>
+      <path d="M3 12h18" stroke={color} strokeWidth="1.7" strokeLinecap="round"/>
+    </svg>
+  ),
+  Integration: ({ color = '#38BDF8' }) => (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke={color} strokeWidth="1.7" strokeLinecap="round"/>
+      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke={color} strokeWidth="1.7" strokeLinecap="round"/>
+    </svg>
+  ),
+  Voice: ({ color = '#F97316' }) => (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="9" y="2" width="6" height="12" rx="3" stroke={color} strokeWidth="1.7"/>
+      <path d="M5 10a7 7 0 0 0 14 0" stroke={color} strokeWidth="1.7" strokeLinecap="round"/>
+      <path d="M12 19v3M8 22h8" stroke={color} strokeWidth="1.7" strokeLinecap="round"/>
+    </svg>
+  ),
+  Automation: ({ color = '#34D399' }) => (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="3" stroke={color} strokeWidth="1.7"/>
+      <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.64 5.64l2.12 2.12M16.24 16.24l2.12 2.12M5.64 18.36l2.12-2.12M16.24 7.76l2.12-2.12" stroke={color} strokeWidth="1.7" strokeLinecap="round"/>
+    </svg>
+  ),
+  Infrastructure: ({ color = '#FCD34D' }) => (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="2" y="3" width="20" height="14" rx="2" stroke={color} strokeWidth="1.7"/>
+      <path d="M8 21h8M12 17v4" stroke={color} strokeWidth="1.7" strokeLinecap="round"/>
+      <path d="M6 8h.01M9 8h6" stroke={color} strokeWidth="1.7" strokeLinecap="round"/>
+      <path d="M6 11h.01M9 11h6" stroke={color} strokeWidth="1.7" strokeLinecap="round"/>
+    </svg>
+  ),
+};
+
 /* ─── Card accent colours (one per pillar, all harmonised with #F97316) ─── */
 const CARD_PALETTE = [
-  { bg: 'linear-gradient(145deg,#1E293B 0%,#0F172A 100%)', glow: 'rgba(249,115,22,0.7)',  icon: '⚡', tag: 'Performance'  },
-  { bg: 'linear-gradient(145deg,#1E293B 0%,#0F172A 100%)', glow: 'rgba(139,92,246,0.6)',  icon: '🌐', tag: 'Language'     },
-  { bg: 'linear-gradient(145deg,#1E293B 0%,#0F172A 100%)', glow: 'rgba(14,165,233,0.6)',  icon: '🔗', tag: 'Integration'  },
-  { bg: 'linear-gradient(145deg,#1E293B 0%,#0F172A 100%)', glow: 'rgba(249,115,22,0.55)', icon: '🎙️', tag: 'Voice'        },
-  { bg: 'linear-gradient(145deg,#1E293B 0%,#0F172A 100%)', glow: 'rgba(16,185,129,0.6)',  icon: '🤖', tag: 'Automation'   },
-  { bg: 'linear-gradient(145deg,#1E293B 0%,#0F172A 100%)', glow: 'rgba(245,158,11,0.6)',  icon: '🏗️', tag: 'Infrastructure'},
+  { bg: 'linear-gradient(145deg,#1E293B 0%,#0F172A 100%)', glow: 'rgba(249,115,22,0.7)',  IconComp: CapIcons.Performance,   tag: 'Performance'   },
+  { bg: 'linear-gradient(145deg,#1E293B 0%,#0F172A 100%)', glow: 'rgba(139,92,246,0.6)',  IconComp: CapIcons.Language,      tag: 'Language'      },
+  { bg: 'linear-gradient(145deg,#1E293B 0%,#0F172A 100%)', glow: 'rgba(14,165,233,0.6)',  IconComp: CapIcons.Integration,   tag: 'Integration'   },
+  { bg: 'linear-gradient(145deg,#1E293B 0%,#0F172A 100%)', glow: 'rgba(249,115,22,0.55)', IconComp: CapIcons.Voice,         tag: 'Voice'         },
+  { bg: 'linear-gradient(145deg,#1E293B 0%,#0F172A 100%)', glow: 'rgba(16,185,129,0.6)',  IconComp: CapIcons.Automation,    tag: 'Automation'    },
+  { bg: 'linear-gradient(145deg,#1E293B 0%,#0F172A 100%)', glow: 'rgba(245,158,11,0.6)',  IconComp: CapIcons.Infrastructure, tag: 'Infrastructure'},
 ];
 
 /* ─── Single sticky card ─── */
@@ -146,16 +190,28 @@ function PillarCard({ capability, index, total }) {
           {/* Centre: icon + title + desc */}
           <div className="scc-centre-col">
             <div className="scc-icon-wrap">
-              <span className="scc-icon">{pal.icon}</span>
+              <pal.IconComp color={
+                pal.glow.includes('249,115') ? '#F97316' :
+                pal.glow.includes('139,92')  ? '#A78BFA' :
+                pal.glow.includes('14,165')  ? '#38BDF8' :
+                pal.glow.includes('16,185')  ? '#34D399' :
+                pal.glow.includes('245,158') ? '#FCD34D' : '#F97316'
+              } />
             </div>
             <h3 className="scc-title">{capability.title}</h3>
             <p className="scc-desc">{capability.desc}</p>
           </div>
 
-          {/* Right: metric chip (re-uses first two capability words as a KPI badge) */}
+          {/* Right: metric chip */}
           <div className="scc-right-col">
             <div className="scc-kpi-chip" style={{ borderColor: pal.glow.replace(/[\d.]+\)$/, '0.35)') }}>
-              <span className="scc-kpi-icon">{pal.icon}</span>
+              <pal.IconComp color={
+                pal.glow.includes('249,115') ? '#F97316' :
+                pal.glow.includes('139,92')  ? '#A78BFA' :
+                pal.glow.includes('14,165')  ? '#38BDF8' :
+                pal.glow.includes('16,185')  ? '#34D399' :
+                pal.glow.includes('245,158') ? '#FCD34D' : '#F97316'
+              } />
               <span className="scc-kpi-label">Live</span>
             </div>
           </div>

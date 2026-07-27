@@ -1,54 +1,108 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 
+/* ─── SVG icons per industry id (no emojis) ─── */
+const INDUSTRY_SVG = {
+  'healthcare': ({ color }) => (
+    <svg width="36" height="36" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+      <rect x="3" y="7" width="22" height="17" rx="2.5" stroke={color} strokeWidth="1.8"/>
+      <path d="M9 7V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2" stroke={color} strokeWidth="1.8"/>
+      <path d="M14 12v6M11 15h6" stroke={color} strokeWidth="1.8" strokeLinecap="round"/>
+    </svg>
+  ),
+  'real-estate': ({ color }) => (
+    <svg width="36" height="36" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+      <path d="M3 13.5L14 4l11 9.5" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M6 11v12h5v-5h6v5h5V11" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  ),
+  'finance-banking': ({ color }) => (
+    <svg width="36" height="36" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+      <rect x="3" y="8" width="22" height="14" rx="2.5" stroke={color} strokeWidth="1.8"/>
+      <path d="M3 12h22" stroke={color} strokeWidth="1.8"/>
+      <rect x="7" y="16" width="4" height="2" rx="1" fill={color}/>
+    </svg>
+  ),
+  'ecommerce-retail': ({ color }) => (
+    <svg width="36" height="36" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+      <path d="M4 4h2.5l2 10h11l2-7H8.5" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+      <circle cx="11" cy="22" r="1.5" stroke={color} strokeWidth="1.6"/>
+      <circle cx="19" cy="22" r="1.5" stroke={color} strokeWidth="1.6"/>
+    </svg>
+  ),
+  'education-edtech': ({ color }) => (
+    <svg width="36" height="36" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+      <path d="M14 5L3 11l11 6 11-6-11-6z" stroke={color} strokeWidth="1.8" strokeLinejoin="round"/>
+      <path d="M7 14v6c0 1.5 3 3 7 3s7-1.5 7-3v-6" stroke={color} strokeWidth="1.8" strokeLinecap="round"/>
+      <path d="M25 11v5" stroke={color} strokeWidth="1.8" strokeLinecap="round"/>
+    </svg>
+  ),
+  'logistics-hospitality': ({ color }) => (
+    <svg width="36" height="36" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+      <rect x="3" y="10" width="22" height="14" rx="2" stroke={color} strokeWidth="1.8"/>
+      <path d="M8 10V7a6 6 0 0 1 12 0v3" stroke={color} strokeWidth="1.8" strokeLinecap="round"/>
+      <circle cx="14" cy="17" r="2" stroke={color} strokeWidth="1.6"/>
+    </svg>
+  ),
+};
+
+function IndustryIcon({ id, color }) {
+  const Icon = INDUSTRY_SVG[id];
+  if (!Icon) return null;
+  return <Icon color={color} />;
+}
+
 /* ─── Illustration panel — geometric isometric visual per industry ─── */
 function IndustryIllustration({ industry }) {
   const palettes = {
-    healthcare: { bg: '#FFF7ED', accent: '#F97316', soft: '#FED7AA' },
-    'real-estate': { bg: '#FFF7ED', accent: '#F97316', soft: '#FED7AA' },
-    'finance-banking': { bg: '#FFF7ED', accent: '#F97316', soft: '#FED7AA' },
-    'ecommerce-retail': { bg: '#FFF7ED', accent: '#F97316', soft: '#FED7AA' },
-    'education-edtech': { bg: '#FFF7ED', accent: '#F97316', soft: '#FED7AA' },
-    'logistics-hospitality': { bg: '#FFF7ED', accent: '#F97316', soft: '#FED7AA' },
+    healthcare: { bg: '#FEF2F2', accent: '#EF4444', soft: '#FECACA' },
+    'real-estate': { bg: '#EFF6FF', accent: '#3B82F6', soft: '#BFDBFE' },
+    'finance-banking': { bg: '#F5F3FF', accent: '#8B5CF6', soft: '#DDD6FE' },
+    'ecommerce-retail': { bg: '#ECFDF5', accent: '#10B981', soft: '#A7F3D0' },
+    'education-edtech': { bg: '#FFFBEB', accent: '#F59E0B', soft: '#FDE68A' },
+    'logistics-hospitality': { bg: '#FDF2F8', accent: '#EC4899', soft: '#FBCFE8' },
   };
   const pal = palettes[industry.id] || palettes.healthcare;
+  const m0 = industry.metrics?.[0];
+  const m1 = industry.metrics?.[1];
 
   return (
     <div className="ive-illus-wrap" style={{ background: pal.bg }}>
-      {/* Central big icon */}
+      {/* Background subtle grid */}
+      <div className="ive-illus-grid" />
+
+      {/* Soft glow behind icon */}
+      <div className="ive-illus-glow" style={{ background: `radial-gradient(circle, ${pal.accent}33 0%, transparent 70%)` }} />
+
+      {/* Top status bar — pinned, never overlaps anything */}
+      <div className="ive-illus-topbar">
+        <span className="ive-illus-live-dot" style={{ background: pal.accent }} />
+        <span>AI Agent · Live</span>
+      </div>
+
+      {/* Central icon */}
       <div className="ive-illus-center">
-        <div className="ive-illus-icon-ring" style={{ borderColor: pal.soft }}>
-          <span className="ive-illus-icon">{industry.icon}</span>
-        </div>
-
-        {/* Floating chat bubble — simulates AI call UI */}
-        <div className="ive-bubble ive-bubble-top" style={{ borderColor: pal.soft }}>
-          <span className="ive-bubble-dot" style={{ background: pal.accent }} />
-          <span className="ive-bubble-label">AI Agent · Live</span>
-        </div>
-
-        {/* Floating stat card */}
-        <div className="ive-stat-float ive-stat-tl" style={{ borderColor: pal.soft }}>
-          <span className="ive-stat-val" style={{ color: pal.accent }}>{industry.metrics?.[0]?.value}</span>
-          <span className="ive-stat-lbl">{industry.metrics?.[0]?.label}</span>
-        </div>
-
-        <div className="ive-stat-float ive-stat-br" style={{ borderColor: pal.soft }}>
-          <span className="ive-stat-val" style={{ color: pal.accent }}>{industry.metrics?.[1]?.value}</span>
-          <span className="ive-stat-lbl">{industry.metrics?.[1]?.label}</span>
-        </div>
-
-        {/* Use case pills */}
-        <div className="ive-pills-row">
-          {industry.useCases?.slice(0, 2).map((uc, i) => (
-            <span key={i} className="ive-pill" style={{ background: pal.soft, color: '#7C2D12' }}>
-              {uc}
-            </span>
-          ))}
+        <div className="ive-illus-icon-ring" style={{ borderColor: pal.accent, boxShadow: `0 16px 40px ${pal.accent}26` }}>
+          <IndustryIcon id={industry.id} color={pal.accent} />
         </div>
       </div>
 
-      {/* Background subtle grid */}
-      <div className="ive-illus-grid" />
+      {/* Bottom metric dock — two chips side by side, never wraps into other elements */}
+      {(m0 || m1) && (
+        <div className="ive-illus-footer">
+          {m0 && (
+            <div className="ive-illus-metric-chip">
+              <span className="ive-illus-metric-val" style={{ color: pal.accent }}>{m0.value}</span>
+              <span className="ive-illus-metric-lbl">{m0.label}</span>
+            </div>
+          )}
+          {m1 && (
+            <div className="ive-illus-metric-chip">
+              <span className="ive-illus-metric-val" style={{ color: pal.accent }}>{m1.value}</span>
+              <span className="ive-illus-metric-lbl">{m1.label}</span>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
