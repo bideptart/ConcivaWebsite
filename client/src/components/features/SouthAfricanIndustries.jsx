@@ -104,7 +104,7 @@ export default function SouthAfricanIndustries() {
             <span className="pulse-dot"></span>
             Industry Solutions
           </div>
-          <h2 className="section-title">Built for every South African industry.</h2>
+          <h2 className="section-title">Built for every South African <span className="gradient-span">industry.</span></h2>
           <p className="section-subtitle">
             Bespoke voice AI workflows tailored for South African enterprises.
           </p>

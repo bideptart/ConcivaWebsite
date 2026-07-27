@@ -149,7 +149,7 @@ export default function FeaturesHero({ onToast }) {
                     </span>
                   </div>
 
-                  <div className="phone-caller-name">LetsDial Voice AI</div>
+                  <div className="phone-caller-name">Conciva AI</div>
                   <p className="phone-caller-number">+27 (011) 555-0199</p>
                   <span className="phone-caller-type">South Africa · Live</span>
 
@@ -233,28 +233,28 @@ export default function FeaturesHero({ onToast }) {
 
               <div className="transcript-ai-badge">
                 <Icons.Sparkles />
-                <span>Handled by LetsDial AI</span>
+                <span>Handled by Conciva AI</span>
               </div>
 
               <div className="transcript-lines">
                 <div className="transcript-line">
                   <span className="transcript-role transcript-role--caller">Customer</span>
-                  <p>"Hi, I need to check my loan application status in Johannesburg."</p>
+                  <p>"Hey, sorry to bother you again — I still haven't heard back about my loan application. It's been almost two weeks."</p>
                 </div>
                 <div className="transcript-line">
-                  <span className="transcript-role transcript-role--ai">LetsDial AI</span>
-                  <p>"Good day! I have verified your reference. Your pre-approval is complete and FICA docs are verified."</p>
+                  <span className="transcript-role transcript-role--ai">Conciva AI</span>
+                  <p>"No trouble at all, let me check that for you now... okay, I can see it went through — you were approved yesterday and your FICA documents are already verified on our end."</p>
                 </div>
                 <div className="transcript-line">
                   <span className="transcript-role transcript-role--caller">Customer</span>
-                  <p>"Fantastic! Can you SMS me the confirmation?"</p>
+                  <p>"Oh wow, finally! Is there any way you can send that to me in writing, just so I have it?"</p>
                 </div>
                 <div className="transcript-line transcript-line--typing">
-                  <span className="transcript-role transcript-role--ai">LetsDial AI</span>
+                  <span className="transcript-role transcript-role--ai">Conciva AI</span>
                   <span className="typing-dots">
                     <span></span><span></span><span></span>
                   </span>
-                  <span className="typing-label">sending SMS…</span>
+                  <span className="typing-label">sending confirmation…</span>
                 </div>
               </div>
 

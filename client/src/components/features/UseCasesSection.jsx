@@ -83,7 +83,7 @@ export default function UseCasesSection() {
             <span className="pulse-dot"></span>
             Workflow Scenarios
           </div>
-          <h2 className="section-title">See LetsDial in Action</h2>
+          <h2 className="section-title">See LetsDial in <span className="gradient-span">Action</span></h2>
           <p className="section-subtitle">
             Explore real-world scenario presets and capabilities.
           </p>
