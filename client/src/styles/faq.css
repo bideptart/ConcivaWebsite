@@ -109,19 +109,50 @@
 
 /* heading */
 .faq-hero-h1 {
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: clamp(2.1rem, 5vw, 3.4rem);
-  font-weight: 900;
+  font-weight: 700;
   color: #0F172A;
-  line-height: 1.1;
-  letter-spacing: -0.04em;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
   margin-bottom: 1rem;
 }
 
 .faq-hero-hl {
+  font-style: italic;
+  font-weight: 600;
   background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* search button */
+.faq-search-btn {
+  position: absolute;
+  right: 0.4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 38px;
+  padding: 0 1.1rem;
+  background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+}
+
+.faq-search-btn:hover {
+  box-shadow: 0 4px 14px rgba(249,115,22,0.4);
+  transform: translateY(-50%) translateY(-1px);
 }
 
 /* sub */
@@ -139,6 +170,8 @@
   width: 100%;
   max-width: 520px;
   margin-bottom: 0;
+  border-radius: 9999px;
+  box-shadow: 0 0 0 4px rgba(249,115,22,0.12);
 }
 
 .faq-search-ico {
@@ -155,23 +188,23 @@
 .faq-search-input {
   width: 100%;
   height: 50px;
-  padding: 0 2.85rem 0 2.75rem;
+  padding: 0 8rem 0 2.75rem;
   background: #FFFFFF;
-  border: 1.5px solid #E2E8F0;
+  border: 1.5px solid #FDBA74;
   border-radius: 9999px;
   font-family: inherit;
   font-size: 0.93rem;
   color: #0F172A;
   outline: none;
   transition: border-color 0.22s ease, box-shadow 0.22s ease;
-  box-shadow: 0 1px 6px rgba(15,23,42,0.05);
+  box-shadow: none;
 }
 
 .faq-search-input::placeholder { color: #94A3B8; }
 
 .faq-search-input:focus {
   border-color: #F97316;
-  box-shadow: 0 0 0 3px rgba(249,115,22,0.13), 0 1px 6px rgba(15,23,42,0.05);
+  box-shadow: 0 0 0 3px rgba(249,115,22,0.18);
 }
 
 .faq-search-clear {
@@ -229,7 +262,7 @@
 }
 
 /* ═══════════════════════════════════════════════════════════
-   2. CATEGORY TABS BAR
+   2. CATEGORY TABS BAR  — reference image style (simple pills)
 ═══════════════════════════════════════════════════════════ */
 .faq-tabs-bar {
   background: rgba(255,255,255,0.96);
@@ -239,9 +272,7 @@
   position: sticky;
   top: 64px;
   z-index: 100;
-  /* no side padding here — inner handles it so scroll reaches edges */
-  padding: 0.9rem 0;
-  /* stop the sticky bar itself from being wider than the viewport */
+  padding: 0.85rem 0;
   width: 100%;
   overflow: hidden;
 }
@@ -251,13 +282,10 @@
   margin: 0 auto;
   display: flex;
   align-items: center;
-  gap: 0.45rem;
-  /* scroll horizontally when buttons overflow */
+  gap: 0.5rem;
   overflow-x: auto;
-  /* smooth momentum scroll on iOS */
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  /* padding gives breathing room at both ends while scrolling */
   padding: 0 1.25rem;
 }
 
@@ -266,31 +294,36 @@
 .faq-tab {
   display: inline-flex;
   align-items: center;
-  gap: 0.38rem;
-  padding: 0.46rem 1rem;
+  gap: 0;
+  padding: 0.48rem 1.1rem;
   border-radius: 9999px;
   border: 1.5px solid #E2E8F0;
   background: #FFFFFF;
   font-family: inherit;
   font-size: 0.83rem;
   font-weight: 600;
-  color: #64748B;
+  color: #475569;
   cursor: pointer;
   white-space: nowrap;
   flex-shrink: 0;
   transition:
-    border-color 0.22s cubic-bezier(0.4,0,0.2,1),
-    color        0.22s cubic-bezier(0.4,0,0.2,1),
-    background   0.22s cubic-bezier(0.4,0,0.2,1),
-    box-shadow   0.22s cubic-bezier(0.4,0,0.2,1),
-    transform    0.22s cubic-bezier(0.4,0,0.2,1);
+    border-color 0.2s ease,
+    color        0.2s ease,
+    background   0.2s ease,
+    box-shadow   0.2s ease;
+}
+
+/* hide icon and count pill — reference image 1 style */
+.faq-tab svg,
+.faq-tab span[aria-hidden],
+.faq-tab-pill {
+  display: none;
 }
 
 .faq-tab:hover {
   border-color: #FDBA74;
   color: #EA580C;
   background: #FFF7ED;
-  transform: translateY(-1px);
 }
 
 .faq-tab:focus-visible {
@@ -302,29 +335,14 @@
   background: #F97316;
   border-color: #F97316;
   color: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(249,115,22,0.32);
+  box-shadow: 0 4px 12px rgba(249,115,22,0.35);
+  font-weight: 700;
 }
 
 .faq-tab--active:hover {
   background: #EA580C;
   border-color: #EA580C;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(249,115,22,0.4);
-}
-
-.faq-tab-pill {
-  font-size: 0.68rem;
-  font-weight: 700;
-  background: rgba(15,23,42,0.09);
-  border-radius: 9999px;
-  padding: 0.08rem 0.44rem;
-  line-height: 1.5;
-  min-width: 18px;
-  text-align: center;
-}
-
-.faq-tab--active .faq-tab-pill {
-  background: rgba(255,255,255,0.28);
+  box-shadow: 0 6px 16px rgba(249,115,22,0.45);
 }
 
 /* ═══════════════════════════════════════════════════════════

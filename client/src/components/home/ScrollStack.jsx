@@ -28,7 +28,6 @@ const ScrollStack = ({
   const cardsRef = useRef([]);
   const lastTransformsRef = useRef(new Map());
   const isUpdatingRef = useRef(false);
-  const activeIndexRef = useRef(-1);
 
   const calculateProgress = useCallback((scrollTop, start, end) => {
     if (scrollTop < start) return 0;
@@ -86,28 +85,6 @@ const ScrollStack = ({
       : scrollerRef.current?.querySelector('.scroll-stack-end');
 
     const endElementTop = endElement ? getElementOffset(endElement) : 0;
-
-    // Determine which card is currently the "active" / foreground card in the
-    // stack (the most-advanced card that has begun pinning). Used to apply a
-    // highlighted border via the `is-active-card` class.
-    let activeIndex = 0;
-    for (let j = 0; j < cardsRef.current.length; j++) {
-      const jCard = cardsRef.current[j];
-      if (!jCard) continue;
-      const jCardTop = getElementOffset(jCard);
-      const jPinStart = jCardTop - stackPositionPx - itemStackDistance * j;
-      if (scrollTop >= jPinStart) {
-        activeIndex = j;
-      }
-    }
-
-    if (activeIndex !== activeIndexRef.current) {
-      const prevCard = cardsRef.current[activeIndexRef.current];
-      if (prevCard) prevCard.classList.remove('is-active-card');
-      const nextCard = cardsRef.current[activeIndex];
-      if (nextCard) nextCard.classList.add('is-active-card');
-      activeIndexRef.current = activeIndex;
-    }
 
     cardsRef.current.forEach((card, i) => {
       if (!card) return;
@@ -304,7 +281,6 @@ const ScrollStack = ({
       }
       stackCompletedRef.current = false;
       cardsRef.current = [];
-      activeIndexRef.current = -1;
       transformsCache.clear();
       isUpdatingRef.current = false;
     };
