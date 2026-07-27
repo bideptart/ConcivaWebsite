@@ -141,7 +141,7 @@ export default function FeaturesHero({ onToast }) {
                     <span className="phone-avatar-ring">
                       <span className="phone-avatar">
                         <span className="phone-avatar-shine" aria-hidden="true"></span>
-                        <span className="phone-avatar-letter">L</span>
+                        <span className="phone-avatar-letter">C</span>
                       </span>
                     </span>
                     <span className="phone-avatar-ai-badge">
