@@ -84,11 +84,13 @@ function Industries() {
       {/* 2. Industry Feature Showcase (Interactive Vertical Explorer Hub) */}
       <section className="industries-section" id="explore-industries">
         <div className="container">
-          <div className="section-header">
-            <span className="section-eyebrow">Industry Architectures</span>
-            <h2 className="section-title">Engineered for Industry Specific Challenges</h2>
-            <p className="section-subtitle">
-              Choose your vertical to explore custom workflows, security compliance certifications, and pre-built integrations.
+         <div className="scc-heading-block" style={{ padding: '0 0 3rem' }}>
+            <span className="scc-eyebrow">Industry Architectures</span>
+            <h2 className="scc-section-title">
+              Industry <span className="scc-title-accent">Architectures</span>
+            </h2>
+            <p className="scc-section-sub">
+              Engineered for Industry Specific Challenges — every vertical gets its own workflows, compliance certifications, and pre-built integrations.
             </p>
           </div>
 
@@ -102,13 +104,15 @@ function Industries() {
       {/* 4. Core Capabilities — Stacked Scroll Cards */}
       <StackedCapabilityCards capabilities={CAPABILITIES} />
 
-      {/* 5. Frequently Asked Questions */}
+   {/* 5. Frequently Asked Questions */}
       <section className="faq-section">
         <div className="container">
-          <div className="section-header">
-            <span className="section-eyebrow">Got Questions?</span>
-            <h2 className="section-title">Frequently Asked Questions</h2>
-            <p className="section-subtitle">
+          <div className="scc-heading-block" style={{ padding: '0 0 3rem' }}>
+            <span className="scc-eyebrow">Got Questions?</span>
+            <h2 className="scc-section-title">
+              Frequently Asked <span className="scc-title-accent">Questions</span>
+            </h2>
+            <p className="scc-section-sub">
               Learn how Conciva AI handles compliance, security, migration, and custom industry integrations.
             </p>
           </div>

@@ -1,32 +1,9 @@
-<<<<<<< HEAD
-import React, { useState, useEffect } from 'react';
-import '../styles/pricing-tokens.css';
-import '../styles/pricing.css';
-
-import PricingHero         from '../components/pricing/PricingHero';
-import PricingCards        from '../components/pricing/PricingCards';
-import PricingComparison   from '../components/pricing/PricingComparison';
-import PricingTestimonials from '../components/pricing/PricingTestimonials';
-import PricingFAQ          from '../components/pricing/PricingFAQ';
-import PricingCTA          from '../components/pricing/PricingCTA';
-import PricingMoreLinks    from '../components/pricing/PricingMoreLinks';
-import PricingFooter       from '../components/pricing/PricingFooter';
-
-export default function Pricing() {
-  const [billingCycle, setBillingCycle] = useState('annual');
-
-  useEffect(() => {
-    document.title = 'Pricing — Conciva AI Cloud Contact Center';
-  }, []);
-=======
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import '../styles/pricing-tokens.css';
 import '../styles/pricing.css';
 
 import PricingHero          from '../components/pricing/PricingHero';
 import PricingCards         from '../components/pricing/PricingCards';
-import PricingComparison    from '../components/pricing/PricingComparison';
-import PricingTestimonials  from '../components/pricing/PricingTestimonials';
 import PricingFAQ           from '../components/pricing/PricingFAQ';
 import PricingCTA           from '../components/pricing/PricingCTA';
 import PricingMoreLinks     from '../components/pricing/PricingMoreLinks';
@@ -74,8 +51,7 @@ function TrustStrip() {
         {TRUST_LOGOS.map((t, i) => (
           <span
             key={t.label}
-            className={`trust-logo-pill ${visible ? `reveal-up delay-${Math.min(i + 1, 6)}` : ''}`}
-          >
+            className={`trust-logo-pill ${visible ? `reveal-up delay-${Math.min(i + 1, 6)}` : ''}`}>
             <span className="trust-logo-icon">{t.icon}</span>
             {t.label}
           </span>
@@ -143,33 +119,14 @@ function RevealSection({ children, className = '' }) {
 /* ─── Page ─── */
 export default function Pricing() {
   const [billingCycle, setBillingCycle] = useState('annual');
->>>>>>> d16d53b2e3c29e81a0d108f59c1f2c68c737efe6
+
+  useEffect(() => {
+    document.title = 'Pricing — Conciva AI Cloud Contact Center';
+  }, []);
 
   return (
     <div className="pricing-page">
       <div className="pricing-container">
-<<<<<<< HEAD
-        <PricingCards
-          billingCycle={billingCycle}
-          setBillingCycle={setBillingCycle}
-        />
-      </div>
-
-      <div className="pricing-container">
-        <PricingComparison />
-      </div>
-
-      <div className="pricing-container">
-        <PricingTestimonials />
-      </div>
-
-      <div className="pricing-container">
-        <PricingFAQ />
-      </div>
-
-      <div className="pricing-container">
-        <PricingCTA />
-=======
         <PricingHero billingCycle={billingCycle} setBillingCycle={setBillingCycle} />
 
         {/* 2. Social proof stats */}
@@ -189,7 +146,7 @@ export default function Pricing() {
         {/* 6. Plan finder wizard */}
         <RevealSection>
           <PlanFinderWizard
-            onSelectRecommended={(plan) => {
+            onSelectRecommended={() => {
               document.getElementById('pricing-cards-anchor')?.scrollIntoView({ behavior: 'smooth' });
             }}
           />
@@ -219,7 +176,6 @@ export default function Pricing() {
         <RevealSection>
           <PricingCTA />
         </RevealSection>
->>>>>>> d16d53b2e3c29e81a0d108f59c1f2c68c737efe6
       </div>
 
       <div className="pricing-container">

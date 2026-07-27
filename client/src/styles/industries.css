@@ -19,7 +19,7 @@
 .ind-hero-revamp {
    background: linear-gradient(160deg, #FFFFFF 0%, #FFF8F3 40%, #FFF5ED 100%) !important;
    overflow: hidden !important;
-   min-height: 680px;            
+   min-height: 580px;            
    display: flex;
    align-items: center;          
  }
@@ -140,7 +140,7 @@
 .ind-hero-visual {
   position: relative;
   width: 100%;
-  height: 480px;
+  height: 380px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1172,6 +1172,83 @@
   align-items: center;
   gap: 1.25rem;
   padding: 2rem;
+}
+
+/* Soft radial glow behind the icon */
+.ive-illus-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Top status bar — pinned across the top, no overlap risk */
+.ive-illus-topbar {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(15, 23, 42, 0.08);
+  border-radius: 9999px;
+  padding: 0.45rem 1rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-main, #0F172A);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+  white-space: nowrap;
+}
+
+.ive-illus-live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: iveGreenPulse 2s infinite;
+}
+
+/* Bottom metric dock — two chips side by side, pinned, never wraps into icon or topbar */
+.ive-illus-footer {
+  position: absolute;
+  bottom: 22px;
+  left: 22px;
+  right: 22px;
+  z-index: 3;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.ive-illus-metric-chip {
+  flex: 1;
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(15, 23, 42, 0.08);
+  border-radius: 14px;
+  padding: 0.65rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+  text-align: center;
+}
+
+.ive-illus-metric-val {
+  font-size: 1.05rem;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.ive-illus-metric-lbl {
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: var(--text-muted, #64748B);
+  line-height: 1.25;
 }
 
 /* Big icon ring */
