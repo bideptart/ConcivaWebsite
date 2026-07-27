@@ -9,5 +9,15 @@ export default defineConfig({
     proxy: {
       '/api': 'http://localhost:5000'
     }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          framer: ['framer-motion'],
+        }
+      }
+    }
   }
 });

@@ -22,15 +22,23 @@ function Cell({ value, featured, rowHovered }) {
       <motion.span
         className="cmp-check"
         aria-label="Included"
-        animate={{ scale: rowHovered ? 1.18 : 1 }}
-        transition={{ type: 'spring', stiffness: 420, damping: 22 }}
+        animate={{ scale: rowHovered ? 1.45 : 1, rotate: rowHovered ? 8 : 0 }}
+        transition={{ type: 'spring', stiffness: 500, damping: 18 }}
       >
         <Check size={14} strokeWidth={2.5} />
       </motion.span>
     );
   }
   if (value === false) return <span className="cmp-dash" aria-label="Not included">&mdash;</span>;
-  return <span className={featured ? 'cmp-highlight' : ''}>{value}</span>;
+  return (
+    <motion.span
+      className={featured ? 'cmp-highlight' : ''}
+      animate={{ scale: rowHovered ? 1.08 : 1 }}
+      transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+    >
+      {value}
+    </motion.span>
+  );
 }
 
 export default function PricingComparison() {
@@ -61,7 +69,7 @@ export default function PricingComparison() {
         gridRef={gridRef}
         disableAnimations={isMobile}
         enabled
-        spotlightRadius={320}
+        spotlightRadius={420}
         glowColor={DEFAULT_GLOW_COLOR}
       />
 
@@ -69,7 +77,7 @@ export default function PricingComparison() {
         <ParticleCard
           className="cmp-wrap mb-card mb-card--border-glow"
           disableAnimations={isMobile}
-          particleCount={8}
+          particleCount={16}
           glowColor={DEFAULT_GLOW_COLOR}
           enableTilt={false}
           enableMagnetism={false}
@@ -101,8 +109,9 @@ export default function PricingComparison() {
                       className={`cmp-row${isHovered ? ' cmp-row--hovered' : ''}`}
                       onMouseEnter={() => setHovered(i)}
                       onMouseLeave={() => setHovered(null)}
-                      animate={{ x: isHovered ? 3 : 0 }}
-                      transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                      animate={{ x: isHovered ? 8 : 0, scale: isHovered ? 1.01 : 1 }}
+                      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                      style={{ transformOrigin: 'left center' }}
                     >
                       <td className={`cmp-td cmp-td--feature${isHovered ? ' cmp-td--feature-hovered' : ''}`}>
                         {row.feature}

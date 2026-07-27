@@ -12,6 +12,7 @@
   --mb-glow-radius: 300px;
 }
 
+/* Border glow ring that follows the cursor */
 .mb-card--border-glow::after {
   content: '';
   position: absolute;
@@ -19,8 +20,8 @@
   padding: 2px;
   background: radial-gradient(
     var(--mb-glow-radius) circle at var(--mb-glow-x) var(--mb-glow-y),
-    rgba(var(--mb-glow-color), calc(var(--mb-glow-intensity) * 0.85)) 0%,
-    rgba(var(--mb-glow-color), calc(var(--mb-glow-intensity) * 0.35)) 35%,
+    rgba(var(--mb-glow-color), calc(var(--mb-glow-intensity) * 1)) 0%,
+    rgba(var(--mb-glow-color), calc(var(--mb-glow-intensity) * 0.55)) 35%,
     transparent 65%
   );
   border-radius: inherit;
@@ -35,8 +36,8 @@
 
 .mb-card--border-glow:hover {
   box-shadow:
-    0 0 0 1px rgba(var(--mb-glow-color), 0.25),
-    0 16px 44px rgba(var(--mb-glow-color), 0.16);
+    0 0 0 1.5px rgba(var(--mb-glow-color), 0.4),
+    0 20px 56px rgba(var(--mb-glow-color), 0.24);
 }
 
 .mb-particle::before {
