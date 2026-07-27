@@ -1,32 +1,17 @@
-<<<<<<< HEAD
-﻿import React, { useState, useEffect } from 'react';
-import '../styles/pricing-tokens.css';
-import '../styles/pricing.css';
-
-import PricingHero         from '../components/pricing/PricingHero';
-import PricingCards        from '../components/pricing/PricingCards';
-import PricingComparison   from '../components/pricing/PricingComparison';
-import PricingTestimonials from '../components/pricing/PricingTestimonials';
-import PricingFAQ          from '../components/pricing/PricingFAQ';
-import PricingCTA          from '../components/pricing/PricingCTA';
-import PricingMoreLinks    from '../components/pricing/PricingMoreLinks';
-import PricingFooter       from '../components/pricing/PricingFooter';
-
-=======
 ﻿import React, { useState, useEffect, useRef } from 'react';
 import '../styles/pricing-tokens.css';
 import '../styles/pricing.css';
 
-import PricingHero          from '../components/pricing/PricingHero';
-import PricingCards         from '../components/pricing/PricingCards';
-import PricingFAQ           from '../components/pricing/PricingFAQ';
-import PricingCTA           from '../components/pricing/PricingCTA';
-import PricingMoreLinks     from '../components/pricing/PricingMoreLinks';
-import PricingFooter        from '../components/pricing/PricingFooter';
-import PlanFinderWizard     from '../components/pricing/PlanFinderWizard';
-import UsageCalculator      from '../components/pricing/UsageCalculator';
+import PricingHero             from '../components/pricing/PricingHero';
+import PricingCards            from '../components/pricing/PricingCards';
+import PricingFAQ              from '../components/pricing/PricingFAQ';
+import PricingCTA              from '../components/pricing/PricingCTA';
+import PricingMoreLinks        from '../components/pricing/PricingMoreLinks';
+import PricingFooter           from '../components/pricing/PricingFooter';
+import PlanFinderWizard        from '../components/pricing/PlanFinderWizard';
+import UsageCalculator         from '../components/pricing/UsageCalculator';
 import FeatureComparisonMatrix from '../components/pricing/FeatureComparisonMatrix';
-import TestimonialCarousel  from '../components/pricing/TestimonialCarousel';
+import TestimonialCarousel     from '../components/pricing/TestimonialCarousel';
 
 /* ─── Intersection-observer based reveal hook ─── */
 function useReveal() {
@@ -132,34 +117,17 @@ function RevealSection({ children, className = '' }) {
 }
 
 /* ─── Page ─── */
->>>>>>> 552762208e3bcbe2705a602df368c8dafe240347
 export default function Pricing() {
   const [billingCycle, setBillingCycle] = useState('annual');
 
   useEffect(() => {
-<<<<<<< HEAD
-    document.title = 'Pricing — Conciva AI';
-=======
     document.title = 'Pricing — Conciva AI Cloud Contact Center';
->>>>>>> 552762208e3bcbe2705a602df368c8dafe240347
   }, []);
 
   return (
     <div className="pricing-page">
       <PricingHero />
       <div className="pricing-container">
-<<<<<<< HEAD
-        <PricingCards
-          billingCycle={billingCycle}
-          setBillingCycle={setBillingCycle}
-        />
-        <PricingComparison />
-        <PricingTestimonials />
-        <PricingFAQ />
-        <PricingCTA />
-=======
-        <PricingHero billingCycle={billingCycle} setBillingCycle={setBillingCycle} />
-
         {/* 2. Social proof stats */}
         <StatCounterStrip />
 
@@ -168,7 +136,7 @@ export default function Pricing() {
 
         {/* 4. Pricing cards */}
         <RevealSection>
-          <PricingCards billingCycle={billingCycle} />
+          <PricingCards billingCycle={billingCycle} setBillingCycle={setBillingCycle} />
         </RevealSection>
 
         {/* 5. Enterprise contact row */}
@@ -210,7 +178,6 @@ export default function Pricing() {
       </div>
 
       <div className="pricing-container">
->>>>>>> 552762208e3bcbe2705a602df368c8dafe240347
         <PricingMoreLinks />
       </div>
       <PricingFooter />
