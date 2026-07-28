@@ -8,7 +8,8 @@ import React, {
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, Search, X, ChevronDown, MessageCircle, HelpCircle } from 'lucide-react';
+import { ArrowRight, Search, X, ChevronDown } from 'lucide-react';
+import FAQ_CATEGORY_ICONS, { HelpSupportIcon } from '../components/ui/faq-category-icons';
 import '../styles/faq.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -17,10 +18,7 @@ gsap.registerPlugin(ScrollTrigger);
    FAQ DATA  — original Conciva content
 ═══════════════════════════════════════════════════════════════ */
 const FAQ_CATEGORIES = [
-  {
-    id: 'general',
-    label: 'General',
-    icon: '🏠',
+  { id: 'general',      label: 'General',
     description: 'Start here — the basics about Conciva and who it serves.',
     items: [
       {
@@ -47,8 +45,7 @@ const FAQ_CATEGORIES = [
   },
   {
     id: 'billing',
-    label: 'Billing & Pricing',
-    icon: '💳',
+    label: 'Billing & credit',
     description: 'Transparent pricing with no contracts and no hidden fees.',
     items: [
       {
@@ -80,8 +77,7 @@ const FAQ_CATEGORIES = [
   },
   {
     id: 'ai-voice',
-    label: 'AI Voice Agents',
-    icon: '🤖',
+    label: 'Agents & capabilities',
     description: 'How our AI handles calls with human-like precision.',
     items: [
       {
@@ -113,8 +109,7 @@ const FAQ_CATEGORIES = [
   },
   {
     id: 'features',
-    label: 'Features & Capabilities',
-    icon: '⚡',
+    label: 'Compliance & data',
     description: 'Explore the full depth of what Conciva can do.',
     items: [
       {
@@ -141,8 +136,7 @@ const FAQ_CATEGORIES = [
   },
   {
     id: 'integrations',
-    label: 'Integrations',
-    icon: '🔗',
+    label: 'Phone numbers & connectivity',
     description: 'Connect Conciva to the tools your team already uses.',
     items: [
       {
@@ -169,8 +163,7 @@ const FAQ_CATEGORIES = [
   },
   {
     id: 'security',
-    label: 'Security & Privacy',
-    icon: '🔒',
+    label: 'Account & support',
     description: 'Enterprise-grade security on every plan.',
     items: [
       {
@@ -193,7 +186,6 @@ const FAQ_CATEGORIES = [
   {
     id: 'support',
     label: 'Support',
-    icon: '💬',
     description: 'Real humans ready to help — no escalation ladder.',
     items: [
       {
@@ -318,7 +310,9 @@ function CategorySection({ category, openItems, onToggle }) {
       aria-labelledby={`faq-cat-heading-${category.id}`}
     >
       <div className="faq-cat-heading-row">
-        <span className="faq-cat-icon" aria-hidden="true">{category.icon}</span>
+        <span className="faq-cat-icon" aria-hidden="true">
+          {FAQ_CATEGORY_ICONS[category.id] ? React.createElement(FAQ_CATEGORY_ICONS[category.id]) : null}
+        </span>
         <div>
           <h2
             className="faq-cat-heading"
@@ -454,17 +448,16 @@ export default function FAQ() {
         <div className="faq-hero-inner">
           <div className="faq-hero-badge">
             <span className="faq-hero-badge-dot" aria-hidden="true" />
-            Help Center
+            FAQ
           </div>
 
           <h1 className="faq-hero-h1">
-            Frequently Asked<br />
-            <span className="faq-hero-hl">Questions</span>
+            Everything you <span className="faq-hero-hl">wanted to know.</span>
           </h1>
 
           <p className="faq-hero-sub">
-            Find answers to common questions about Conciva, our AI voice
-            solutions, features, integrations, pricing, and support.
+            Pricing, credit expiry, phone numbers, compliance, and account access — all in one place. Still
+            stuck? The team replies within an hour during business days.
           </p>
 
           {/* Search */}
@@ -475,12 +468,12 @@ export default function FAQ() {
             <input
               className="faq-search-input"
               type="search"
-              placeholder="Search your question…"
+              placeholder="Search questions…"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               aria-label="Search FAQ"
             />
-            {searchQuery && (
+            {searchQuery ? (
               <button
                 className="faq-search-clear"
                 onClick={() => setSearchQuery('')}
@@ -488,21 +481,11 @@ export default function FAQ() {
               >
                 <X size={14} strokeWidth={2.5} />
               </button>
+            ) : (
+              <button className="faq-search-btn" aria-label="Search" type="button">
+                Search →
+              </button>
             )}
-          </div>
-
-          {/* Stats */}
-          <div className="faq-hero-stats">
-            {[
-              { val: `${ALL_ITEMS.length}+`, label: 'Questions answered' },
-              { val: '7', label: 'Topic categories' },
-              { val: '< 4h', label: 'Support response' },
-            ].map(s => (
-              <div key={s.label} className="faq-hero-stat">
-                <span className="faq-hero-stat-val">{s.val}</span>
-                <span className="faq-hero-stat-lbl">{s.label}</span>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -522,9 +505,7 @@ export default function FAQ() {
             className={`faq-tab${activeTab === 'all' ? ' faq-tab--active' : ''}`}
             onClick={() => handleTabClick('all')}
           >
-            <HelpCircle size={14} strokeWidth={2} aria-hidden="true" />
             All topics
-            <span className="faq-tab-pill">{ALL_ITEMS.length}</span>
           </button>
 
           {FAQ_CATEGORIES.map(cat => (
@@ -535,9 +516,7 @@ export default function FAQ() {
               className={`faq-tab${activeTab === cat.id ? ' faq-tab--active' : ''}`}
               onClick={() => handleTabClick(cat.id)}
             >
-              <span aria-hidden="true">{cat.icon}</span>
               {cat.label}
-              <span className="faq-tab-pill">{cat.items.length}</span>
             </button>
           ))}
         </div>
@@ -562,7 +541,7 @@ export default function FAQ() {
           {visibleCategories.length === 0 && (
             <div className="faq-empty">
               <span className="faq-empty-icon" aria-hidden="true">
-                <MessageCircle size={36} strokeWidth={1.5} />
+                <HelpSupportIcon />
               </span>
               <h3 className="faq-empty-h">No results found</h3>
               <p className="faq-empty-p">
@@ -599,7 +578,7 @@ export default function FAQ() {
             <div className="faq-cta-glow faq-cta-glow-2" aria-hidden="true" />
 
             <div className="faq-cta-icon-wrap" aria-hidden="true">
-              <MessageCircle size={26} strokeWidth={1.75} />
+              <HelpSupportIcon />
             </div>
 
             <h2 className="faq-cta-h">Still have questions?</h2>

@@ -1,10 +1,11 @@
 import React, { useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { TrendingUp } from 'lucide-react';
+import { TrendingUp, Clock } from 'lucide-react';
+import SpecialText from '../ui/special-text';
 
 const OPTIONS = [
   { id: 'monthly', label: 'Monthly' },
-  { id: 'annual', label: 'Yearly', badge: '−20%' },
+  { id: 'annual', label: 'Yearly', badge: 'Save 20%' },
 ];
 
 export default function BillingToggle({ billingCycle, setBillingCycle, className = '' }) {
@@ -28,13 +29,13 @@ export default function BillingToggle({ billingCycle, setBillingCycle, className
     <div className={`billing-switch-wrapper ${className}`}>
       <div
         ref={trackRef}
-        className="billing-toggle-track"
         role="tablist"
         aria-label="Billing cycle"
         onKeyDown={handleKeyDown}
+        className="billing-toggle-track"
       >
         {OPTIONS.map((opt) => {
-          const active = (opt.id === 'annual') === isAnnual;
+          const active = opt.id === 'annual' ? isAnnual : !isAnnual;
           return (
             <button
               key={opt.id}
@@ -42,8 +43,8 @@ export default function BillingToggle({ billingCycle, setBillingCycle, className
               role="tab"
               data-billing={opt.id}
               aria-selected={active}
-              className={`billing-option-btn ${active ? 'active' : ''}`}
               onClick={() => setBillingCycle(opt.id)}
+              className={`billing-option-btn ${active ? 'active' : ''}`}
             >
               {active && (
                 <motion.span
@@ -53,16 +54,16 @@ export default function BillingToggle({ billingCycle, setBillingCycle, className
                 />
               )}
               <span className="billing-option-label">
-                {opt.label}
+                <span>{opt.label}</span>
                 {opt.badge && active && (
                   <AnimatePresence>
                     <motion.span
-                      key="badge"
+                      key={`badge-${opt.id}`}
+                      initial={{ scale: 0.7, opacity: 0, y: 2 }}
+                      animate={{ scale: 1, opacity: 1, y: 0 }}
+                      exit={{ scale: 0.7, opacity: 0, y: 2 }}
+                      transition={{ type: 'spring', stiffness: 520, damping: 28 }}
                       className="save-badge"
-                      initial={{ scale: 0, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      exit={{ scale: 0, opacity: 0 }}
-                      transition={{ type: 'spring', stiffness: 500, damping: 28 }}
                     >
                       {opt.badge}
                     </motion.span>
@@ -75,19 +76,37 @@ export default function BillingToggle({ billingCycle, setBillingCycle, className
       </div>
 
       <AnimatePresence>
-        {!isAnnual && (
-          <motion.span
-            key="nudge"
-            className="billing-nudge"
-            initial={{ opacity: 0, x: -8 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -8 }}
-            transition={{ duration: 0.3 }}
+        {isAnnual && (
+          <motion.div
+            key="annual-savings"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="pc-savings-line"
           >
-            <TrendingUp size={13} aria-hidden="true" /> Save 20% on yearly billing
-          </motion.span>
+            <SpecialText
+              as="span"
+              text="Switching to yearly saves you $223 on Growth."
+              speedMs={42}
+              settleMs={180}
+              delayMs={80}
+              flickerMs={30}
+            />
+          </motion.div>
         )}
       </AnimatePresence>
+
+      <div className="pc-billing-info" role="note" aria-label="Per-second billing info">
+        <span className="pc-billing-info__icon" aria-hidden="true">
+          <Clock size={18} strokeWidth={2.25} />
+        </span>
+        <p className="pc-billing-info__text">
+          <strong>Per-second billing</strong>
+          <span className="pc-billing-info__dash">—</span>
+          pay only for the seconds you use.
+        </p>
+      </div>
     </div>
   );
 }

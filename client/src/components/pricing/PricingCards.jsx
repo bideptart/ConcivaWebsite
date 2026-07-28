@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check } from 'lucide-react';
+import { Check, Clock } from 'lucide-react';
 import BillingToggle from './BillingToggle';
 
 const PLANS = [
@@ -90,11 +90,18 @@ function AnimatedPrice({ value }) {
 
 export default function PricingCards({ billingCycle, setBillingCycle }) {
   const isAnnual = billingCycle === 'annual';
+  const growthMonthly = 93;
+  const growthAnnual = 74;
+  const annualSavingsGrowth = Math.round((growthMonthly - growthAnnual) * 12);
 
   return (
     <section className="pc-section">
-      <div className="pc-toggle-row">
-        <BillingToggle billingCycle={billingCycle} setBillingCycle={setBillingCycle} />
+      <div className="pc-toggle-sticky-wrap">
+        <div className="pc-toggle-sticky">
+          <div className="pc-toggle-row">
+            <BillingToggle billingCycle={billingCycle} setBillingCycle={setBillingCycle} />
+          </div>
+        </div>
       </div>
 
       <div className="pc-grid">
