@@ -6,12 +6,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 /* ─── SVG icons for capability cards (no emojis) ─── */
 const CapIcons = {
-  Performance: ({ color = '#F97316' }) => (
+  Performance: ({ color = '#111827' }) => (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke={color} strokeWidth="1.7" strokeLinejoin="round"/>
     </svg>
   ),
-  Language: ({ color = '#A78BFA' }) => (
+  Language: ({ color = '#111827' }) => (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <circle cx="12" cy="12" r="9" stroke={color} strokeWidth="1.7"/>
       <path d="M12 3c-2.5 3-4 5.5-4 9s1.5 6 4 9" stroke={color} strokeWidth="1.7" strokeLinecap="round"/>
@@ -19,26 +19,26 @@ const CapIcons = {
       <path d="M3 12h18" stroke={color} strokeWidth="1.7" strokeLinecap="round"/>
     </svg>
   ),
-  Integration: ({ color = '#38BDF8' }) => (
+  Integration: ({ color = '#111827' }) => (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke={color} strokeWidth="1.7" strokeLinecap="round"/>
       <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke={color} strokeWidth="1.7" strokeLinecap="round"/>
     </svg>
   ),
-  Voice: ({ color = '#F97316' }) => (
+  Voice: ({ color = '#111827' }) => (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <rect x="9" y="2" width="6" height="12" rx="3" stroke={color} strokeWidth="1.7"/>
       <path d="M5 10a7 7 0 0 0 14 0" stroke={color} strokeWidth="1.7" strokeLinecap="round"/>
       <path d="M12 19v3M8 22h8" stroke={color} strokeWidth="1.7" strokeLinecap="round"/>
     </svg>
   ),
-  Automation: ({ color = '#34D399' }) => (
+  Automation: ({ color = '#111827' }) => (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <circle cx="12" cy="12" r="3" stroke={color} strokeWidth="1.7"/>
       <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.64 5.64l2.12 2.12M16.24 16.24l2.12 2.12M5.64 18.36l2.12-2.12M16.24 7.76l2.12-2.12" stroke={color} strokeWidth="1.7" strokeLinecap="round"/>
     </svg>
   ),
-  Infrastructure: ({ color = '#FCD34D' }) => (
+  Infrastructure: ({ color = '#111827' }) => (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <rect x="2" y="3" width="20" height="14" rx="2" stroke={color} strokeWidth="1.7"/>
       <path d="M8 21h8M12 17v4" stroke={color} strokeWidth="1.7" strokeLinecap="round"/>
@@ -48,14 +48,22 @@ const CapIcons = {
   ),
 };
 
-/* ─── Card accent colours (one per pillar, all harmonised with #F97316) ─── */
+/* ─── Card config ───────────────────────────────────────────────────
+   Icons render dark (#111827, the brand Text colour) on a light tile so
+   they stay legible on every card. Glows are orange-family only; the
+   previous per-card violet / sky / green / amber accents were off-brand
+   and were being derived by sniffing substrings out of the rgba() string,
+   which is why a green icon reached production. Colours are explicit now. */
+const ICON_COLOR = '#111827';
+const TAG_COLOR  = '#C2410C';
+
 const CARD_PALETTE = [
-  { bg: 'linear-gradient(145deg,#1E293B 0%,#0F172A 100%)', glow: 'rgba(249,115,22,0.7)',  IconComp: CapIcons.Performance,   tag: 'Performance'   },
-  { bg: 'linear-gradient(145deg,#1E293B 0%,#0F172A 100%)', glow: 'rgba(139,92,246,0.6)',  IconComp: CapIcons.Language,      tag: 'Language'      },
-  { bg: 'linear-gradient(145deg,#1E293B 0%,#0F172A 100%)', glow: 'rgba(14,165,233,0.6)',  IconComp: CapIcons.Integration,   tag: 'Integration'   },
-  { bg: 'linear-gradient(145deg,#1E293B 0%,#0F172A 100%)', glow: 'rgba(249,115,22,0.55)', IconComp: CapIcons.Voice,         tag: 'Voice'         },
-  { bg: 'linear-gradient(145deg,#1E293B 0%,#0F172A 100%)', glow: 'rgba(16,185,129,0.6)',  IconComp: CapIcons.Automation,    tag: 'Automation'    },
-  { bg: 'linear-gradient(145deg,#1E293B 0%,#0F172A 100%)', glow: 'rgba(245,158,11,0.6)',  IconComp: CapIcons.Infrastructure, tag: 'Infrastructure'},
+  { glow: 'rgba(249,115,22,0.70)', IconComp: CapIcons.Performance,    tag: 'Performance'    },
+  { glow: 'rgba(251,146,60,0.62)', IconComp: CapIcons.Language,       tag: 'Language'       },
+  { glow: 'rgba(234,88,12,0.58)',  IconComp: CapIcons.Integration,    tag: 'Integration'    },
+  { glow: 'rgba(249,115,22,0.55)', IconComp: CapIcons.Voice,          tag: 'Voice'          },
+  { glow: 'rgba(251,146,60,0.58)', IconComp: CapIcons.Automation,     tag: 'Automation'     },
+  { glow: 'rgba(234,88,12,0.52)',  IconComp: CapIcons.Infrastructure, tag: 'Infrastructure' },
 ];
 
 /* ─── Single sticky card ─── */
@@ -136,7 +144,7 @@ function PillarCard({ capability, index, total }) {
         ref={cardRef}
         className="scc-card"
         style={{
-          background: pal.bg,
+          /* surface comes from .scc-card in industries.css */
           top: `calc(88px + ${topOffset}px)`,  /* stagger peek */
         }}
       >
@@ -175,14 +183,7 @@ function PillarCard({ capability, index, total }) {
           {/* Left: number + tag */}
           <div className="scc-left-col">
             <span className="scc-index">0{index + 1}</span>
-            <span
-              className="scc-tag"
-              style={{ color: pal.glow.includes('249') ? '#F97316' :
-                             pal.glow.includes('139') ? '#A78BFA' :
-                             pal.glow.includes('14,165') ? '#38BDF8' :
-                             pal.glow.includes('16,185') ? '#34D399' :
-                             pal.glow.includes('245') ? '#FCD34D' : '#F97316' }}
-            >
+            <span className="scc-tag" style={{ color: TAG_COLOR }}>
               {pal.tag}
             </span>
           </div>
@@ -190,13 +191,7 @@ function PillarCard({ capability, index, total }) {
           {/* Centre: icon + title + desc */}
           <div className="scc-centre-col">
             <div className="scc-icon-wrap">
-              <pal.IconComp color={
-                pal.glow.includes('249,115') ? '#F97316' :
-                pal.glow.includes('139,92')  ? '#A78BFA' :
-                pal.glow.includes('14,165')  ? '#38BDF8' :
-                pal.glow.includes('16,185')  ? '#34D399' :
-                pal.glow.includes('245,158') ? '#FCD34D' : '#F97316'
-              } />
+              <pal.IconComp color={ICON_COLOR} />
             </div>
             <h3 className="scc-title">{capability.title}</h3>
             <p className="scc-desc">{capability.desc}</p>
@@ -205,13 +200,7 @@ function PillarCard({ capability, index, total }) {
           {/* Right: metric chip */}
           <div className="scc-right-col">
             <div className="scc-kpi-chip" style={{ borderColor: pal.glow.replace(/[\d.]+\)$/, '0.35)') }}>
-              <pal.IconComp color={
-                pal.glow.includes('249,115') ? '#F97316' :
-                pal.glow.includes('139,92')  ? '#A78BFA' :
-                pal.glow.includes('14,165')  ? '#38BDF8' :
-                pal.glow.includes('16,185')  ? '#34D399' :
-                pal.glow.includes('245,158') ? '#FCD34D' : '#F97316'
-              } />
+              <pal.IconComp color={ICON_COLOR} />
               <span className="scc-kpi-label">Live</span>
             </div>
           </div>

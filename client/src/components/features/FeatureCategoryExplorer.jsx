@@ -135,7 +135,7 @@ export default function FeatureCategoryExplorer() {
             <span className="pulse-dot"></span>
             Platform Infrastructure
           </div>
-          <h2 className="section-title">Built for enterprise <span className="gradient-span">operations.</span></h2>
+          <h2 className="section-title">Built for enterprise operations.</h2>
           <p className="section-subtitle">
             Core features designed for high-scale voice automation.
           </p>

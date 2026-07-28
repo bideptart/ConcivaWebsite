@@ -8,7 +8,7 @@ import React, {
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, Search, X, ChevronDown, MessageCircle } from 'lucide-react';
+import { ArrowRight, Search, X, ChevronDown, MessageCircle, HelpCircle } from 'lucide-react';
 import '../styles/faq.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -17,7 +17,10 @@ gsap.registerPlugin(ScrollTrigger);
    FAQ DATA  — original Conciva content
 ═══════════════════════════════════════════════════════════════ */
 const FAQ_CATEGORIES = [
-  { id: 'general',      label: 'General',                    icon: '🏠', 
+  {
+    id: 'general',
+    label: 'General',
+    icon: '🏠',
     description: 'Start here — the basics about Conciva and who it serves.',
     items: [
       {
@@ -44,7 +47,7 @@ const FAQ_CATEGORIES = [
   },
   {
     id: 'billing',
-    label: 'Billing & credit',
+    label: 'Billing & Pricing',
     icon: '💳',
     description: 'Transparent pricing with no contracts and no hidden fees.',
     items: [
@@ -77,7 +80,7 @@ const FAQ_CATEGORIES = [
   },
   {
     id: 'ai-voice',
-    label: 'Agents & capabilities',
+    label: 'AI Voice Agents',
     icon: '🤖',
     description: 'How our AI handles calls with human-like precision.',
     items: [
@@ -110,7 +113,7 @@ const FAQ_CATEGORIES = [
   },
   {
     id: 'features',
-    label: 'Compliance & data',
+    label: 'Features & Capabilities',
     icon: '⚡',
     description: 'Explore the full depth of what Conciva can do.',
     items: [
@@ -138,7 +141,7 @@ const FAQ_CATEGORIES = [
   },
   {
     id: 'integrations',
-    label: 'Phone numbers & connectivity',
+    label: 'Integrations',
     icon: '🔗',
     description: 'Connect Conciva to the tools your team already uses.',
     items: [
@@ -166,7 +169,7 @@ const FAQ_CATEGORIES = [
   },
   {
     id: 'security',
-    label: 'Account & support',
+    label: 'Security & Privacy',
     icon: '🔒',
     description: 'Enterprise-grade security on every plan.',
     items: [
@@ -451,16 +454,17 @@ export default function FAQ() {
         <div className="faq-hero-inner">
           <div className="faq-hero-badge">
             <span className="faq-hero-badge-dot" aria-hidden="true" />
-            FAQ
+            Help Center
           </div>
 
           <h1 className="faq-hero-h1">
-            Everything you <span className="faq-hero-hl">wanted to know.</span>
+            Frequently Asked<br />
+            <span className="faq-hero-hl">Questions</span>
           </h1>
 
           <p className="faq-hero-sub">
-            Pricing, credit expiry, phone numbers, compliance, and account access — all in one place. Still
-            stuck? The team replies within an hour during business days.
+            Find answers to common questions about Conciva, our AI voice
+            solutions, features, integrations, pricing, and support.
           </p>
 
           {/* Search */}
@@ -471,22 +475,18 @@ export default function FAQ() {
             <input
               className="faq-search-input"
               type="search"
-              placeholder="Search questions…"
+              placeholder="Search your question…"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               aria-label="Search FAQ"
             />
-            {searchQuery ? (
+            {searchQuery && (
               <button
                 className="faq-search-clear"
                 onClick={() => setSearchQuery('')}
                 aria-label="Clear search"
               >
                 <X size={14} strokeWidth={2.5} />
-              </button>
-            ) : (
-              <button className="faq-search-btn" aria-label="Search" type="button">
-                Search →
               </button>
             )}
           </div>
@@ -522,7 +522,9 @@ export default function FAQ() {
             className={`faq-tab${activeTab === 'all' ? ' faq-tab--active' : ''}`}
             onClick={() => handleTabClick('all')}
           >
+            <HelpCircle size={14} strokeWidth={2} aria-hidden="true" />
             All topics
+            <span className="faq-tab-pill">{ALL_ITEMS.length}</span>
           </button>
 
           {FAQ_CATEGORIES.map(cat => (
@@ -533,7 +535,9 @@ export default function FAQ() {
               className={`faq-tab${activeTab === cat.id ? ' faq-tab--active' : ''}`}
               onClick={() => handleTabClick(cat.id)}
             >
+              <span aria-hidden="true">{cat.icon}</span>
               {cat.label}
+              <span className="faq-tab-pill">{cat.items.length}</span>
             </button>
           ))}
         </div>

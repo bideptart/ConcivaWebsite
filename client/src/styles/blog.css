@@ -125,7 +125,8 @@
   inset: 0;
   background-image:
     radial-gradient(circle at 70% 20%, rgba(249,115,22,0.08) 0%, transparent 55%),
-    radial-gradient(circle at 10% 80%, rgba(139,92,246,0.06) 0%, transparent 50%);
+    /* was rgba(139,92,246,…) — a violet wash that tinted the hero pink */
+    radial-gradient(circle at 10% 80%, rgba(251,146,60,0.07) 0%, transparent 50%);
   pointer-events: none;
 }
 .blog-header .blog-container {
@@ -197,7 +198,15 @@
   left: 1rem;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 0.95rem;
+  /* flex, not inline: an inline SVG sits on the text baseline, so the box
+     being centred was 22.8px of line-height around a 16px glyph and the
+     icon landed 3.4px high. Flex makes the glyph its own box. */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* explicit muted grey — currentColor was inheriting --text-main (#000),
+     making the magnifier heavier than the placeholder next to it */
+  color: #94A3B8;
   pointer-events: none;
 }
 .blog-search-input {
@@ -429,21 +438,6 @@
 }
 .blog-tag:hover { background: var(--primary-light, #FFF7ED); color: var(--primary, #F97316); }
 
-/* ── Author row ── */
-.blog-author-row { display: flex; align-items: center; gap: 0.65rem; }
-.blog-author-sm { gap: 0.5rem; }
-.blog-author-name { font-size: 0.85rem; font-weight: 700; color: var(--text-main, #0F172A); line-height: 1.2; }
-.blog-author-role { font-size: 0.72rem; color: var(--text-muted, #94A3B8); }
-.blog-avatar {
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  color: #FFFFFF;
-  flex-shrink: 0;
-  letter-spacing: 0.02em;
-}
 
 /* ── Read article button ── */
 .blog-read-btn {
@@ -626,7 +620,17 @@
   gap: 0.65rem;
   align-items: flex-start;
 }
-.blog-sidebar-cta-icon { font-size: 1.75rem; line-height: 1; }
+.blog-sidebar-cta-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
+  background: rgba(249,115,22,0.14);
+  border: 1px solid rgba(249,115,22,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
 .blog-sidebar-cta-title { font-size: 0.95rem; font-weight: 800; color: #FFFFFF; margin: 0; }
 .blog-sidebar-cta-text { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.6; margin: 0; }
 .blog-sidebar-cta-btn {
@@ -745,8 +749,9 @@
   font-size: 0.9rem;
   font-weight: 600;
   color: #FFFFFF;
-  background: rgba(16,185,129,0.12);
-  border: 1px solid rgba(16,185,129,0.3);
+  /* success state was green — brand has no green, so it reads in orange */
+  background: rgba(249,115,22,0.14);
+  border: 1px solid rgba(249,115,22,0.34);
   padding: 0.85rem 1.25rem;
   border-radius: 14px;
   margin-bottom: 0.6rem;
@@ -754,7 +759,7 @@
 .blog-nl-success-icon {
   width: 26px; height: 26px;
   border-radius: 50%;
-  background: #10B981;
+  background: var(--primary, #F97316);  /* was #10B981 */
   color: #FFFFFF;
   display: flex;
   align-items: center;
@@ -777,7 +782,13 @@
   border: 1.5px dashed var(--border-light, #E2E8F0);
   border-radius: 20px;
 }
-.blog-empty-icon { font-size: 2.5rem; line-height: 1; }
+.blog-empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary, #F97316);
+  line-height: 1;
+}
 .blog-empty p { font-size: 0.95rem; color: var(--text-muted, #64748B); max-width: 340px; line-height: 1.6; margin: 0; }
 .blog-empty-reset {
   display: inline-flex;
@@ -925,12 +936,99 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.bmc-card-footer { padding: 0.85rem 1.35rem 1.15rem; display: flex; align-items: center; gap: 0.55rem; }
-.bmc-author-info { display: flex; flex-direction: column; gap: 0.05rem; flex: 1; min-width: 0; }
-.bmc-author-info .blog-author-name { font-size: 0.8rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.bmc-author-info .blog-meta-text { font-size: 0.7rem; }
+.bmc-card-footer { padding: 0.85rem 1.35rem 1.15rem; display: flex; align-items: center; justify-content: space-between; gap: 0.55rem; }
+.bmc-footer-date { flex: 1; }
 
 @media (max-width: 640px) {
   .bmc-slide { width: 272px; }
   .bmc-fade-left, .bmc-fade-right { width: 60px; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   GENERATED POST THUMBNAILS  (blog-thumb / blog-feature-art)
+   Category-keyed SVG artwork — no photography, nothing to load.
+   ════════════════════════════════════════════════════════════ */
+
+.blog-thumb-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 7.5;
+  overflow: hidden;
+  background: var(--primary-light, #FFF7ED);
+  border-bottom: 1px solid var(--primary-border, #FED7AA);
+  flex-shrink: 0;
+}
+
+.blog-thumb {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.blog-card:hover .blog-thumb,
+.bmc-card:hover .blog-thumb {
+  transform: scale(1.05);
+}
+
+/* the thin accent bar now sits under the thumbnail rather than on top */
+.blog-card .blog-card-bar,
+.bmc-card .bmc-card-bar {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Featured hero artwork ── */
+.blog-feature-art {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  max-height: 420px;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .blog-feature-art { max-height: 260px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-thumb { transition: none; }
+  .blog-card:hover .blog-thumb,
+  .bmc-card:hover .blog-thumb { transform: none; }
+}
+
+/* ── Featured artwork: layered planes ── */
+@keyframes bfaFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-7px); }
+}
+
+@keyframes bfaClimb {
+  0%   { transform: translateY(0);     opacity: 0; }
+  12%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { transform: translateY(-176px); opacity: 0; }
+}
+
+.blog-feature-art .bfa-plane {
+  transform-box: view-box;
+  animation: bfaFloat 7s ease-in-out infinite;
+}
+.blog-feature-art .bfa-p1 { animation-duration: 7.6s; animation-delay: 0s;   }
+.blog-feature-art .bfa-p2 { animation-duration: 7s;   animation-delay: 0.5s; }
+.blog-feature-art .bfa-p3 { animation-duration: 6.4s; animation-delay: 1s;   }
+
+/* data climbing the corner risers, bottom plane → top plane */
+.blog-feature-art .bfa-spark {
+  transform-box: view-box;
+  animation: bfaClimb 3.6s ease-in-out infinite;
+}
+.blog-feature-art .bfa-s1 { animation-delay: 0s;   }
+.blog-feature-art .bfa-s2 { animation-delay: 1.2s; }
+.blog-feature-art .bfa-s3 { animation-delay: 2.4s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-feature-art * { animation: none !important; }
+  .blog-feature-art .bfa-spark { opacity: 0.7; }
 }

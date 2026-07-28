@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import IndustryScene, { SCENE_COPY } from './IndustryScenes';
 
 /* ─── SVG icons per industry id (no emojis) ─── */
 const INDUSTRY_SVG = {
@@ -51,53 +52,187 @@ function IndustryIcon({ id, color }) {
   return <Icon color={color} />;
 }
 
-/* ─── Illustration panel — geometric isometric visual per industry ─── */
+/* ═══════════════════════════════════════════════════════════════
+   ISOMETRIC ILLUSTRATION PANEL
+
+   Original artwork — nothing traced. Composition borrows only the
+   *structural* idea of a premium SaaS scene: a raised isometric stage,
+   a floating conversation panel overlapping it, a device, and a
+   connected glyph node. Subject matter is Conciva's own: a voice-AI
+   hub taking a live call, not a room interior.
+
+   Strictly brand palette — #F97316 / #FB923C / #FFEDD5 / #FFF7ED,
+   with #111827 for the handset body. No green anywhere.
+
+   Isometric maths: iso(x, y, z) →
+     screenX = OX + (x - y) * S * cos(30°)   [S * 0.866]
+     screenY = OY + (x + y) * S * sin(30°) - z * S
+   with S = 30, OX = 196, OY = 250. A circle on the ground plane
+   projects to an axis-aligned ellipse with rx/ry = √3, which is why
+   the glow pools and rings below are plain <ellipse> elements.
+═══════════════════════════════════════════════════════════════ */
 function IndustryIllustration({ industry }) {
-  const palettes = {
-    healthcare: { bg: '#FEF2F2', accent: '#EF4444', soft: '#FECACA' },
-    'real-estate': { bg: '#EFF6FF', accent: '#3B82F6', soft: '#BFDBFE' },
-    'finance-banking': { bg: '#F5F3FF', accent: '#8B5CF6', soft: '#DDD6FE' },
-    'ecommerce-retail': { bg: '#ECFDF5', accent: '#10B981', soft: '#A7F3D0' },
-    'education-edtech': { bg: '#FFFBEB', accent: '#F59E0B', soft: '#FDE68A' },
-    'logistics-hospitality': { bg: '#FDF2F8', accent: '#EC4899', soft: '#FBCFE8' },
-  };
-  const pal = palettes[industry.id] || palettes.healthcare;
   const m0 = industry.metrics?.[0];
   const m1 = industry.metrics?.[1];
+  const copy = SCENE_COPY[industry.id] || SCENE_COPY.healthcare;
 
   return (
-    <div className="ive-illus-wrap" style={{ background: pal.bg }}>
-      {/* Background subtle grid */}
+    <div className="ive-illus-wrap">
       <div className="ive-illus-grid" />
 
-      {/* Soft glow behind icon */}
-      <div className="ive-illus-glow" style={{ background: `radial-gradient(circle, ${pal.accent}33 0%, transparent 70%)` }} />
-
-      {/* Top status bar — pinned, never overlaps anything */}
+      {/* ── Top status bar ── */}
       <div className="ive-illus-topbar">
-        <span className="ive-illus-live-dot" style={{ background: pal.accent }} />
+        <span className="ive-illus-live-dot" />
         <span>AI Agent · Live</span>
       </div>
 
-      {/* Central icon */}
-      <div className="ive-illus-center">
-        <div className="ive-illus-icon-ring" style={{ borderColor: pal.accent, boxShadow: `0 16px 40px ${pal.accent}26` }}>
-          <IndustryIcon id={industry.id} color={pal.accent} />
-        </div>
-      </div>
+      <svg
+        className="ive-iso"
+        viewBox="0 0 460 460"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <linearGradient id="isoTop" x1="0" y1="0" x2="0.4" y2="1">
+            <stop offset="0%" stopColor="#FFFFFF" />
+            <stop offset="100%" stopColor="#FFEDD5" />
+          </linearGradient>
+          <linearGradient id="isoLeft" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#FED7AA" />
+            <stop offset="100%" stopColor="#FDBA74" />
+          </linearGradient>
+          <linearGradient id="isoRight" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#FDBA74" />
+            <stop offset="100%" stopColor="#F59E5A" />
+          </linearGradient>
+          <linearGradient id="isoModTop" x1="0" y1="0" x2="0.5" y2="1">
+            <stop offset="0%" stopColor="#FFFFFF" />
+            <stop offset="100%" stopColor="#FFF7ED" />
+          </linearGradient>
+          <linearGradient id="isoModLeft" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#FFFFFF" />
+            <stop offset="100%" stopColor="#FFEDD5" />
+          </linearGradient>
+          <linearGradient id="isoModRight" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#FFEDD5" />
+            <stop offset="100%" stopColor="#FDBA74" />
+          </linearGradient>
+          <linearGradient id="isoAccent" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#FB923C" />
+            <stop offset="100%" stopColor="#F97316" />
+          </linearGradient>
+          <linearGradient id="isoBarUp" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%" stopColor="#FB923C" />
+            <stop offset="100%" stopColor="#F97316" />
+          </linearGradient>
+          <radialGradient id="isoPool" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#F97316" stopOpacity="0.34" />
+            <stop offset="100%" stopColor="#F97316" stopOpacity="0" />
+          </radialGradient>
 
-      {/* Bottom metric dock — two chips side by side, never wraps into other elements */}
+          <filter id="isoDrop" x="-40%" y="-40%" width="180%" height="180%">
+            <feDropShadow dx="0" dy="10" stdDeviation="12"
+              floodColor="#9A3412" floodOpacity="0.16" />
+          </filter>
+          <filter id="isoDropSm" x="-40%" y="-40%" width="180%" height="180%">
+            <feDropShadow dx="0" dy="5" stdDeviation="7"
+              floodColor="#9A3412" floodOpacity="0.14" />
+          </filter>
+        </defs>
+
+        {/* ── Ambient pool under the stage ── */}
+        <ellipse className="ive-iso-pool" cx="180" cy="282" rx="168" ry="96"
+          fill="url(#isoPool)" />
+
+        {/* ── Stage + the scene for this vertical (see IndustryScenes.jsx) ── */}
+        <IndustryScene id={industry.id} />
+
+        {/* ── Handset — the one constant across every vertical ── */}
+        <g className="ive-iso-phone">
+          <ellipse cx="342" cy="332" rx="28" ry="9"
+            fill="#9A3412" fillOpacity="0.13" />
+          <g transform="translate(320 240) rotate(-7)">
+            <rect width="44" height="84" rx="11" fill="#111827"
+              filter="url(#isoDropSm)" />
+            <rect x="3.5" y="3.5" width="37" height="77" rx="8" fill="#1F2937" />
+            <rect x="16" y="8" width="12" height="2.6" rx="1.3"
+              fill="#FFFFFF" fillOpacity="0.28" />
+            <g>
+              {[9, 17, 26, 14, 20].map((h, i) => (
+                <rect
+                  key={i}
+                  className={`ive-iso-pbar ive-iso-p${i + 1}`}
+                  x={10 + i * 5.2}
+                  y={45 - h / 2}
+                  width="3"
+                  height={h}
+                  rx="1.5"
+                  fill="url(#isoBarUp)"
+                />
+              ))}
+            </g>
+            <circle cx="22" cy="68" r="7.5" fill="url(#isoAccent)" />
+            <path d="M 19 65.5 q 3 4.2 6 0" stroke="#FFFFFF" strokeWidth="1.6"
+              fill="none" strokeLinecap="round" />
+          </g>
+        </g>
+
+        {/* ── Connector: glyph node → stage ── */}
+        <path className="ive-iso-wire" d="M 98 330 C 118 330, 126 306, 142 294"
+          fill="none" stroke="#F97316" strokeOpacity="0.4" strokeWidth="2"
+          strokeDasharray="2 6" strokeLinecap="round" />
+
+        {/* ── Industry glyph node ── */}
+        <g className="ive-iso-node">
+          <rect x="46" y="304" width="54" height="54" rx="16" fill="#FFFFFF"
+            stroke="rgba(249,115,22,0.15)" strokeWidth="1.5"
+            filter="url(#isoDropSm)" />
+          {/* IndustryIcon renders 36×36 — centres it in the 54×54 node */}
+          <g transform="translate(55 313)">
+            <IndustryIcon id={industry.id} color="#F97316" />
+          </g>
+        </g>
+
+        {/* ── Floating conversation panel ── */}
+        <g className="ive-iso-panel">
+          <g filter="url(#isoDrop)">
+            <rect x="238" y="56" width="202" height="124" rx="17" fill="#FFFFFF"
+              stroke="rgba(249,115,22,0.15)" strokeWidth="1.5" />
+          </g>
+          <circle className="ive-iso-livedot" cx="254" cy="78" r="3.6" fill="#F97316" />
+          <text x="265" y="82" className="ive-iso-h">Live call</text>
+          <text x="424" y="82" className="ive-iso-t" textAnchor="end">02:14</text>
+          <line x1="250" y1="92" x2="428" y2="92" stroke="#F1F5F9" strokeWidth="1.5" />
+
+          <rect x="250" y="100" width="124" height="27" rx="9" fill="#F3F4F6" />
+          <text x="260" y="117" className="ive-iso-msg">{copy.caller}</text>
+
+          <rect x="272" y="133" width="156" height="27" rx="9" fill="#FFEDD5"
+            stroke="rgba(249,115,22,0.22)" strokeWidth="1" />
+          <text x="282" y="150" className="ive-iso-msg ive-iso-msg-ai">
+            {copy.agent}
+          </text>
+
+          <g className="ive-iso-typing">
+            <circle className="ive-iso-d1" cx="256" cy="169" r="3" fill="#D1D5DB" />
+            <circle className="ive-iso-d2" cx="266" cy="169" r="3" fill="#D1D5DB" />
+            <circle className="ive-iso-d3" cx="276" cy="169" r="3" fill="#D1D5DB" />
+          </g>
+        </g>
+      </svg>
+
+      {/* ── Bottom metric dock ── */}
       {(m0 || m1) && (
         <div className="ive-illus-footer">
           {m0 && (
             <div className="ive-illus-metric-chip">
-              <span className="ive-illus-metric-val" style={{ color: pal.accent }}>{m0.value}</span>
+              <span className="ive-illus-metric-val">{m0.value}</span>
               <span className="ive-illus-metric-lbl">{m0.label}</span>
             </div>
           )}
           {m1 && (
             <div className="ive-illus-metric-chip">
-              <span className="ive-illus-metric-val" style={{ color: pal.accent }}>{m1.value}</span>
+              <span className="ive-illus-metric-val">{m1.value}</span>
               <span className="ive-illus-metric-lbl">{m1.label}</span>
             </div>
           )}
