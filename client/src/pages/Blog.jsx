@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { BLOG_POSTS, BLOG_CATEGORIES } from '../constants/blogData';
+import BlogThumb, { BlogFeaturedArt } from '../components/blog/BlogThumb';
 import '../styles/blog.css';
 
 /* ─── Intersection-observer reveal hook ─── */
@@ -18,19 +19,6 @@ function useReveal(threshold = 0.12) {
     return () => obs.disconnect();
   }, [threshold]);
   return [ref, visible];
-}
-
-/* ─── Author avatar ─── */
-function Avatar({ author, size = 36 }) {
-  return (
-    <span
-      className="blog-avatar"
-      style={{ width: size, height: size, background: author.color, fontSize: size * 0.36 }}
-      aria-label={author.name}
-    >
-      {author.initials}
-    </span>
-  );
 }
 
 /* ─── Category pill ─── */
@@ -66,13 +54,6 @@ function FeaturedPost({ post }) {
           <p className="blog-featured-subtitle">{post.subtitle}</p>
           <p className="blog-featured-excerpt">{post.excerpt}</p>
           <div className="blog-featured-footer">
-            <div className="blog-author-row">
-              <Avatar author={post.author} size={40} />
-              <div>
-                <div className="blog-author-name">{post.author.name}</div>
-                <div className="blog-author-role">{post.author.role}</div>
-              </div>
-            </div>
             <Link to={`/blog/${post.slug}`} className="blog-read-btn">
               Read article <span aria-hidden="true">→</span>
             </Link>
@@ -83,7 +64,7 @@ function FeaturedPost({ post }) {
         </div>
         <div className="blog-featured-visual">
           <div className="blog-visual-grid" />
-          <div className="blog-visual-blob" style={{ background: post.accentColor + '22' }} />
+          <BlogFeaturedArt />
           <div className="blog-float-card blog-float-card-tl">
             <span className="blog-float-val" style={{ color: post.accentColor }}>2.4M</span>
             <span className="blog-float-lbl">Calls analysed</span>
@@ -91,10 +72,6 @@ function FeaturedPost({ post }) {
           <div className="blog-float-card blog-float-card-br">
             <span className="blog-float-val" style={{ color: post.accentColor }}>+65%</span>
             <span className="blog-float-lbl">Booking rate lift</span>
-          </div>
-          <div className="blog-visual-center" style={{ borderColor: post.accentColor + '55' }}>
-            <span className="blog-visual-icon">📝</span>
-            <span className="blog-visual-label" style={{ color: post.accentColor }}>Field Report</span>
           </div>
         </div>
       </div>
@@ -109,6 +86,9 @@ function FeaturedPost({ post }) {
 function MarqueeCard({ post }) {
   return (
     <article className="bmc-card">
+      <div className="blog-thumb-wrap">
+        <BlogThumb category={post.category} />
+      </div>
       <div className="bmc-card-bar" style={{ background: post.accentColor }} />
       <div className="bmc-card-body">
         <div className="bmc-card-meta">
@@ -125,11 +105,7 @@ function MarqueeCard({ post }) {
         </div>
       </div>
       <div className="bmc-card-footer">
-        <Avatar author={post.author} size={30} />
-        <div className="bmc-author-info">
-          <span className="blog-author-name">{post.author.name}</span>
-          <span className="blog-meta-text">{post.date}</span>
-        </div>
+        <span className="blog-meta-text bmc-footer-date">{post.date}</span>
         <Link to={`/blog/${post.slug}`} className="blog-card-link" onClick={e => e.stopPropagation()}>
           Read →
         </Link>
@@ -293,7 +269,16 @@ function BlogSidebar({ activeCategory, onCategory }) {
         </ul>
       </div>
       <div className="blog-sidebar-cta">
-        <div className="blog-sidebar-cta-icon">🤖</div>
+        <div className="blog-sidebar-cta-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+            <rect x="4" y="7" width="16" height="12" rx="3.5"
+              stroke="#F97316" strokeWidth="1.8" />
+            <path d="M12 3v4" stroke="#F97316" strokeWidth="1.8" strokeLinecap="round" />
+            <circle cx="12" cy="3" r="1.5" fill="#F97316" />
+            <path d="M9 12v2M12 11v4M15 12v2" stroke="#F97316"
+              strokeWidth="1.8" strokeLinecap="round" />
+          </svg>
+        </div>
         <h4 className="blog-sidebar-cta-title">See it live</h4>
         <p className="blog-sidebar-cta-text">Watch Conciva AI handle a real clinic call in under 2 seconds.</p>
         <Link to="/contact" className="blog-sidebar-cta-btn">Book a demo →</Link>
@@ -341,7 +326,12 @@ export default function Blog() {
             AI voice agents for Asia's fastest-moving businesses.
           </p>
           <div className="blog-search-wrap">
-            <span className="blog-search-icon" aria-hidden="true">🔍</span>
+           <span className="blog-search-icon" aria-hidden="true">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="11" cy="11" r="8" />
+    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+  </svg>
+</span>
             <input type="search" className="blog-search-input" placeholder="Search articles…"
               value={searchQuery} onChange={e => setSearchQuery(e.target.value)} aria-label="Search articles" />
           </div>
@@ -383,6 +373,9 @@ export default function Blog() {
                   {filtered.map((post, i) => (
                     <article key={post.id} className="blog-card blog-reveal-up"
                       style={{ animationDelay: `${(i % 3) * 0.08}s` }}>
+                      <div className="blog-thumb-wrap">
+                        <BlogThumb category={post.category} />
+                      </div>
                       <div className="blog-card-bar" style={{ background: post.accentColor }} />
                       <div className="blog-card-body">
                         <div className="blog-card-meta">
@@ -399,13 +392,7 @@ export default function Blog() {
                         </div>
                       </div>
                       <div className="blog-card-footer">
-                        <div className="blog-author-row blog-author-sm">
-                          <Avatar author={post.author} size={30} />
-                          <div>
-                            <div className="blog-author-name">{post.author.name}</div>
-                            <div className="blog-meta-text">{post.date}</div>
-                          </div>
-                        </div>
+                        <span className="blog-meta-text">{post.date}</span>
                         <Link to={`/blog/${post.slug}`} className="blog-card-link">Read →</Link>
                       </div>
                     </article>
@@ -416,7 +403,12 @@ export default function Blog() {
             </div>
           ) : (
             <div className="blog-empty">
-              <span className="blog-empty-icon">🔍</span>
+              <span className="blog-empty-icon">
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="11" cy="11" r="8" />
+    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+  </svg>
+</span>
               <p>No articles match your search. Try a different keyword or category.</p>
               <button type="button" className="blog-empty-reset"
                 onClick={() => { setSearchQuery(''); setActiveCategory('All'); }}>

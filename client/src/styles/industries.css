@@ -64,7 +64,7 @@
 /* ── Hero Section ── */
  .hero-section {
    position: relative;
-   padding: 4.5rem 0 5.5rem;      
+   padding: 2rem 0 1rem;      
    background: var(--bg-page, #FAF8F5);
  }
 
@@ -74,7 +74,7 @@
 .ind-hero-revamp {
    background: linear-gradient(160deg, #FFFFFF 0%, #FFF8F3 40%, #FFF5ED 100%) !important;
    overflow: hidden !important;
-   min-height: 580px;            
+   min-height: 490px;            
    display: flex;
    align-items: center;          
  }
@@ -318,7 +318,7 @@
 /* Bottom stats strip */
 .ind-stats-strip {
   position: absolute;
-  bottom: -32px;
+  bottom: -56px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -1221,6 +1221,9 @@
   overflow: hidden;
   border: 1.5px solid var(--primary-border, #FED7AA);
   box-shadow: 0 20px 60px rgba(249, 115, 22, 0.1), 0 4px 20px rgba(15, 23, 42, 0.06);
+  /* single brand surface for every vertical — the old per-industry
+     rainbow palette (incl. a green e-commerce theme) is gone */
+  background: linear-gradient(158deg, #FFFFFF 0%, #FFF7ED 46%, #FFEDD5 100%);
 }
 
 /* Subtle dot-grid background */
@@ -1232,30 +1235,115 @@
   pointer-events: none;
 }
 
-.ive-illus-center {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.25rem;
-  padding: 2rem;
-}
-
-/* Soft radial glow behind the icon */
-.ive-illus-glow {
+/* ── Isometric illustration layer ──────────────────────────
+   Fills the square panel; the HTML topbar and metric dock sit above it. */
+.ive-iso {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: block;
   pointer-events: none;
 }
 
-/* Top status bar — pinned across the top, no overlap risk */
+.ive-iso text {
+  font-family: 'Geist', 'Plus Jakarta Sans', sans-serif;
+  fill: var(--text-main, #111827);
+}
+
+.ive-iso-h   { font-size: 11.5px; font-weight: 700; letter-spacing: -0.01em; }
+.ive-iso-t   { font-size: 10.5px; font-weight: 600; fill: #94A3B8; }
+.ive-iso-msg { font-size: 10.5px; font-weight: 500; fill: #374151; }
+.ive-iso-msg-ai { fill: #9A3412; font-weight: 600; }
+
+/* animated pieces rotate/scale about their own box, not the SVG origin */
+.ive-iso [class*='ive-iso-'] {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes iveIsoFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+@keyframes iveIsoFloatSm {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+
+@keyframes iveIsoBar {
+  0%, 100% { transform: scaleY(0.4); }
+  50%      { transform: scaleY(1.15); }
+}
+
+@keyframes iveIsoPool {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.06); }
+}
+
+@keyframes iveIsoRipple {
+  0%   { opacity: 0.5; transform: scale(0.9); }
+  70%  { opacity: 0;   transform: scale(1.14); }
+  100% { opacity: 0;   transform: scale(1.14); }
+}
+
+@keyframes iveIsoRing {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 0.15; transform: scale(1.5); }
+}
+
+@keyframes iveIsoWire {
+  from { stroke-dashoffset: 32; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes iveIsoType {
+  0%, 60%, 100% { opacity: 0.35; transform: translateY(0); }
+  30%           { opacity: 1;    transform: translateY(-3px); }
+}
+
+.ive-iso-pool   { animation: iveIsoPool 6s ease-in-out infinite; }
+.ive-iso-ripple { animation: iveIsoRipple 4.5s ease-out infinite; }
+.ive-iso-ring   { animation: iveIsoRing 3.2s ease-in-out infinite; }
+.ive-iso-module { animation: iveIsoFloatSm 7s ease-in-out infinite; }
+.ive-iso-phone  { animation: iveIsoFloat 6s ease-in-out infinite 0.6s; }
+.ive-iso-panel  { animation: iveIsoFloat 7.5s ease-in-out infinite 0.3s; }
+.ive-iso-node   { animation: iveIsoFloatSm 6.5s ease-in-out infinite 1.1s; }
+.ive-iso-wire   { animation: iveIsoWire 1.4s linear infinite; }
+.ive-iso-livedot { animation: iveGreenPulse 2s infinite; }
+
+.ive-iso-bar,
+.ive-iso-pbar { animation: iveIsoBar 1.2s ease-in-out infinite alternate; }
+.ive-iso-b1 { animation-delay: 0s;    }
+.ive-iso-b2 { animation-delay: 0.1s;  }
+.ive-iso-b3 { animation-delay: 0.2s;  }
+.ive-iso-b4 { animation-delay: 0.3s;  }
+.ive-iso-b5 { animation-delay: 0.4s;  }
+.ive-iso-b6 { animation-delay: 0.5s;  }
+.ive-iso-b7 { animation-delay: 0.6s;  }
+.ive-iso-p1 { animation-delay: 0.05s; }
+.ive-iso-p2 { animation-delay: 0.2s;  }
+.ive-iso-p3 { animation-delay: 0.35s; }
+.ive-iso-p4 { animation-delay: 0.5s;  }
+.ive-iso-p5 { animation-delay: 0.65s; }
+
+.ive-iso-typing circle { animation: iveIsoType 1.3s ease-in-out infinite; }
+.ive-iso-typing .ive-iso-d1 { animation-delay: 0s;    }
+.ive-iso-typing .ive-iso-d2 { animation-delay: 0.18s; }
+.ive-iso-typing .ive-iso-d3 { animation-delay: 0.36s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ive-iso * { animation: none !important; }
+  .ive-iso-ripple { opacity: 0.28; }
+}
+
+/* Top status bar — anchored left so the conversation panel owns the top-right */
 .ive-illus-topbar {
   position: absolute;
   top: 22px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 22px;
   z-index: 3;
   display: inline-flex;
   align-items: center;
@@ -1277,6 +1365,7 @@
   height: 8px;
   border-radius: 50%;
   flex-shrink: 0;
+  background: var(--primary, #F97316);
   animation: iveGreenPulse 2s infinite;
 }
 
@@ -1310,6 +1399,7 @@
   font-size: 1.05rem;
   font-weight: 900;
   line-height: 1.1;
+  color: var(--primary, #F97316);
 }
 
 .ive-illus-metric-lbl {
@@ -1319,29 +1409,6 @@
   line-height: 1.25;
 }
 
-/* Big icon ring */
-.ive-illus-icon-ring {
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  border: 2.5px solid;
-  background: rgba(255,255,255,0.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 12px 36px rgba(249, 115, 22, 0.18);
-  animation: ivePulseRing 3s ease-in-out infinite;
-}
-
-@keyframes ivePulseRing {
-  0%, 100% { box-shadow: 0 12px 36px rgba(249, 115, 22, 0.18); transform: scale(1); }
-  50%       { box-shadow: 0 16px 48px rgba(249, 115, 22, 0.28); transform: scale(1.03); }
-}
-
-.ive-illus-icon {
-  font-size: 3.5rem;
-  line-height: 1;
-}
 
 /* Floating "AI Agent · Live" bubble */
 .ive-bubble {
@@ -1776,8 +1843,9 @@
   isolation: isolate;
   overflow: hidden;
   will-change: transform;
-  /* Solid orange glass */
-  background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 60%, #FED7AA 100%) !important;
+  /* Paler, flatter surface — the old cream→#FED7AA ramp dropped body-text
+     contrast below AA at the right-hand end of the card. */
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFFBF6 58%, #FFF1E0 100%) !important;
   border: 2px solid rgba(249, 115, 22, 0.45);
   box-shadow:
     0 0 0 1px rgba(249, 115, 22, 0.12),
@@ -1808,9 +1876,13 @@
   ) !important;
 }
 
+/* NB: this element's filter also applies to its ::after, which is the card's
+   inner fill. The previous hue-rotate(0→360deg) therefore swept the whole card
+   surface through every hue — including green and violet — once every 6s.
+   Breathing the opacity keeps the rim alive without touching hue. */
 @keyframes sccRotateBorder {
-  from { filter: hue-rotate(0deg); }
-  to   { filter: hue-rotate(360deg); }
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 1; }
 }
 
 /* Inner mask so the border is only visible as a 3px rim */
@@ -1819,7 +1891,7 @@
   position: absolute;
   inset: 3px;
   border-radius: 24px;
-  background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 60%, #FED7AA 100%);
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFFBF6 58%, #FFF1E0 100%);
 }
 
 /* ── Ambient glow blob ── */
@@ -1914,7 +1986,7 @@
   font-size: 2.8rem;
   font-weight: 900;
   line-height: 1;
-  color: rgba(249,115,22,0.18);
+  color: rgba(249,115,22,0.26);
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.04em;
 }
@@ -1941,8 +2013,9 @@
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  background: rgba(249,115,22,0.1);
-  border: 1px solid rgba(249,115,22,0.25);
+  /* solid light tile so the dark icon reads at any card position */
+  background: #FFEDD5;
+  border: 1px solid rgba(249,115,22,0.3);
   margin-bottom: 0.1rem;
 }
 
@@ -1962,7 +2035,9 @@
 
 .scc-desc {
   font-size: 0.88rem;
-  color: var(--text-muted, #64748B);
+  /* #4B5563 on the pale card clears WCAG AA for body copy; the old
+     #64748B on a #FED7AA ramp did not. */
+  color: #4B5563;
   line-height: 1.6;
   margin: 0;
   max-width: 520px;
@@ -2051,4 +2126,35 @@
   .scc-sticky-lane {
     height: 44vh;
   }
+}
+
+/* ── Per-industry isometric scenes (ivs-*) ───────────────── */
+.ivs-scene [class*='ivs-'] {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes ivsLift {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-7px); }
+}
+
+@keyframes ivsRoute {
+  from { stroke-dashoffset: 40; }
+  to   { stroke-dashoffset: 0; }
+}
+
+.ivs-lift   { animation: ivsLift 4.5s ease-in-out infinite; }
+.ivs-route  { animation: ivsRoute 1.6s linear infinite; }
+.ivs-ripple { animation: iveIsoRipple 4.5s ease-out infinite; }
+.ivs-bar    { animation: iveIsoBar 1.2s ease-in-out infinite alternate; }
+.ivs-b1 { animation-delay: 0s;   }
+.ivs-b2 { animation-delay: 0.1s; }
+.ivs-b3 { animation-delay: 0.2s; }
+.ivs-b4 { animation-delay: 0.3s; }
+.ivs-b5 { animation-delay: 0.4s; }
+.ivs-b6 { animation-delay: 0.5s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ivs-scene * { animation: none !important; }
 }

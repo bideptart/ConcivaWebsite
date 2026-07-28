@@ -83,7 +83,7 @@ export default function SecurityCompliance() {
             <span className="pulse-dot"></span>
             Enterprise Security
           </div>
-          <h2 className="section-title">Security & <span className="gradient-span">Compliance</span></h2>
+          <h2 className="section-title">Security & Compliance</h2>
           <p className="section-subtitle">
             Built to meet South African POPIA data privacy laws and global telecom standards.
           </p>

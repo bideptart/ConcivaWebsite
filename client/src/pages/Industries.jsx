@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { INDUSTRIES_DATA, CAPABILITIES, FAQS } from '../constants/industriesData';
 import IndustryCard from '../components/industries/IndustryCard';
 import IndustryModal from '../components/industries/IndustryModal';
-import IndustryHeroVisual from '../components/industries/IndustryHeroVisual';
+import HeroVoiceVisual from '../components/common/HeroVoiceVisual';
 import IndustryVerticalExplorer from '../components/industries/IndustryVerticalExplorer';
 import StackedCapabilityCards from '../components/industries/StackedCapabilityCards';
 import '../styles/industries.css';
@@ -87,8 +87,8 @@ function Industries() {
               </div>
             </div>
 
-            {/* Right — Animated Industry Orbiter */}
-            <IndustryHeroVisual />
+            {/* Right — AI voice pipeline illustration */}
+            <HeroVoiceVisual />
           </div>
         </div>
       </section>
