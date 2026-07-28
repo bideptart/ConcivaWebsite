@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import ConcivaLogo from '../common/ConcivaLogo';
 
 const COLUMNS = [
   {
@@ -112,7 +113,7 @@ export default function PricingFooter() {
           {/* Brand column */}
           <div className="pf-brand">
             <Link to="/" className="pf-logo" aria-label="Conciva AI home">
-              Conciva<span className="pf-logo-accent">AI</span>
+              <ConcivaLogo iconSize={36} textColor="#FFFFFF" />
             </Link>
             <p className="pf-tagline">
               AI voice agents that actually sound human. Native audio,
