@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import IndustryScene, { SCENE_COPY } from './IndustryScenes';
+import IndustryScene from './IndustryScenes';
 
 /* ─── SVG icons per industry id (no emojis) ─── */
 const INDUSTRY_SVG = {
@@ -74,7 +74,6 @@ function IndustryIcon({ id, color }) {
 function IndustryIllustration({ industry }) {
   const m0 = industry.metrics?.[0];
   const m1 = industry.metrics?.[1];
-  const copy = SCENE_COPY[industry.id] || SCENE_COPY.healthcare;
 
   return (
     <div className="ive-illus-wrap">
@@ -200,24 +199,18 @@ function IndustryIllustration({ industry }) {
               stroke="rgba(249,115,22,0.15)" strokeWidth="1.5" />
           </g>
           <circle className="ive-iso-livedot" cx="254" cy="78" r="3.6" fill="#F97316" />
-          <text x="265" y="82" className="ive-iso-h">Live call</text>
-          <text x="424" y="82" className="ive-iso-t" textAnchor="end">02:14</text>
+          <text x="265" y="82" className="ive-iso-h">{industry.category}</text>
+          <text x="424" y="82" className="ive-iso-badge" textAnchor="end">{industry.badge}</text>
           <line x1="250" y1="92" x2="428" y2="92" stroke="#F1F5F9" strokeWidth="1.5" />
 
-          <rect x="250" y="100" width="124" height="27" rx="9" fill="#F3F4F6" />
-          <text x="260" y="117" className="ive-iso-msg">{copy.caller}</text>
-
-          <rect x="272" y="133" width="156" height="27" rx="9" fill="#FFEDD5"
-            stroke="rgba(249,115,22,0.22)" strokeWidth="1" />
-          <text x="282" y="150" className="ive-iso-msg ive-iso-msg-ai">
-            {copy.agent}
-          </text>
-
-          <g className="ive-iso-typing">
-            <circle className="ive-iso-d1" cx="256" cy="169" r="3" fill="#D1D5DB" />
-            <circle className="ive-iso-d2" cx="266" cy="169" r="3" fill="#D1D5DB" />
-            <circle className="ive-iso-d3" cx="276" cy="169" r="3" fill="#D1D5DB" />
-          </g>
+          {/* Real site copy: this industry's own useCases from industriesData.js.
+              Nothing invented here — edit the data file and this panel follows. */}
+          {(industry.useCases || []).slice(0, 4).map((uc, i) => (
+            <g key={uc} className={`ive-iso-uc ive-iso-uc-${i + 1}`}>
+              <circle cx="255" cy={104 + i * 19} r="2.6" fill="#F97316" />
+              <text x="265" y={108 + i * 19} className="ive-iso-uc-t">{uc}</text>
+            </g>
+          ))}
         </g>
       </svg>
 

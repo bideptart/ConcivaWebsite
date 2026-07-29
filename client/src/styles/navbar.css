@@ -301,3 +301,35 @@
   text-decoration: none;
   box-shadow: 0 3px 12px rgba(249, 115, 22, 0.3);
 }
+
+/* ── Logo lockup (PNG replaces the old icon-box + wordmark) ──
+   height drives the size; width:auto keeps the 4.1:1 ratio.
+   The width/height attrs on the <img> reserve the box so the
+   navbar doesn't jump while the file loads. */
+.navbar-brand {
+  position: relative;
+}
+
+.navbar-logo-img {
+  height: 36px;
+  width: auto;
+  display: block;
+  transform-origin: left center;
+  transition:
+    transform 0.5s cubic-bezier(0.34, 1.32, 0.5, 1),
+    filter    0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+}
+
+.navbar-brand:hover .navbar-logo-img,
+.navbar-brand:focus-visible .navbar-logo-img {
+  transform: translateY(-2px) scale(1.035);
+  filter: drop-shadow(0 3px 5px rgba(249, 115, 22, 0.30));
+}
+
+
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar-logo-img { transition: none !important; }
+  .navbar-brand:hover .navbar-logo-img { transform: none; }
+}

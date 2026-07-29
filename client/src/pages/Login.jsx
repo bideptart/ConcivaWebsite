@@ -99,17 +99,13 @@ export default function Login() {
 
         {/* Brand */}
         <Link to="/" className="lp-brand">
-          <span className="lp-logo-icon">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path
-                d="M10 2C10 2 10.6 6.2 12.5 8.1C14.4 10 18 10 18 10C18 10 14.4 10 12.5 11.9C10.6 13.8 10 18 10 18C10 18 9.4 13.8 7.5 11.9C5.6 10 2 10 2 10C2 10 5.6 10 7.5 8.1C9.4 6.2 10 2 10 2Z"
-                fill="white"
-              />
-            </svg>
-          </span>
-          <span className="lp-brand-text">
-            Conciva<span className="lp-brand-ai">AI</span>
-          </span>
+          <img
+            src="/conciva-logo.png"
+            alt="Conciva AI"
+            className="lp-logo-img"
+            width="148"
+            height="36"
+          />
         </Link>
 
         {/* Center copy */}

@@ -1257,6 +1257,22 @@
 .ive-iso-msg { font-size: 10.5px; font-weight: 500; fill: #374151; }
 .ive-iso-msg-ai { fill: #9A3412; font-weight: 600; }
 
+/* Use-case rows — real content pulled from industriesData.js.
+   10px, not 10.5: the longest string ('Loan Application Qualification')
+   has to clear the panel's inner right edge at x=428. */
+.ive-iso-badge { font-size: 8.8px; font-weight: 700; fill: #C2410C; letter-spacing: 0; }
+.ive-iso-uc-t  { font-size: 10px;  font-weight: 600; fill: #374151; letter-spacing: -0.005em; }
+.ive-iso-uc    { animation: iveUcIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.ive-iso-uc-1  { animation-delay: 0.10s; }
+.ive-iso-uc-2  { animation-delay: 0.20s; }
+.ive-iso-uc-3  { animation-delay: 0.30s; }
+.ive-iso-uc-4  { animation-delay: 0.40s; }
+
+@keyframes iveUcIn {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: none; }
+}
+
 /* animated pieces rotate/scale about their own box, not the SVG origin */
 .ive-iso [class*='ive-iso-'] {
   transform-box: fill-box;

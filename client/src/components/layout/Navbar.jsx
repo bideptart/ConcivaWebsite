@@ -34,19 +34,15 @@ export default function Navbar() {
 
         {/* ── Logo ── */}
         <Link to="/" className="navbar-brand" aria-label="Conciva AI – Home">
-          {/* Orange rounded-square icon with 4-pointed star */}
-          <span className="navbar-logo-icon" aria-hidden="true">
-            {/* 4-pointed star SVG matching the reference */}
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M10 2C10 2 10.6 6.2 12.5 8.1C14.4 10 18 10 18 10C18 10 14.4 10 12.5 11.9C10.6 13.8 10 18 10 18C10 18 9.4 13.8 7.5 11.9C5.6 10 2 10 2 10C2 10 5.6 10 7.5 8.1C9.4 6.2 10 2 10 2Z"
-                fill="white"
-              />
-            </svg>
-          </span>
-          <span className="navbar-brand-text">
-            Conciva<span className="brand-ai">AI</span>
-          </span>
+          {/* Full lockup — icon + wordmark live inside the PNG, so no
+              separate text node. width/height set to stop layout shift. */}
+          <img
+            src="/conciva-logo.png"
+            alt="Conciva AI"
+            className="navbar-logo-img"
+            width="148"
+            height="36"
+          />
         </Link>
 
         {/* ── Desktop Nav Links ── */}
