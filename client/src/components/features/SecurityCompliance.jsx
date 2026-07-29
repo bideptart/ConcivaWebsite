@@ -99,7 +99,7 @@ export default function SecurityCompliance() {
             Security &amp; <span className="gradient-span">compliance.</span>
           </h2>
           <p className="section-subtitle">
-            Built to meet South African POPIA data privacy laws and global telecom standards.
+            Buiilt to meet South African POPIA data privacy laws and global telecom standards.
           </p>
         </div>
 
