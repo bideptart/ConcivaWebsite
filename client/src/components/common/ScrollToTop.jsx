@@ -1,35 +1,37 @@
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 
-/**
- * Global ScrollToTop component
- * Ensures that whenever navigation occurs between pages or internal routes,
- * the scroll position is instantly reset to the top (scrollY = 0),
- * unless a specific hash anchor (e.g., #section) is targeted.
- */
 export default function ScrollToTop() {
   const { pathname, search, hash } = useLocation();
+  const prevPathRef = useRef(null);
 
   useEffect(() => {
-    if (hash) {
-      // If there's a hash anchor, scroll to the element if found
-      const targetId = hash.replace('#', '');
-      const element = document.getElementById(targetId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        return;
-      }
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
+
+  useLayoutEffect(() => {
+    const currentPathKey = `${pathname}${search}`;
+    const prevPathKey = prevPathRef.current;
+    prevPathRef.current = currentPathKey;
+
+    const didChangePage = prevPathKey === null || currentPathKey !== prevPathKey;
+
+    if (didChangePage) {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      return;
     }
 
-    // Instantly reset scroll to top without delay or smooth scroll lag
-    try {
-      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    } catch {
-      window.scrollTo(0, 0);
-    }
-    
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
+    if (!hash) return;
+
+    const targetId = hash.slice(1);
+    const element = document.getElementById(targetId);
+    if (!element) return;
+
+    element.scrollIntoView({ behavior: 'smooth' });
   }, [pathname, search, hash]);
 
   return null;

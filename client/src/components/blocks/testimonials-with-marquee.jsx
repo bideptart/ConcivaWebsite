@@ -1,6 +1,6 @@
 import { PhoneCall, Clock, TrendingUp } from "lucide-react";
 import { cn } from "../../lib/utils";
-import { TestimonialCard } from "../ui/testimonial-card";
+import { TestimonialAutoSlider } from "../ui/testimonial-auto-slider";
 
 const PROOF_CHIPS = [
   { icon: PhoneCall, value: "2.4M+", label: "Calls handled / month" },
@@ -14,6 +14,23 @@ export function TestimonialsSection({
   testimonials,
   className,
 }) {
+  const sliderTestimonials = (Array.isArray(testimonials) ? testimonials : []).map(
+    (t, i) => ({
+      id: t?.id ?? `${i}-${t?.author?.name ?? "testimonial"}`,
+      badge: {
+        label: String(t?.badge?.label ?? "").toUpperCase(),
+        color: t?.badge?.color ?? "#F97316",
+        background: t?.badge?.bg ?? "#FFF7ED",
+        border: t?.badge?.border ?? "#FED7AA",
+      },
+      quote: t?.text ?? "",
+      author: {
+        name: t?.author?.name ?? "",
+        designation: t?.author?.handle ?? "",
+      },
+    }),
+  );
+
   return (
     <section
       style={{ background: "#FAF8F5" }}
@@ -107,35 +124,12 @@ export function TestimonialsSection({
 
       {/* ── Marquee ── */}
       <div style={{ position: "relative", overflow: "hidden", paddingBottom: "3rem" }}>
-        <div
-          className="group"
-          style={{
-            display: "flex",
-            overflow: "hidden",
-            padding: "0.5rem 0",
-            gap: "var(--gap)",
-            "--gap": "1rem",
-            "--duration": "40s",
-          }}
-        >
-          <div
-            className="animate-marquee group-hover:[animation-play-state:paused]"
-            style={{
-              display: "flex",
-              flexShrink: 0,
-              gap: "var(--gap)",
-            }}
-          >
-            {[...Array(4)].map((_, setIndex) =>
-              testimonials.map((testimonial, i) => (
-                <TestimonialCard
-                  key={`${setIndex}-${i}`}
-                  {...testimonial}
-                />
-              ))
-            )}
-          </div>
-        </div>
+        <TestimonialAutoSlider
+          testimonials={sliderTestimonials}
+          durationSeconds={40}
+          gapPx={16}
+          repeat={4}
+        />
 
         {/* Fade edges */}
         <div

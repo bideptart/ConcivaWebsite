@@ -60,7 +60,6 @@ export default function BlogPost() {
     document.title = post
       ? `${post.title} — Conciva AI`
       : 'Article not found — Conciva AI';
-    window.scrollTo(0, 0);
   }, [post]);
 
   /* Unknown slug — recoverable, not a dead end */
