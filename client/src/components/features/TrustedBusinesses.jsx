@@ -1,4 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+/**
+ * Trusted businesses — bento grid with pointer tilt.
+ *
+ * Interaction: cards tilt in 3D toward the pointer and a glow tracks the
+ * cursor along the border. The grid is deliberately asymmetric so the first
+ * tile reads as the anchor rather than four equal boxes.
+ *
+ * Replaces the previous hover-flip cards, whose back face was unreachable
+ * on touch. Nothing here is hidden behind an interaction.
+ */
 
 const trustedBusinessData = [
   {
@@ -6,118 +17,87 @@ const trustedBusinessData = [
     title: 'Enterprise Contact Centers & Telecoms',
     subtitle: '100,000+ daily calls managed',
     icon: '⚡',
-    tag: 'Enterprise',
-    features: [
-      'SIP Trunking failover across major South African carriers',
-      'Dynamic intent recognition with live transcript scoring',
-      'Warm call handoff with real-time agent context injection'
-    ]
+    description: 'SIP Trunking failover across major South African carriers, dynamic intent recognition with live transcript scoring, and warm call handoff with real-time agent context injection.',
+    buttonText: 'View Capabilities'
   },
   {
     id: 'financial-insurance',
     title: 'Financial Institutions & Insurance',
     subtitle: 'Bank-grade POPIA & FSCA compliance',
     icon: '🛡️',
-    tag: 'POPIA Ready',
-    features: [
-      'Encrypted voice session logs with zero raw audio storage',
-      'Automated premium reminder calls and payment integration',
-      'Bi-directional sync with Salesforce, HubSpot & REST APIs'
-    ]
+    description: 'Encrypted voice session logs with zero raw audio storage, automated premium reminder calls, and bi-directional sync with Salesforce, HubSpot & REST APIs.',
+    buttonText: 'View Capabilities'
   },
   {
     id: 'automotive-dealerships',
     title: 'Automotive Dealerships & Service Centers',
     subtitle: 'Test drives & maintenance reminders',
     icon: '🚗',
-    tag: 'Sales Growth',
-    features: [
-      'Automated test drive calendar booking into dealership CRM',
-      'Vehicle service reminder dispatches via SMS and WhatsApp',
-      '24/7 roadside assistance intake and location triage'
-    ]
+    description: 'Automated test drive booking into dealership CRM, vehicle service reminders via SMS/WhatsApp, and 24/7 roadside assistance intake and location triage.',
+    buttonText: 'View Capabilities'
   },
   {
     id: 'legal-advisory',
     title: 'Legal & Professional Advisory',
     subtitle: 'Confidential client intake & scheduling',
     icon: '⚖️',
-    tag: 'Confidential',
-    features: [
-      'Strict confidentiality guardrails and taboo topic filtering',
-      'Direct integration with Google Workspace & Outlook calendars',
-      'Automated intake summary emails sent to duty attorneys'
-    ]
+    description: 'Strict confidentiality guardrails and taboo topic filtering, direct integration with Google Workspace & Outlook, and automated intake summaries to duty attorneys.',
+    buttonText: 'View Capabilities'
   }
 ];
 
 export default function TrustedBusinesses() {
-  const [flippedIds, setFlippedIds] = useState(new Set());
+  const tilt = (e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width;
+    const py = (e.clientY - rect.top) / rect.height;
 
-  const toggleFlip = (id) => {
-    setFlippedIds(prev => {
-      const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
-      return next;
-    });
+    card.style.setProperty('--tilt-x', `${(0.5 - py) * 7}deg`);
+    card.style.setProperty('--tilt-y', `${(px - 0.5) * 9}deg`);
+    card.style.setProperty('--glow-x', `${px * 100}%`);
+    card.style.setProperty('--glow-y', `${py * 100}%`);
   };
 
-  const handleKeyDown = (e, id) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      toggleFlip(id);
-    }
+  const reset = (e) => {
+    const card = e.currentTarget;
+    card.style.setProperty('--tilt-x', '0deg');
+    card.style.setProperty('--tilt-y', '0deg');
   };
 
   return (
-    <section id="trusted-businesses" className="flip-section scroll-reveal">
+    <section id="trusted-businesses" className="bento-section scroll-reveal">
       <div className="container">
         <div className="section-header text-center">
           <div className="badge-tag">
             <span className="pulse-dot"></span>
             Enterprise Trust
           </div>
-          <h2 className="section-title">Trusted by South African businesses.</h2>
+          <h2 className="section-title">
+            Trusted by South African <span className="gradient-span">businesses.</span>
+          </h2>
           <p className="section-subtitle">
-            How leading organizations leverage LetsDial for seamless voice automation.
+            How leading organizations use Conciva AI for seamless voice automation.
           </p>
         </div>
 
-        <div className="flip-grid">
-          {trustedBusinessData.map((item) => {
-            const isFlipped = flippedIds.has(item.id);
-            return (
-              <div
-                key={item.id}
-                className="flip-card"
-                role="button"
-                tabIndex={0}
-                aria-pressed={isFlipped}
-                aria-label={`${item.title}, ${isFlipped ? 'showing capabilities, press to show overview' : 'press to show capabilities'}`}
-                onClick={() => toggleFlip(item.id)}
-                onKeyDown={(e) => handleKeyDown(e, item.id)}
-              >
-                <div className={`flip-card-inner ${isFlipped ? 'is-flipped' : ''}`}>
-                  <div className="flip-card-face flip-card-front">
-                    <span className="flip-card-icon">{item.icon}</span>
-                    <h3 className="flip-card-title">{item.title}</h3>
-                    <span className="flip-card-subtitle">{item.subtitle}</span>
-                    <span className="acc-badge acc-badge--green flip-card-tag">{item.tag}</span>
-                    <span className="flip-card-hint">Tap to see capabilities</span>
-                  </div>
-                  <div className="flip-card-face flip-card-back">
-                    <span className="flip-card-back-label">{item.title}</span>
-                    <ul className="acc-bullets flip-card-bullets">
-                      {item.features.map((f, i) => (
-                        <li key={i}><span className="acc-check">✓</span><span>{f}</span></li>
-                      ))}
-                    </ul>
-                    <span className="flip-card-hint">Tap to flip back</span>
-                  </div>
-                </div>
+        <div className="bento-grid">
+          {trustedBusinessData.map((item, idx) => (
+            <article
+              key={item.id}
+              className={`bento-tile${idx === 0 ? ' bento-tile--lead' : ''}`}
+              onMouseMove={tilt}
+              onMouseLeave={reset}
+            >
+              <span className="bento-glow" aria-hidden="true"></span>
+              <div className="bento-inner">
+                <span className="bento-icon" aria-hidden="true">{item.icon}</span>
+                <h3 className="bento-title">{item.title}</h3>
+                <span className="bento-metric">{item.subtitle}</span>
+                <p className="bento-copy">{item.description}</p>
               </div>
-            );
-          })}
+            </article>
+          ))}
         </div>
       </div>
     </section>

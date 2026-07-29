@@ -1,117 +1,88 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import FeaturesHero from '../components/features/FeaturesHero';
 import SouthAfricanIndustries from '../components/features/SouthAfricanIndustries';
-import TrustedBusinesses from '../components/features/TrustedBusinesses';
 import FeatureCategoryExplorer from '../components/features/FeatureCategoryExplorer';
 import UseCasesSection from '../components/features/UseCasesSection';
+import TrustedBusinesses from '../components/features/TrustedBusinesses';
 import SecurityCompliance from '../components/features/SecurityCompliance';
 import FeaturesCTA from '../components/features/FeaturesCTA';
+import Icons from '../components/features/icons';
 import '../styles/features.css';
 
-const Icons = {
-  Sparkles: () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 7.92c0 .13.001.261.001.393a7.5 7.5 0 0 0-7.92 7.92c0 .13-.001.261-.001.393a7.5 7.5 0 0 0-7.92-7.92c0-.13-.001-.261-.001-.393a7.5 7.5 0 0 0 7.92-7.92z" />
-    </svg>
-  )
-};
-
+/**
+ * Features page — composition shell.
+ *
+ * This file used to be a ~900 line monolith that rendered its own hero, phone
+ * mockup, feature explorer, tabs, compliance grid and footer, none of which
+ * had matching CSS. All of that is now handled by the section components.
+ *
+ * Critical fix included here: features.css sets `.scroll-reveal { opacity: 0 }`
+ * and only reveals on `.is-visible`. Nothing was ever adding that class, so
+ * every section below the hero rendered invisible. The observer below is what
+ * the CSS comment always assumed existed.
+ */
 export default function Features() {
   const [toastMessage, setToastMessage] = useState('');
+  const toastTimerRef = useRef(null);
 
-  const showToast = (msg) => {
+  const showToast = useCallback((msg) => {
     setToastMessage(msg);
-    setTimeout(() => setToastMessage(''), 3000);
-  };
+    if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+    toastTimerRef.current = setTimeout(() => setToastMessage(''), 3000);
+  }, []);
 
-  // Smooth scroll reveal listener using IntersectionObserver
+  // Clear any pending toast timer on unmount (previously leaked a setState
+  // call after unmount).
   useEffect(() => {
-    const observerCallback = (entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-        }
-      });
-    };
-
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px 0px -50px 0px',
-      threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-    const revealElements = document.querySelectorAll('.scroll-reveal');
-
-    revealElements.forEach(el => observer.observe(el));
-
     return () => {
-      revealElements.forEach(el => observer.unobserve(el));
+      if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
     };
+  }, []);
+
+  // Scroll reveal — adds .is-visible to each .scroll-reveal section.
+  useEffect(() => {
+    const sections = document.querySelectorAll('.features-page .scroll-reveal');
+
+    // Respect reduced-motion and missing IntersectionObserver by revealing
+    // everything immediately.
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced || typeof IntersectionObserver === 'undefined') {
+      sections.forEach((el) => el.classList.add('is-visible'));
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target); // reveal once, then stop watching
+        });
+      },
+      { rootMargin: '0px 0px -10% 0px', threshold: 0.12 }
+    );
+
+    sections.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
   return (
     <div className="features-page">
-      {/* Toast Feedback Notification */}
+      {/* Toast */}
       {toastMessage && (
-        <div style={{
-          position: 'fixed',
-          bottom: '24px',
-          right: '24px',
-          zIndex: 100,
-          background: '#1F2937',
-          color: '#fff',
-          padding: '12px 20px',
-          borderRadius: '9999px',
-          fontSize: '13px',
-          fontWeight: '600',
-          boxShadow: '0 10px 25px rgba(0,0,0,0.25)',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px'
-        }}>
-          <Icons.Sparkles /> {toastMessage}
+        <div className="toast" role="status" aria-live="polite">
+          <Icons.Sparkles />
+          <span>{toastMessage}</span>
         </div>
       )}
 
-      {/* 1. Hero Section with Responsive Phone Frame */}
       <FeaturesHero onToast={showToast} />
-
-      {/* 2. Replacement 1: South African Industries Accordion (Replaces "Build & Setup") */}
       <SouthAfricanIndustries />
-
-      {/* 3. Replacement 2: Trusted South African Businesses Showcase (Replaces "24/7 AI Receptionist & Call Steering") */}
-      <TrustedBusinesses />
-
-      {/* 4. Core Feature Explorer */}
       <FeatureCategoryExplorer />
-
-      {/* 5. Interactive Use Case Workflow Scenarios */}
       <UseCasesSection />
-
-      {/* 6. Security & POPIA Compliance Grid */}
+      <TrustedBusinesses />
       <SecurityCompliance />
-
-      {/* 7. Bottom Call to Action Banner */}
       <FeaturesCTA onToast={showToast} />
-
-     <style jsx>{`
-        .features-page {
-          overflow-x: hidden;
-        }
-
-        .scroll-reveal {
-          opacity: 0;
-          transform: translateY(20px);
-          transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .scroll-reveal.is-visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      `}</style>
     </div>
   );
 }
