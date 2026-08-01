@@ -125,8 +125,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
    gap: 4rem;
-   align-items: center;        
-   max-width: 1200px;
+   align-items: center;
+   max-width: 1280px;
    margin: 0 auto;
  }
 
@@ -912,8 +912,8 @@
 }
 
 .cta-desc {
-  font-size: 1.15rem;
-  color: var(--text-light, #94A3B8);
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.6);
   max-width: 650px;
   margin: 0 auto 2.5rem auto;
   line-height: 1.6;
@@ -1207,6 +1207,9 @@
 /* ── LEFT — illustration panel ── */
 .ive-left {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .ive-illus-wrap {

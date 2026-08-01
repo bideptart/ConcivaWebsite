@@ -87,6 +87,26 @@ a {
   text-decoration: none;
 }
 
+/* ── Global container — centered, max-width matches navbar ── */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+}
+
 /* Light-page override — pricing page sets its own bg */
 .pricing-page {
   background: #FAFAFA !important;
