@@ -1683,7 +1683,9 @@
 .pf-brand { max-width: 300px; }
 
 .pf-logo {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 1.35rem;
   font-weight: 900;
   letter-spacing: -0.04em;
@@ -1693,7 +1695,49 @@
   line-height: 1;
 }
 
-.pf-logo-accent { color: var(--color-accent); }
+.pf-logo-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  overflow: hidden;
+  background-color: #fff;
+  background-image: url('/images/logo.png');
+  background-repeat: no-repeat;
+  background-size: 142.3px 71.1px;
+  background-position: -7.38px -19px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+  transition: box-shadow 0.25s ease;
+}
+
+.pf-logo:hover .pf-logo-icon {
+  animation: logo-icon-bounce 0.6s ease;
+}
+
+@keyframes logo-icon-bounce {
+  0%   { transform: translateY(0) scale(1) rotate(0deg); }
+  30%  { transform: translateY(-4px) scale(1.12) rotate(-4deg); }
+  60%  { transform: translateY(0) scale(0.96) rotate(3deg); }
+  100% { transform: translateY(0) scale(1) rotate(0deg); }
+}
+
+.pf-logo-text {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+.pf-logo:hover .pf-logo-text {
+  transform: scale(1.05);
+}
+
+.pf-logo-accent {
+  color: var(--color-accent);
+  transition: color 0.25s ease;
+}
+
+.pf-logo:hover .pf-logo-accent {
+  color: #FB923C;
+}
 
 .pf-tagline {
   font-size: 0.82rem;

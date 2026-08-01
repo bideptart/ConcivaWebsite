@@ -51,12 +51,26 @@ footer.sf-footer {
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  background: linear-gradient(145deg, #F97316, #EA580C);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
+  background-color: #fff;
+  background-image: url('/images/logo.png');
+  background-repeat: no-repeat;
+  background-size: 150.6px 75.3px;
+  background-position: -7.81px -20.12px;
   flex-shrink: 0;
-  box-shadow: 0 3px 10px rgba(249, 115, 22, 0.4);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.25s ease;
+}
+
+.sf-logo:hover .sf-logo-box {
+  animation: logo-icon-bounce 0.6s ease;
+}
+
+@keyframes logo-icon-bounce {
+  0%   { transform: translateY(0) scale(1) rotate(0deg); }
+  30%  { transform: translateY(-4px) scale(1.12) rotate(-4deg); }
+  60%  { transform: translateY(0) scale(0.96) rotate(3deg); }
+  100% { transform: translateY(0) scale(1) rotate(0deg); }
 }
 
 .sf-logo-name {
@@ -65,10 +79,21 @@ footer.sf-footer {
   color: #FFFFFF;
   letter-spacing: -0.02em;
   line-height: 1;
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+.sf-logo:hover .sf-logo-name {
+  transform: scale(1.05);
 }
 
 .sf-logo-accent {
   color: #F97316;
+  transition: color 0.25s ease;
+}
+
+.sf-logo:hover .sf-logo-accent {
+  color: #FB923C;
 }
 
 .sf-tagline {

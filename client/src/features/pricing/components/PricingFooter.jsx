@@ -112,7 +112,8 @@ export default function PricingFooter() {
           {/* Brand column */}
           <div className="pf-brand">
             <Link to="/" className="pf-logo" aria-label="Conciva AI home">
-              Conciva<span className="pf-logo-accent">AI</span>
+              <span className="pf-logo-icon" aria-hidden="true" />
+              <span className="pf-logo-text">Conciva<span className="pf-logo-accent">AI</span></span>
             </Link>
             <p className="pf-tagline">
               AI voice agents that actually sound human. Native audio,

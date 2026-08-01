@@ -85,12 +85,26 @@
   width: 40px;
   height: 40px;
   border-radius: 11px;
-  background: linear-gradient(145deg, #F97316, #EA580C);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 16px rgba(249,115,22,0.45);
+  overflow: hidden;
+  background-color: #fff;
+  background-image: url('/images/logo.png');
+  background-repeat: no-repeat;
+  background-size: 167.4px 83.7px;
+  background-position: -8.68px -22.36px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35);
   flex-shrink: 0;
+  transition: box-shadow 0.25s ease;
+}
+
+.lp-brand:hover .lp-logo-icon {
+  animation: logo-icon-bounce 0.6s ease;
+}
+
+@keyframes logo-icon-bounce {
+  0%   { transform: translateY(0) scale(1) rotate(0deg); }
+  30%  { transform: translateY(-4px) scale(1.12) rotate(-4deg); }
+  60%  { transform: translateY(0) scale(0.96) rotate(3deg); }
+  100% { transform: translateY(0) scale(1) rotate(0deg); }
 }
 
 .lp-brand-text {
@@ -98,10 +112,21 @@
   font-weight: 800;
   color: #FFFFFF;
   letter-spacing: -0.03em;
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+.lp-brand:hover .lp-brand-text {
+  transform: scale(1.05);
 }
 
 .lp-brand-ai {
   color: #F97316;
+  transition: color 0.25s ease;
+}
+
+.lp-brand:hover .lp-brand-ai {
+  color: #FB923C;
 }
 
 /* Center content */
